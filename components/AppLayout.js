@@ -9,9 +9,9 @@ const AppLayout = ({children}) => { // props
     return (
         <div>
             <Row>
-                <Col xs={24} md={6}>
+                {/* <Col xs={24} md={6}>
                     <UserCalender/>
-                </Col>
+                </Col> */}
                 <Col xs={24} md={24}>
                     {children}
                 </Col>
