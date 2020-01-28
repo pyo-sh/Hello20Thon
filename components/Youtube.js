@@ -1,20 +1,25 @@
-import React, { useState, useCallback } from "react";
-import { Input, Form } from "antd";
+import React from "react";
+import { useSelector } from "react-redux";
+import VideoDetail from "./VideoDetail";
+import VideoList from "./VideoList";
+import YoutubeSearchForm from "./YoutubeSearchForm";
+import styled from "styled-components";
+
+// 유튜브 검색 해서 나오게 하는것.
+const YoutubeBox = styled.div`
+  display: flex;
+`;
 const Youtube = () => {
-  const [search, setSearch] = useState("");
-  const onChangeSearch = useCallback((e)=> {
-    setSearch(e.target.value);
-  }, []);
-  const onSubmitSearch = useCallback((e) => {
-    e.preventDefault();
-    // 검색
-  }, [search]);
+  const { selectVideo, videos } = useSelector(state => state.youtube);
+
   return (
     <div>
-      <Form onSubmit={onSubmitSearch}>
-        <Input value={search} onChange={onChangeSearch} />
-      </Form>
-      { /* 검색해서 나오는거 추가해야함. */}
+      <YoutubeSearchForm />
+      <YoutubeBox>
+        {/* 검색해서 나오는거 추가해야함. */}
+        {selectVideo ? <VideoDetail video={selectVideo} /> : null}
+        {videos ? <VideoList /> : null}
+      </YoutubeBox>
     </div>
   );
 };
