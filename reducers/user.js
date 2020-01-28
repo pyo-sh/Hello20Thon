@@ -1,6 +1,7 @@
 import produce from "immer";
 
 export const initialState = {
+  id: 0,
   userRecord: [],
 };
 
@@ -21,49 +22,49 @@ export const UPDATE_RECORD_FAILURE = 'UPDATE_RECORD_FAILRUE';
 // 더하는 Actions
 export const AddRecordRequestAction = () => { 
   return({
-      type: ADD_RECORD_REQUEST,
+    type: ADD_RECORD_REQUEST,
   });
 };
 export const AddRecordSuccessAction = () => { 
   return({
-      type: ADD_RECORD_SUCCESS,
+    type: ADD_RECORD_SUCCESS,
   });
 };
 export const AddRecordFailureAction = () => { 
   return({
-      type: ADD_RECORD_FAILURE,
+    type: ADD_RECORD_FAILURE,
   });
 };
 // 삭제하는 Actions
 export const DeleteRecordRequestAction = () => { 
   return({
-      type: DELETE_RECORD_REQUEST,
+    type: DELETE_RECORD_REQUEST,
   });
 };
 export const DeleteRecordSuccessAction = () => { 
   return({
-      type: DELETE_RECORD_SUCCESS,
+    type: DELETE_RECORD_SUCCESS,
   });
 };
 export const DeleteRecordFailureAction = () => { 
   return({
-      type: DELETE_RECORD_FAILURE,
+    type: DELETE_RECORD_FAILURE,
   });
 };
 // 업데이트하는 Actions
 export const UpdateRecordRequestAction = () => { 
   return({
-      type: UPDATE_RECORD_REQUEST,
+    type: UPDATE_RECORD_REQUEST,
   });
 };
 export const UpdateRecordSuccessAction = () => { 
   return({
-      type: UPDATE_RECORD_SUCCESS,
+    type: UPDATE_RECORD_SUCCESS,
   });
 };
 export const UpdateRecordFailureAction = () => { 
   return({
-      type: UPDATE_RECORD_FAILURE,
+    type: UPDATE_RECORD_FAILURE,
   });
 };
 
