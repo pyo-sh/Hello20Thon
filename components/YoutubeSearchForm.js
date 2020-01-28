@@ -4,6 +4,15 @@ import * as ysearch from 'youtube-search';
 import { useDispatch, useSelector } from 'react-redux';
 import { YOUTUBE_VIDEO_REQUEST } from '../reducers/youtube';
 import { Input, Form, Button } from "antd";
+import styled from 'styled-components';
+
+const YoutubeForm = styled(Form)`
+    display : flex;
+    & .searchInput {
+      width : 40%;
+      margin-right: 5px;
+    }
+`; 
 
 const YoutubeSearchForm = () => {
   const dispatch = useDispatch();
@@ -43,12 +52,12 @@ const YoutubeSearchForm = () => {
     }, [search, nextPageToken]);
 
   return (
-    <Form onSubmit={onSubmitSearch}>
-      <Input value={search} onChange={onChangeSearch} />
+    <YoutubeForm onSubmit={onSubmitSearch}>
+      <Input className="searchInput" value={search} onChange={onChangeSearch} />
       <Button htmlType="submit" type="primary">
         검색
       </Button>
-    </Form>
+    </YoutubeForm>
   );
 };
 
