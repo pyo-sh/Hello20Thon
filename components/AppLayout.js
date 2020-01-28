@@ -17,9 +17,9 @@ const AppLayout = ({children}) => { // props
                 <Col xs={24} md={24}>
                     {children}
                 </Col>
-                {/* <Col xs={24} md={6}>
+                <Col xs={24} md={6}>
                     <Link href="#"><a target="_blank">Made by mgw</a></Link>
-                </Col> */}
+                </Col>
             </Row>
         </div>
     )
