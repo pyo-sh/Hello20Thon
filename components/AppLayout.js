@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu, Button, Row, Col } from 'antd';
 
 import UserCalender from './UserCalender';
+import UserRecord from '../pages/UserRecord'
 
 const AppLayout = ({children}) => { // props
 
@@ -11,6 +12,7 @@ const AppLayout = ({children}) => { // props
             <Row>
                 <Col xs={24} md={6}>
                     <UserCalender/>
+                    <UserRecord/>
                 </Col>
                 <Col xs={24} md={24}>
                     {children}
