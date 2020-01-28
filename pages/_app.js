@@ -9,6 +9,7 @@ import reducer from "../reducers";
 import { createStore, compose, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
+import Head from 'next/head';
 
 const Hym = ({ Component, store,}) => {
   return (
