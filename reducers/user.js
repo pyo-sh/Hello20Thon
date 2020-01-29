@@ -7,8 +7,28 @@ import produce from "immer";
     trainings:[{ area: "", posture: "", count: number (갯수), done: true/false }],
   } */
 export const initialState = {
-  id: 0,                        // 혹시 필요할까 추가함
-  userRecord: {},               // 유저가 기록한 루틴들
+  id: 1,                        // 혹시 필요할까 추가함
+  _area: "",     //운동 부위 
+  _posture: "",  //운동 자세 
+  _count: 0,     //운동 개수, 시간
+  userRecord: {
+    key: {
+      key: "",
+      name: "", //루틴 이름
+      trainings: [
+        {
+          id: 1, 
+          area: "유산소 운동",     //운동 부위 
+          posture: "자전거 타기",  //운동 자세 
+          count: 30,     //운동 개수, 시간
+          done: false
+        }
+      ]
+    }
+  },               // 유저가 기록한 루틴들
+  exerciseAdded: false,           // 운동이 더해졌는지
+  isExerciseAdding: false,        // 운동을 추가하는 중
+  addExerciseErrorReason: '',     // 운동 추가 실패 요인
   recordAdded: false,           // 기록이 더해졌는지
   isRecordAdding: false,        // 기록을 추가하는 중
   addRecordErrorReason: '',     // 기록 추가 실패 요인
@@ -25,6 +45,10 @@ export const ADD_RECORD_REQUEST = 'ADD_RECORD_REQUEST';
 export const ADD_RECORD_SUCCESS = 'ADD_RECORD_SUCCESS';
 export const ADD_RECORD_FAILURE = 'ADD_RECORD_FAILRUE';
 
+export const ADD_EXERCISE_REQUEST = 'ADD_EXERCISE_REQUEST';
+export const ADD_EXERCISE_SUCCESS = 'ADD_EXERCISE_SUCCESS';
+export const ADD_EXERCISE_FAILURE = 'ADD_EXERCISE_FAILRUE';
+
 export const DELETE_RECORD_REQUEST = 'DELETE_RECORD_REQUEST';
 export const DELETE_RECORD_SUCCESS = 'DELETE_RECORD_SUCCESS';
 export const DELETE_RECORD_FAILURE = 'DELETE_RECORD_FAILRUE';
@@ -32,6 +56,10 @@ export const DELETE_RECORD_FAILURE = 'DELETE_RECORD_FAILRUE';
 export const UPDATE_RECORD_REQUEST = 'UPDATE_RECORD_REQUEST';
 export const UPDATE_RECORD_SUCCESS = 'UPDATE_RECORD_SUCCESS';
 export const UPDATE_RECORD_FAILURE = 'UPDATE_RECORD_FAILRUE';
+
+export const GET_AREA_VALUE = 'GET_AREA_VALUE';
+export const GET_POSTURE_VALUE = 'GET_POSTURE_VALUE';
+export const GET_COUNT_VALUE = 'GET_COUNT_VALUE';
 
 // Actions
 // 더하는 Actions
@@ -59,6 +87,19 @@ export const AddRecordFailureAction = (error) => {
     error: error,
   });
 };
+
+// export const AddExerciseSuccessAction = (action) => { 
+//   return({
+//     type: ADD_EXERCISE_SUCCESS,
+//     data: action,
+//   });
+// };
+// export const AddExerciseFailureAction = (error) => { 
+//   return({
+//     type: ADD_EXERCISE_FAILURE,
+//     error: error,
+//   });
+// };
 // 삭제하는 Actions
 export const DeleteRecordRequestAction = (key) => { 
   return({
@@ -98,6 +139,36 @@ export const UpdateRecordFailureAction = (error) => {
   });
 };
 
+export const GetAreaValueAction = (areaValue) => {
+  return({
+    type: GET_AREA_VALUE,
+    data: areaValue
+  });
+};
+export const GetPostureValueAction = (postureValue) => {
+  return({
+    type: GET_POSTURE_VALUE,
+    data: postureValue
+  });
+};
+export const GetCountValueAction = (countValue) => {
+  return({
+    type: GET_COUNT_VALUE,
+    data: countValue
+  });
+};
+// export const GetPostureSuccessAction = (postureValue) => {
+//   return({
+//     type: GET_POSTURE_SUCCESS,
+//     data: postureValue
+//   });
+// };
+// export const GetPostureFailureAction = (e) => {
+//   return({
+//     type: GET_POSTURE_FAILURE,
+//     data: e
+//   });
+// };
 
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
@@ -118,6 +189,24 @@ const reducer = (state = initialState, action) => {
       case ADD_RECORD_FAILURE: {
         draft.isRecordAdding = false;
         draft.addRecordErrorReason = action.error;
+        break;
+      }
+      case ADD_EXERCISE_REQUEST: {
+        draft.exerciseAdded = false;
+        draft.isExerciseAdding = true;
+        draft.addExerciseErrorReason = '';
+        break;
+      }
+      case ADD_EXERCISE_SUCCESS: {
+        draft.exerciseAdded = true;
+        draft.isExerciseAdding = false;
+        draft.userRecord.key.trainings.push({id: draft.Id + 1, area: action.data._area, posture: action.data._posture, count: action.data._count, done: false})
+        draft.Id += 1;
+        break;
+      }
+      case ADD_EXERCISE_FAILURE: {
+        draft.isExerciseAdding = false;
+        draft.addExerciseErrorReason = action.error;
         break;
       }
       // 기록 삭제하는 부분
@@ -154,6 +243,19 @@ const reducer = (state = initialState, action) => {
       case UPDATE_RECORD_FAILURE: {
         draft.isRecordUpdating = false;
         draft.updateRecordErrorReason = action.error;
+        break;
+      }
+      case GET_AREA_VALUE: {
+        draft._area = action.data;
+        console.log(draft._area);
+        break;
+      }
+      case GET_POSTURE_VALUE: {
+        draft._posture = action.data;
+        break;
+      }
+      case GET_COUNT_VALUE: {
+        draft._count = action.data;
         break;
       }
       default:{

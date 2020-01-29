@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
-import { Select, InputNumber } from 'antd';
+import React, { useState, useCallback } from 'react';
+import { useSeletor, useDispatch } from 'react-redux';
+import { Select, Input } from 'antd';
+import {GetPostureValueAction, GetCountValueAction} from '../reducers/user';
 
 const { Option } = Select;
 
 const Exercise = ({value}) => {
-
+    const dispatch = useDispatch();
     const [DetailExerciseValue, setDetailExerciseValue] = useState('');
-    
-    const getDetailValue = (value) => {
-        setDetailExerciseValue(value);
+
+    const getDetailValue = (postureValue) => {
+        dispatch(GetPostureValueAction(postureValue))
+        setDetailExerciseValue(postureValue)
+        // console.log(postureValue)
     };
+
+    const getCount = (e) => {
+        dispatch(GetCountValueAction(e.target.value))
+        // console.log(e.target.value)
+    };
+
+    // const getCount = useCallback((e) => {
+    //     setCountValue(e.target.value)
+    // }, []);
 
     switch(value){
         case 'aerobic-exercise':
@@ -30,7 +43,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 시간</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -55,7 +68,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -80,7 +93,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -105,7 +118,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -127,7 +140,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -151,7 +164,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -174,7 +187,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
@@ -197,7 +210,7 @@ const Exercise = ({value}) => {
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
-                        <InputNumber min={1} defaultValue={30}/>
+                        <Input onPressEnter={getCount} style={{width: 100}}/>
                     </div>
                     </>
                     :
