@@ -8,6 +8,8 @@ import styled from "styled-components";
 // 유튜브 검색 해서 나오게 하는것.
 const YoutubeBox = styled.div`
   display: flex;
+  justify-content : center;
+  align-items: center;
 `;
 const Youtube = () => {
   const { selectVideo, videos } = useSelector(state => state.youtube);
