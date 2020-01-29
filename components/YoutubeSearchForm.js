@@ -21,7 +21,7 @@ const YoutubeSearchForm = () => {
 
   useEffect(() => { // 제일 처음 불러오는 것.
     ysearch(lastSearch, opts(nextPageToken), function(err, results, pageInfo) {
-        if (err) return console.log(err);
+        if (err) return console.error(err);
         dispatch({
           type: YOUTUBE_VIDEO_REQUEST,
           data: {

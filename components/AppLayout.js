@@ -5,6 +5,7 @@ import Youtube from "../components/Youtube";
 import UserCalender from "./UserCalender";
 import UserRecord from "../pages/UserRecord";
 import styled from 'styled-components';
+import StopWatchForm from "./StopWatchForm";
 
 const InputNickname = styled.div`
   position: absolute;
@@ -67,8 +68,11 @@ const AppLayout = ({ children }) => {
             <Col xs={24} sm={12} xl={8}>
               {children}
             </Col>
-            <Col xs={24} sm={24} xl={9}>
-              <Youtube />
+            <Col xs={18} sm={18} xl={9}>
+              {/* <Youtube /> */}
+            </Col>
+            <Col xs={6} sm={6} xl={6}>
+              <StopWatchForm/>
             </Col>
           </Row>
         </div>

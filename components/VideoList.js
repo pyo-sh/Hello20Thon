@@ -11,7 +11,8 @@ const Vlist = styled.ul`
     overflow-y : auto;
     width : 40vw;
     height : 40vh;
-    border : 1px solid black;
+    border : 1px solid #E8E8E8;
+    border-radius : 5px;
 `;
 const VideoList = () => {
     const { videos, nextPageToken, lastSearch } = useSelector(state => state.youtube);

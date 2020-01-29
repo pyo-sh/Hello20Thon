@@ -1,7 +1,7 @@
 // 유튜브 검색하는 api
 export const opts = (pageToken='') => ({
     maxResults : 5,
-    key : "AIzaSyDR6mw3Nl4SdvYbPF6xqcrqIds1_VCvnuE",
+    key : "AIzaSyCarUznQ1Jz-CfPZPfNpH4A9B55AIxgYwo",
     part : 'snippet',
     type : 'video',
     pageToken,
