@@ -17,9 +17,9 @@ const AppLayout = ({children}) => { // props
                 <Col xs={24} sm={12} xl={8}>
                     {children}
                 </Col>
-                <Col xs={24} sm={24} xl={9}>
+                {/* <Col xs={24} sm={24} xl={9}>
                     <Youtube/>
-                </Col>
+                </Col> */}
             </Row>
         </div>
     )

@@ -43,10 +43,10 @@ const Home = () => {
       } */}
       <Tabs defaultActiveKey="1" style={{width: 400}}>
         <Tabs.TabPane tab="내 루틴" key="1">
-          <MyRoutine />
+          <MyRoutine /> {/*내 루틴 출력*/}
         </Tabs.TabPane>
         <Tabs.TabPane tab="추천 루틴" key="2">
-          <RecommendRoutine />
+          <RecommendRoutine /> {/*추천 루틴 출력*/}
         </Tabs.TabPane>
       </Tabs>
     </>

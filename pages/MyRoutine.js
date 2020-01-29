@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Card, Icon, Drawer, Modal, Select } from 'antd';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Card, Icon, Drawer, Modal, Select, Input, Form, Button } from 'antd';
 import styled from 'styled-components';
 import Exercise from './Exercise';
 
@@ -12,12 +13,14 @@ const ContentForm = styled.div`
     align-items: center;
 `;
 
+//루틴
 const Content = styled(Card)`
     margin-bottom: 20px;
     width: 300px;
     font-size: 18px;
 `;
 
+//루틴 추가
 const ContentAdd = styled(Card)`
     margin-bottom: 20px;
     width: 300px;
@@ -39,11 +42,13 @@ const ContentAdd = styled(Card)`
 const RoutineForm = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 `;
 
+//운동 추가
 const ExerciseAdd = styled(Card)`
+    margin-top: 20px;
     margin-bottom: 20px;
     width: 300px;
     border: dashed 2px lightgray;
@@ -54,6 +59,9 @@ const ExerciseAdd = styled(Card)`
 
 const Routine = styled.div`
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 `;
 
 // const ExerciseForm = styled.div`
@@ -62,14 +70,19 @@ const Routine = styled.div`
 // `;
 
 const MyRoutine = () => {
+    const [inputRoutineName, setInputRoutineName] = useState('');
+    const [clickInput, setClickInput] = useState(false);
     const [isAddRoutineClick, setIsAddRoutineClick] = useState(false);
     const [isAddExerciseClick, setIsAddExerciseClick] = useState(false);
-    const [isValue, setIsValue] = useState('');
-
+    const [exerciseAreaValue, setExerciseAreaValue] = useState(''); //운동 부위 값 저장
+    const dispatch = useDispatch();
+    
+    //ADD ROUTINE 버튼 클릭
     const onAddRoutineClick = () => {
         setIsAddRoutineClick(true);
     };
 
+    //ADD EXERCISE 버튼 클릭
     const onAddExerciseClick = () => {
         setIsAddExerciseClick(true);
     };
@@ -78,13 +91,31 @@ const MyRoutine = () => {
         setIsAddRoutineClick(false);
     };
 
+    const onOkModal = () => {
+
+    };
+
     const onCloseModal = () => {
         setIsAddExerciseClick(false);
     };
 
+    //운동 부위 값 가져오기
     const getValue = (value) => {
-        setIsValue(value);
+        setExerciseAreaValue(value);
     };
+
+    const onChangeText = useCallback((e) => {
+        setInputRoutineName(e.target.value)
+    }, []);
+
+    const onRoutineName = useCallback((e) => {
+        e.preventDefault();
+        if(!inputRoutineName || !inputRoutineName.trim()){
+            alert("공백 금지!");
+        } else{
+            setClickInput(true);
+        }
+    },[inputRoutineName]);
 
     return (
         <>
@@ -95,7 +126,7 @@ const MyRoutine = () => {
                 <Content>
                     <Routine>하체 운동</Routine>
                 </Content>
-                <ContentAdd onClick={onAddRoutineClick}>
+                <ContentAdd onClick={onAddRoutineClick}>    {/* 이 버튼 누르면 Drawer 창 열림 */}
                     <Icon type="plus-circle" style={{fontSize: 30, marginRight:20}}/>ADD ROUTINE
                 </ContentAdd>
                 <Drawer
@@ -107,12 +138,29 @@ const MyRoutine = () => {
                     visible={isAddRoutineClick}
                 >
                     <RoutineForm>
-                        <ExerciseAdd onClick={onAddExerciseClick}>
+                        {
+                            clickInput == true
+                            ?
+                            <div>{inputRoutineName}</div>
+                            :
+                            <Form onSubmit={onRoutineName}>
+                                <Input placeholder="루틴의 이름을 작성하세요" onChange={onChangeText} value = {inputRoutineName} style={{width: 200}}/>
+                                <Button type="primary" htmlType="submit">입력</Button>
+                            </Form>
+                        }
+                        <ExerciseAdd onClick={onAddExerciseClick}>  {/* 이 버튼 누르면 Modal 창 열림 */}
                             <div className = "AddRoutine">
-                                <div><Icon type="plus-circle" style={{fontSize: 30}}/></div>
+                                <div><Icon type="plus-circle" style={{fontSize: 30}}/></div>    
                                 <div>ADD EXERCISE</div>
                             </div>
                         </ExerciseAdd>
+                        <Content>
+                            <Routine>
+                                <div style={{fontSize: 25}}>자전거 타기</div>
+                                <div style={{fontSize: 20}}>30회</div>
+                            </Routine>
+                        </Content>
+                        
                     </RoutineForm>
 
                     <Modal
@@ -132,15 +180,35 @@ const MyRoutine = () => {
                             <Option value="back">등</Option>
                             <Option value="chest">가슴</Option>
                         </Select>
-
                         {
-                            isValue != null 
+                            exerciseAreaValue != null 
                             ?
-                            <Exercise value = {isValue}/>
+                            <>
+                                <Exercise value = {exerciseAreaValue}/>
+                            </>
                             :
                             <></>
                         }
                     </Modal>
+                    <div
+                        style={{
+                        position: 'absolute',
+                        right: 0,
+                        bottom: 0,
+                        width: '100%',
+                        borderTop: '1px solid #e9e9e9',
+                        padding: '10px 16px',
+                        background: '#fff',
+                        textAlign: 'right',
+                        }}
+                    >
+                    <Button onClick={onCloseDrawer} style={{ marginRight: 8 }}>
+                        Cancel
+                    </Button>
+                    <Button onClick={onCloseDrawer} type="primary">
+                        Submit
+                    </Button>
+                    </div>
                 </Drawer>
             </ContentForm>
             </>
