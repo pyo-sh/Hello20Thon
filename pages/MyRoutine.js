@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Icon, Drawer, Modal, Select, Input, Form, Button } from 'antd';
 import styled from 'styled-components';
 import Exercise from './Exercise';
+import {GetAreaValueAction, ADD_EXERCISE_REQUEST} from '../reducers/user';
 
 const { Option } = Select;
 
@@ -75,6 +76,8 @@ const MyRoutine = () => {
     const [isAddRoutineClick, setIsAddRoutineClick] = useState(false);
     const [isAddExerciseClick, setIsAddExerciseClick] = useState(false);
     const [exerciseAreaValue, setExerciseAreaValue] = useState(''); //운동 부위 값 저장
+    const {_area, _posture, _count, userRecord} = useSelector(state => state.user);
+
     const dispatch = useDispatch();
     
     //ADD ROUTINE 버튼 클릭
@@ -92,7 +95,15 @@ const MyRoutine = () => {
     };
 
     const onOkModal = () => {
-
+        dispatch({
+            type: ADD_EXERCISE_REQUEST,
+            data: {
+              _area,
+              _posture,
+              _count
+            }
+        });
+        setIsAddExerciseClick(false);
     };
 
     const onCloseModal = () => {
@@ -100,7 +111,8 @@ const MyRoutine = () => {
     };
 
     //운동 부위 값 가져오기
-    const getValue = (value) => {
+    const getAreaValue = (value) => {
+        dispatch(GetAreaValueAction(value));
         setExerciseAreaValue(value);
     };
 
@@ -154,23 +166,28 @@ const MyRoutine = () => {
                                 <div>ADD EXERCISE</div>
                             </div>
                         </ExerciseAdd>
-                        <Content>
-                            <Routine>
-                                <div style={{fontSize: 25}}>자전거 타기</div>
-                                <div style={{fontSize: 20}}>30회</div>
-                            </Routine>
-                        </Content>
+                        {userRecord.key.trainings.map((training) => {
+                            return (
+                                <Content>
+                                    <Routine>
+                                        <div style={{fontSize: 25}}>{training.posture}</div>
+                                        <div style={{fontSize: 20}}>{training.count}</div>
+                                    </Routine>
+                                </Content>
+                            );
+                        })
+                        }
                         
                     </RoutineForm>
 
                     <Modal
                         title="운동 추가하기"
                         visible={isAddExerciseClick}
-                        onOk={onCloseModal}
+                        onOk={onOkModal}
                         onCancel={onCloseModal}
                     >
                         <div>운동 종류</div>
-                        <Select style={{width: 150, marginRight: 20}} placeholder="Select a exercise" onChange={getValue}>
+                        <Select style={{width: 150, marginRight: 20}} placeholder="Select a exercise" onChange={getAreaValue}>
                             <Option value="aerobic-exercise">유산소 운동</Option>
                             <Option value="abs">복근</Option>
                             <Option value="quads">하체</Option>
