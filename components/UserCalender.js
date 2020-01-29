@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import { Calendar, Select, Radio, Col, Row, Badge  } from 'antd';
 const { Group, Button } = Radio;
@@ -14,20 +14,21 @@ const CalenderHeader = styled.div`
     & .Title{
         margin-Bottom: 10px;
     }
-`; 
+`;
 
 const UserCalender = () => {
     const [nowDate, setNowDate] = useState(new Date()); // 캘린더에서 표시하고 있는 State
-
     // onChange = 메뉴 판이 [내부 클릭에 의해] 바뀔 때 마다 저장
     const onCalenderChange = useCallback((value)=>{
-        setNowDate(new Date(value.year(), value.month(), value.date()));
-    }, []);
+        const dateTemp = new Date(value.year(), value.month(), value.date());
+        const stringTemp = dateTemp.toString().slice(0, 15);
+        setNowDate(stringTemp);
+    }, [nowDate]);
 
     // onPanelChange = 메뉴 판이 [헤더에 의해] 바뀔 때 마다 저장
     const onPanelChange = useCallback((value, mode) => {
         console.log(value.month(), mode);
-    }, []);
+    }, [nowDate]);
     
     // 캘린더의 헤더를 Custom 해서 return
     const headerRender = ({ value, type, onChange, onTypeChange }) => {
@@ -126,7 +127,7 @@ const UserCalender = () => {
           return 1394;
         }
     }
-      
+
     function monthCellRender(value) {
         const num = getMonthData(value);
         return num ? (
