@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import { Calendar, Select, Radio, Col, Row, Badge  } from 'antd';
+import React, { useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
+import { Calendar, Select, Radio, Col, Row, Badge  } from 'antd';
+const { Group, Button } = Radio;
 
 const UpperDiv = styled.div`
-    width: 400px;
+    max-width: 350px;
+    min-width: 270px;
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
 `;
@@ -14,71 +16,19 @@ const CalenderHeader = styled.div`
     }
 `;
 
-//
-function getListData(value) {
-    let listData;
-    switch (value.date()) {
-      case 8:
-        listData = [
-          { type: 'warning', content: 'This is warning event.' }
-        ];
-        break;
-      case 10:
-        listData = [
-          { type: 'warning', content: 'This is warning event.' }
-        ];
-        break;
-      case 15:
-        listData = [
-          { type: 'warning', content: 'This is warning event' },
-        ];
-        break;
-      default:
-    }
-    return listData || [];
-}
-  
-function dateCellRender(value) {
-    // console.log(value.date(), value.month());
-    const listData = getListData(value);
-    return (
-        listData.map(item => (
-            <Badge status={item.type}/>
-        ))
-    );
-  }
-  
-function getMonthData(value) {
-    if (value.month() === 8) {
-      return 1394;
-    }
-}
-  
-  function monthCellRender(value) {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  }
-
-//
-const { Group, Button } = Radio;
-
 const UserCalender = () => {
-    const [nowDate, setNowDate] = useState(new Date());
-
+    const [nowDate, setNowDate] = useState(new Date()); // 캘린더에서 표시하고 있는 State
     // onChange = 메뉴 판이 [내부 클릭에 의해] 바뀔 때 마다 저장
     const onCalenderChange = useCallback((value)=>{
-        setNowDate(new Date(value.year(), value.month(), value.date()));
-    }, []);
+        const dateTemp = new Date(value.year(), value.month(), value.date());
+        const stringTemp = dateTemp.toString().slice(0, 15);
+        setNowDate(stringTemp);
+    }, [nowDate]);
 
     // onPanelChange = 메뉴 판이 [헤더에 의해] 바뀔 때 마다 저장
     const onPanelChange = useCallback((value, mode) => {
         console.log(value.month(), mode);
-    }, []);
+    }, [nowDate]);
     
     // 캘린더의 헤더를 Custom 해서 return
     const headerRender = ({ value, type, onChange, onTypeChange }) => {
@@ -148,6 +98,44 @@ const UserCalender = () => {
                 </Row>
             </CalenderHeader>
         );
+    }
+    // Month 캘린더일 때 정보 표시(했는지 안했는지)를 전부 list로
+    const getListData = (value) => {
+        let listData = [{
+            date: new Date(),
+            type: 'warning',
+        }];
+        let resultData = [];
+        if(listData[0].date.getFullYear() === value.year() && listData[0].date.getMonth() === value.month())
+            if(listData[0].date.getDate() === value.date())
+                resultData.push(listData[0]);
+        return resultData || [];
+    }
+    // Month 캘린더일 때 정보 표시(했는지 안했는지)
+    const dateCellRender = useCallback((value) => {
+        // console.log(value.date(), value.month());
+        const listData = getListData(value);
+        return (
+            listData.map(item => (
+                <Badge status={item.type}/>
+            ))
+        );
+    }, []);
+
+    function getMonthData(value) {
+        if (value.month() === 8) {
+          return 1394;
+        }
+    }
+
+    function monthCellRender(value) {
+        const num = getMonthData(value);
+        return num ? (
+            <div className="notes-month">
+                <section>{num}</section>
+            <span>Backlog number</span>
+            </div>
+        ) : null;
     }
 
     return (

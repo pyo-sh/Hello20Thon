@@ -15,11 +15,13 @@ const UpperDiv = styled.div`
 const UserRecord = () => {
     return (
         <UpperDiv>
+            <div className="Title">루틴</div>
             <Row gutter={[16, 8]}>
                 <Col xs={8} xxl={12}>
                     <UserRecordSelect/>
                 </Col>
             </Row>
+            <div className="Memo">메모</div>
             <Row>
                 <Col>
                     <UserRecordInput/>

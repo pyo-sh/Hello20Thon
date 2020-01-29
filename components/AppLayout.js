@@ -10,16 +10,16 @@ const AppLayout = ({children}) => { // props
     return (
         <div>
             <Row>
-                <Col xs={24} sm={12} xl={7}>
+                <Col xs={24} sm={7} xl={6}>
                     <UserCalender/>
                     <UserRecord/>
                 </Col>
-                <Col xs={24} sm={12} xl={8}>
+                <Col xs={24} sm={17} xl={9}>
                     {children}
                 </Col>
-                {/* <Col xs={24} sm={24} xl={9}>
-                    <Youtube/>
-                </Col> */}
+                <Col xs={24} sm={24} xl={9}>
+                    {/* <Youtube/> */}
+                </Col>
             </Row>
         </div>
     )
