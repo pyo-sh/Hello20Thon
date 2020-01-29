@@ -18,6 +18,7 @@ export const initialState = {
   recordUpdated: false,         // 기록이 업데이트 됐는지
   isRecordUpdating: false,      // 기록을 업데이트 하는중
   updateRecordErrorReason: '',  // 기록 업데이트 실패 요인
+  nowPointingDate: "",          // 현재 유저가 가르키고있는 날짜
 };
 
 // Types
@@ -32,6 +33,8 @@ export const DELETE_RECORD_FAILURE = 'DELETE_RECORD_FAILRUE';
 export const UPDATE_RECORD_REQUEST = 'UPDATE_RECORD_REQUEST';
 export const UPDATE_RECORD_SUCCESS = 'UPDATE_RECORD_SUCCESS';
 export const UPDATE_RECORD_FAILURE = 'UPDATE_RECORD_FAILRUE';
+
+export const SET_NOWPOINTINGDATE = 'SET_NOWPOINTINGDATE';
 
 // Actions
 // 더하는 Actions
@@ -97,6 +100,12 @@ export const UpdateRecordFailureAction = (error) => {
     error: error,
   });
 };
+export const setNowPointingDate = (value) => {
+  return({
+    type: SET_NOWPOINTINGDATE,
+    data: value,
+  });
+}
 
 
 const reducer = (state = initialState, action) => {
@@ -154,6 +163,11 @@ const reducer = (state = initialState, action) => {
       case UPDATE_RECORD_FAILURE: {
         draft.isRecordUpdating = false;
         draft.updateRecordErrorReason = action.error;
+        break;
+      }
+      // 현재 유저가 가리키고있는 시간
+      case SET_NOWPOINTINGDATE: {
+        draft.nowPointingDate = action.data;
         break;
       }
       default:{

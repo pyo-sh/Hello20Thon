@@ -10,7 +10,7 @@ const AddButton = styled(Button)`
 
 `;
 
-const UserRecordInput = () => {
+const UserRecordMemo = () => {
     return (
         <Row gutter={[16, 8]}>
             <Col xs={12} xxl={15}>
@@ -25,4 +25,4 @@ const UserRecordInput = () => {
     );
 };
 
-export default UserRecordInput;
+export default UserRecordMemo;
