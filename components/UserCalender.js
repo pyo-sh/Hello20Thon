@@ -1,13 +1,16 @@
 import React, { useState, useCallback, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNowPointingDate } from '../reducers/user';
 import styled from 'styled-components';
 import { Calendar, Select, Radio, Col, Row, Badge  } from 'antd';
 const { Group, Button } = Radio;
 
 const UpperDiv = styled.div`
-    max-width: 350px;
-    min-width: 270px;
+    max-width: 340px;
+    min-width: 260px;
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
+    margin: 10px;
 `;
 const CalenderHeader = styled.div`
     padding: 10px;
@@ -17,12 +20,15 @@ const CalenderHeader = styled.div`
 `;
 
 const UserCalender = () => {
+    const dispatch = useDispatch();
     const [nowDate, setNowDate] = useState(new Date()); // 캘린더에서 표시하고 있는 State
     // onChange = 메뉴 판이 [내부 클릭에 의해] 바뀔 때 마다 저장
     const onCalenderChange = useCallback((value)=>{
         const dateTemp = new Date(value.year(), value.month(), value.date());
         const stringTemp = dateTemp.toString().slice(0, 15);
         setNowDate(stringTemp);
+
+        console.log("클릭", stringTemp);
     }, [nowDate]);
 
     // onPanelChange = 메뉴 판이 [헤더에 의해] 바뀔 때 마다 저장
@@ -37,6 +43,10 @@ const UserCalender = () => {
         const year = value.year();                      // 선택한 시간의 year
         const localeData = value.localeData();          // 선택한 시간의 Data
         const months = [...localeData.monthsShort()];   // 가지고 있는 month 데이터 복사
+         // 선택한 시간 redux에 저장
+         const dateTemp = new Date(year, month, date);
+         const stringTemp = dateTemp.toString().slice(0, 15);
+         dispatch(setNowPointingDate(stringTemp));
 
         // Month의 Select Option 추가
         const monthOptions = [];
