@@ -1,7 +1,7 @@
 import React, {useCallback, useRef} from 'react';
-import { opts } from '../apis/youtube';
+import { opts } from '../../apis/youtube';
 import ysearch from 'youtube-search';
-import { ADD_YOUTUBE_VIDEO_REQUEST } from '../reducers/youtube';
+import { ADD_YOUTUBE_VIDEO_REQUEST } from '../../reducers/youtube';
 import {useDispatch, useSelector } from 'react-redux';
 import VideoListItem from './VideoListItem';
 import styled from 'styled-components';
