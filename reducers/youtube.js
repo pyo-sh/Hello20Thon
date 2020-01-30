@@ -33,7 +33,6 @@ const reducer = (state = initialState, action) => {
                 action.data.results.forEach(result => {
                     draft.videos.push(result);
                 })
-                draft.selectVideo = action.data.results[0];
                 draft.nextPageToken = action.data.pageInfo.nextPageToken;
                 break;
             }

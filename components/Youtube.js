@@ -6,23 +6,28 @@ import YoutubeSearchForm from "./YoutubeSearchForm";
 import styled from "styled-components";
 
 // 유튜브 검색 해서 나오게 하는것.
+const YoutubeWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
 const YoutubeBox = styled.div`
   display: flex;
-  justify-content : center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: space-between;
+  flex-direction : column;
 `;
 const Youtube = () => {
   const { selectVideo, videos } = useSelector(state => state.youtube);
 
   return (
-    <div>
+    <YoutubeWrapper>
       <YoutubeSearchForm />
       <YoutubeBox>
         {/* 검색해서 나오는거 추가해야함. */}
         {selectVideo ? <VideoDetail video={selectVideo} /> : null}
         {videos ? <VideoList /> : null}
       </YoutubeBox>
-    </div>
+    </YoutubeWrapper>
   );
 };
 

@@ -68,10 +68,10 @@ const AppLayout = ({ children }) => {
             <Col xs={24} sm={12} xl={8}>
               {children}
             </Col>
-            <Col xs={18} sm={18} xl={9}>
-              {/* <Youtube /> */}
+            <Col xs={24} sm={12} xl={9}>
+              <Youtube />
             </Col>
-            <Col xs={6} sm={6} xl={6}>
+            <Col xs={24} sm={12} xl={6}>
               <StopWatchForm/>
             </Col>
           </Row>

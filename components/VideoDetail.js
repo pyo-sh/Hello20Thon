@@ -3,8 +3,10 @@ import Iframe from 'react-iframe';
 import styled from 'styled-components';
 
 const DetailBox = styled.div`
-    width : 80%;
+    width : 100%;
     height : 40vh;
+    display: flex;
+    flex-direction : column;
 `;
 
 
@@ -16,12 +18,10 @@ const VideoDetail = ({video}) => {
     const url = `https:www.youtube.com/embed/${videoId}`;
     return (
         <DetailBox>
+                <Iframe url={url} width="100%" height="100%"
+                display="initial" allow="fullscreen"/>
             <div>
-                <Iframe url={url} width="100vw" height="100vh"
-                display="initial" allow="fullscreen"></Iframe>
-            </div>
-            <div>
-                <div>{video.title}</div>
+                <div><b>{video.title}</b></div>
                 <div>{video.description}</div>
             </div>
         </DetailBox>

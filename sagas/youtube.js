@@ -11,7 +11,7 @@ function* addVideo(action) {
     }
 }
 function* watchAddVideo(){
-    yield throttle(3000, ADD_YOUTUBE_VIDEO_REQUEST, addVideo);
+    yield throttle(1500, ADD_YOUTUBE_VIDEO_REQUEST, addVideo);
 }
 
 export default function* userSaga() {

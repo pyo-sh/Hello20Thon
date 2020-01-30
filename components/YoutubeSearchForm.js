@@ -27,6 +27,7 @@ const YoutubeSearchForm = () => {
           data: {
               results,
               pageInfo,
+              search : lastSearch
           }
         });
       });
@@ -53,7 +54,7 @@ const YoutubeSearchForm = () => {
 
   return (
     <YoutubeForm onSubmit={onSubmitSearch}>
-      <Input className="searchInput" value={search} onChange={onChangeSearch} />
+      <Input className="searchInput" value={search} placeholder="유튜브 검색!" onChange={onChangeSearch} />
       <Button htmlType="submit" type="primary">
         검색
       </Button>
