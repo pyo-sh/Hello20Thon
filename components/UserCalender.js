@@ -10,7 +10,7 @@ const UpperDiv = styled.div`
     min-width: 260px;
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
-    margin: 10px;
+    margin: auto;
 `;
 const CalenderHeader = styled.div`
     padding: 10px;
