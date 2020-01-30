@@ -14,6 +14,8 @@ const LayoutFooter = styled(Footer)`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight : bold;
+  font-size :1em;
 `;
 const AppLayout = ({ children }) => {
   return (
