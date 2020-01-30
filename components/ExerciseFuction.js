@@ -68,7 +68,7 @@ export const getExerciseCount = ( value ) => {
     }
 }
 
-const getExerciseName = ( value ) => {
+export const getExerciseName = ( value ) => {
     switch(value){
         case "aerobic-exercise": return "유산소 운동"
         case "abs": return "복근"
@@ -132,4 +132,4 @@ const getExerciseName = ( value ) => {
     }
 }
 
-export default  getExerciseName;
+// export default  getExerciseName;

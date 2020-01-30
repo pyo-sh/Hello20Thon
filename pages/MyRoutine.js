@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, Icon, Drawer, Modal, Select, Input, Form, Button } from 'antd';
+import { Card, Icon, Drawer, Modal, Select, Input, Form, Button, DatePicker } from 'antd';
 import styled from 'styled-components';
 import Exercise from './Exercise';
-import {GetAreaValueAction, ADD_EXERCISE_REQUEST} from '../reducers/user';
+import {GetAreaValueAction, ADD_EXERCISE_REQUEST, DELETE_EXERCISE_REQUEST} from '../reducers/user';
+import {getExerciseCount, getExerciseName} from '../components/ExerciseFuction';
 
 const { Option } = Select;
 
@@ -19,6 +20,20 @@ const Content = styled(Card)`
     margin-bottom: 20px;
     width: 300px;
     font-size: 18px;
+`;
+
+const DeleteIcon = styled.div`
+    text-align: right;
+    margin-top:-25px;
+    margin-right: -15px;
+    padding-bottom: -20px;
+    font-size: 20px; 
+    color: gray;
+    opacity: 0;
+    
+    &:hover {
+        opacity: 0.7;
+    }
 `;
 
 //루틴 추가
@@ -120,6 +135,7 @@ const MyRoutine = () => {
         setInputRoutineName(e.target.value)
     }, []);
 
+    //루틴 이름 저장
     const onRoutineName = useCallback((e) => {
         e.preventDefault();
         if(!inputRoutineName || !inputRoutineName.trim()){
@@ -128,6 +144,18 @@ const MyRoutine = () => {
             setClickInput(true);
         }
     },[inputRoutineName]);
+
+    const deleteExercise = (id) => (e) =>{
+        dispatch({
+            type: DELETE_EXERCISE_REQUEST,
+            data: id
+        })
+        console.log(id)
+    };
+    const disabledDate = (current) => {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+    };
 
     return (
         <>
@@ -150,6 +178,7 @@ const MyRoutine = () => {
                     visible={isAddRoutineClick}
                 >
                     <RoutineForm>
+                        {/*루틴 이름 작성 */}
                         {
                             clickInput == true
                             ?
@@ -160,18 +189,23 @@ const MyRoutine = () => {
                                 <Button type="primary" htmlType="submit">입력</Button>
                             </Form>
                         }
+                        {/*운동 날짜 설정 */}
+                        {/* <DatePicker
+                            disabledDate={disabledDate}
+                        /> */}
                         <ExerciseAdd onClick={onAddExerciseClick}>  {/* 이 버튼 누르면 Modal 창 열림 */}
                             <div className = "AddRoutine">
                                 <div><Icon type="plus-circle" style={{fontSize: 30}}/></div>    
                                 <div>ADD EXERCISE</div>
                             </div>
                         </ExerciseAdd>
-                        {userRecord.key.trainings.map((training) => {
+                        {userRecord.key.trainings.map((training, i) => {
                             return (
                                 <Content>
+                                    <DeleteIcon><Icon type="close" onClick={deleteExercise(userRecord.key.trainings[i].id)}/></DeleteIcon>  {/*삭제 버튼 누르면 추가한 운동 삭제 */}
                                     <Routine>
-                                        <div style={{fontSize: 25}}>{training.posture}</div>
-                                        <div style={{fontSize: 20}}>{training.count}</div>
+                                        <div style={{fontSize: 25}}>{getExerciseName(training.posture)}</div>
+                                        <div style={{fontSize: 20}}>{training.count}{getExerciseCount(training.posture)}</div>
                                     </Routine>
                                 </Content>
                             );

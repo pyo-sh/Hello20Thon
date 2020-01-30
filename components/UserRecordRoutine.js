@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Icon } from 'antd';
 import styled from 'styled-components';
-import getExerciseName from './ExerciseFuction';
-import { getExerciseCount } from './ExerciseFuction';
+// import getExerciseName from './ExerciseFuction';
+import { getExerciseCount, getExerciseName } from './ExerciseFuction';
 
 const UpperDiv = styled.div`
     position: relative;
