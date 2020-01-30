@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Icon, Drawer, Modal, Select, Input, Form, Button } from 'antd';
 import styled from 'styled-components';
 import Exercise from './Exercise';
-import {GetAreaValueAction, ADD_EXERCISE_REQUEST} from '../reducers/user';
+import {GetAreaValueAction, ADD_EXERCISE_REQUEST} from '../../reducers/user';
 
 const { Option } = Select;
 

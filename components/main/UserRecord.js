@@ -1,7 +1,7 @@
 import React from 'react';
-import UserRecordMemo from '../components/UserRecordMemo';
-import UserRecordSelect from '../components/UserRecordSelect';
-import UserRecordList from '../components/UserRecordList';
+import UserRecordMemo from '../UserRecordMemo';
+import UserRecordSelect from '../UserRecordSelect';
+import UserRecordList from '../UserRecordList';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 
