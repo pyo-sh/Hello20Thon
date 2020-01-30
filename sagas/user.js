@@ -1,5 +1,5 @@
 import { all, delay, fork, takeLatest, put } from 'redux-saga/effects';
-import { AddExerciseSuccessAction, AddExerciseFailureAction, DELETE_RECORD_FAILURE, DELETE_RECORD_SUCCESS, DELETE_RECORD_REQUEST, UPDATE_RECORD_FAILURE, UPDATE_RECORD_SUCCESS, UPDATE_RECORD_REQUEST, ADD_RECORD_FAILURE, ADD_RECORD_SUCCESS, ADD_RECORD_REQUEST , ADD_EXERCISE_FAILURE, ADD_EXERCISE_SUCCESS, ADD_EXERCISE_REQUEST } from '../reducers/user';
+import { DELETE_EXERCISE_REQUEST, DELETE_EXERCISE_SUCCESS, DELETE_EXERCISE_FAILURE, DELETE_RECORD_FAILURE, DELETE_RECORD_SUCCESS, DELETE_RECORD_REQUEST, UPDATE_RECORD_FAILURE, UPDATE_RECORD_SUCCESS, UPDATE_RECORD_REQUEST, ADD_RECORD_FAILURE, ADD_RECORD_SUCCESS, ADD_RECORD_REQUEST , ADD_EXERCISE_FAILURE, ADD_EXERCISE_SUCCESS, ADD_EXERCISE_REQUEST } from '../reducers/user';
 
 function* addExercise(action) {
     try{
@@ -78,8 +78,30 @@ function* watchDeleteRecord() {
     yield takeLatest(DELETE_RECORD_REQUEST, deleteRecord)
 }
 
+function* deleteExercise(action) {
+    try{
+        console.log(action.data)
+        yield delay(1300);
+        yield put({
+            type: DELETE_EXERCISE_SUCCESS,
+            data: action.data,
+        });
+    }catch{
+        console.error(e);
+        yield put({
+            type: DELETE_EXERCISE_FAILURE,
+            data: e
+        });
+    }
+}
+
+function* watchDeleteExercise() {
+    yield takeLatest(DELETE_EXERCISE_REQUEST, deleteExercise)
+}
+
 export default function* userSaga() {
     yield all([
-        fork(watchAddExercise)
+        fork(watchAddExercise),
+        fork(watchDeleteExercise)
     ])
 }

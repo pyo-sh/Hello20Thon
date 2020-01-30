@@ -18,8 +18,8 @@ export const initialState = {
       trainings: [
         {
           id: 1, 
-          area: "유산소 운동",     //운동 부위 
-          posture: "자전거 타기",  //운동 자세 
+          area: "aerobic-exercise",     //운동 부위 
+          posture: "bicycle",  //운동 자세 
           count: 30,     //운동 개수, 시간
           done: false
         }
@@ -29,6 +29,9 @@ export const initialState = {
   exerciseAdded: false,           // 운동이 더해졌는지
   isExerciseAdding: false,        // 운동을 추가하는 중
   addExerciseErrorReason: '',     // 운동 추가 실패 요인
+  exerciseDeleted: false,           // 운동이 삭제됐는지
+  isExerciseDeleting: false,        // 운동을 삭제하는 중
+  deleteExerciseErrorReason: '',     // 운동 삭제 실패 요인
   recordAdded: false,           // 기록이 더해졌는지
   isRecordAdding: false,        // 기록을 추가하는 중
   addRecordErrorReason: '',     // 기록 추가 실패 요인
@@ -53,6 +56,10 @@ export const ADD_EXERCISE_FAILURE = 'ADD_EXERCISE_FAILRUE';
 export const DELETE_RECORD_REQUEST = 'DELETE_RECORD_REQUEST';
 export const DELETE_RECORD_SUCCESS = 'DELETE_RECORD_SUCCESS';
 export const DELETE_RECORD_FAILURE = 'DELETE_RECORD_FAILRUE';
+
+export const DELETE_EXERCISE_REQUEST = 'DELETE_EXERCISE_REQUEST';
+export const DELETE_EXERCISE_SUCCESS = 'DELETE_EXERCISE_SUCCESS';
+export const DELETE_EXERCISE_FAILURE = 'DELETE_EXERCISE_FAILRUE';
 
 export const UPDATE_RECORD_REQUEST = 'UPDATE_RECORD_REQUEST';
 export const UPDATE_RECORD_SUCCESS = 'UPDATE_RECORD_SUCCESS';
@@ -199,6 +206,7 @@ const reducer = (state = initialState, action) => {
         draft.addRecordErrorReason = action.error;
         break;
       }
+      //운동 추가하는 부분
       case ADD_EXERCISE_REQUEST: {
         draft.exerciseAdded = false;
         draft.isExerciseAdding = true;
@@ -208,8 +216,8 @@ const reducer = (state = initialState, action) => {
       case ADD_EXERCISE_SUCCESS: {
         draft.exerciseAdded = true;
         draft.isExerciseAdding = false;
-        draft.userRecord.key.trainings.push({id: draft.Id + 1, area: action.data._area, posture: action.data._posture, count: action.data._count, done: false})
-        draft.Id += 1;
+        draft.userRecord.key.trainings.push({id: draft.id + 1, area: action.data._area, posture: action.data._posture, count: action.data._count, done: false})
+        draft.id += 1;
         break;
       }
       case ADD_EXERCISE_FAILURE: {
@@ -235,6 +243,26 @@ const reducer = (state = initialState, action) => {
         draft.deleteRecordErrorReason = action.error;
         break;
       }
+      //운동 삭제하는 부분
+      case DELETE_EXERCISE_REQUEST: {
+        draft.exerciseDeleted = false;
+        draft.isExerciseDeleting = true;
+        draft.deleteExerciseErrorReason = '';
+        break;
+      }
+      case DELETE_EXERCISE_SUCCESS: {
+        draft.exerciseDeleted = true;
+        draft.isExerciseDeleting = false;
+        const index = draft.userRecord.key.trainings.findIndex(v=> v.id === action.data);
+        draft.userRecord.key.trainings.splice(index,1);
+        draft.id -= 1;
+        break;
+      }
+      case DELETE_EXERCISE_FAILURE: {
+        draft.isExerciseDeleting = false;
+        draft.DeleteExerciseErrorReason = action.error;
+        break;
+      }
       // 기록 업데이트하는 부분
       case UPDATE_RECORD_REQUEST: {
         draft.recordUpdated = false;
@@ -255,7 +283,6 @@ const reducer = (state = initialState, action) => {
       }
       case GET_AREA_VALUE: {
         draft._area = action.data;
-        console.log(draft._area);
         break;
       }
       case GET_POSTURE_VALUE: {
