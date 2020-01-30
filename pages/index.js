@@ -8,13 +8,14 @@ import Main from '../components/main/Main';
 import styled from 'styled-components';
 
 const InputNickname = styled.div`
-  position: absolute;
-  top : 50%;
-  left : 50%;
-  transform : translate(-50%, -50%);
+  width : 100%;
+  height : 85vh;
   font-size: 40px;
   font-weight : bold;
-  
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  flex-direction : column;
   & .nicknameForm{
     display : flex;
   }
