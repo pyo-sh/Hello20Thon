@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import UserRecordMemo from '../UserRecord/UserRecordMemo';
 import UserRecordWeight from '../UserRecord/UserRecordWeight';
 import UserRecordRoutine from '../UserRecord/UserRecordRoutine';
-import { Row, Col } from 'antd';
 import styled from 'styled-components';
+import { Button, Modal } from 'antd';
 
 const UpperDiv = styled.div`
     max-width: 340px;
@@ -17,6 +17,9 @@ const UpperDiv = styled.div`
     & .Title{
         font-size: 25px;
         border-bottom: 2px solid #d9d9d9;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 4px;
     }
     & .Routine{
         margin-bottom: 20px;
@@ -31,7 +34,7 @@ const UserRecord = () => {
     const renderRoutine = () => {
         if(routine && routine.length !== 0){
             return routine.map((element, index) => (
-                <UserRecordRoutine key={index} routineProp={element}/>
+                <UserRecordRoutine key={index} index={index} routineProp={element}/>
             ));
         }
         else    return null;
@@ -43,7 +46,9 @@ const UserRecord = () => {
                 <UserRecordWeight/>
             </div>
             <div className="Routine">
-                <div className="Title">루틴</div>
+                <div className="Title">
+                    루틴
+                </div>
                 {renderRoutine()}
             </div>
             <div className="Memo">

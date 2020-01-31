@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { AddRecommendRequestAction } from '../../reducers/user';
 
 const Content = styled(Card)`
-  margin-bottom: 20px;
   width: 300px;
   font-size: 18px;
 `;
