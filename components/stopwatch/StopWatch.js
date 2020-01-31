@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useTimer } from "use-timer";
 import { Button } from 'antd';
 import styled from "styled-components";
@@ -8,6 +8,15 @@ const TimerBottom = styled.div`
   flex-direction: column;
   & div p {
     font-size: 20px;
+  }
+  & .btnBox {
+    display: flex;
+  }
+  & div .timeBtn {
+    display : flex;
+    justify-content : center;
+    flex : 1;
+    width : 33%;
   }
 `;
 
@@ -38,12 +47,15 @@ const StopWatch = ({ allSeconds }) => {
     // 처음엔 음성 안 나오고 start 누르고 나서부터 음성 나오게
     if (startCheck && time === 0) {
       audio.current.play();
+      setStartCheck(false);
       return;
-    } else {
-      setStartCheck(true);
-    }
+    } 
   }, [time]);
 
+  const onClickStart = useCallback(() => { // 시작하고 stat했다고 체크
+    start();
+    setStartCheck(true)
+  }, [time]);
   return (
     <TimerBottom>
       <div>
@@ -51,10 +63,10 @@ const StopWatch = ({ allSeconds }) => {
           minute < 10 ? `0${minute}` : minute
         } : ${second < 10 ? `0${second}` : second}`}</p>
       </div>
-      <div>
-        <Button type = "primary" onClick={start}>Start</Button>
-        <Button type = "danger" onClick={pause}>Pause</Button>
-        <Button type="default" onClick={reset}>Reset</Button>
+      <div className = "btnBox">
+        <Button className="timeBtn" type = "primary" onClick={onClickStart}>Start</Button>
+        <Button className="timeBtn" type = "danger" onClick={pause}>Pause</Button>
+        <Button className="timeBtn" type = "default" onClick={reset}>Reset</Button>
       </div>
     </TimerBottom>
   );

@@ -13,6 +13,8 @@ const TimerBox = styled.div`
     }
     & div input {
         width : 10vw;
+        max-width : 100px;
+        min-width : 50px;
         margin-left: 4px;
     }
 `;
