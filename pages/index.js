@@ -1,21 +1,83 @@
-import React from "react"; // next에서는 안 써도 되지만 useState 등을 사용하기 위해서 어차피 써야함.
-import {Tabs, Button} from 'antd';
-import MyRoutine from "./MyRoutine";
-import RecommendRoutine from "./RecommendRoutine";
+import React, { useCallback, useEffect, useState } from "react";
+import { Form, Input, Button, Row, Col } from "antd";
+import Youtube from "../components/youtube/Youtube";
+import UserCalender from "../components/UserCalender";
+import UserRecord from "../components/main/UserRecord";
+import StopWatchForm from "../components/stopwatch/StopWatchForm";
+import Main from '../components/main/Main';
+import styled from 'styled-components';
 
+const InputNickname = styled.div`
+  width : 100%;
+  height : 85vh;
+  font-size: 40px;
+  font-weight : bold;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  flex-direction : column;
+  & .nicknameForm{
+    display : flex;
+  }
+  & .nicknameInput {
+      width : 80%;
+  }
 
+`;
 const Home = () => {
+  const [check, setCheck] = useState(false);
+  const [nickname, setNickname] = useState("");
+  useEffect(() => {
+    const checkName = localStorage.getItem("name");
+    if (checkName) {
+      setCheck(true);
+    }
+  }, []);
+  const onChangeNickname = useCallback(e => {
+    setNickname(e.target.value);
+  }, []);
+  const onSubmitNickname = useCallback(e => {
+      e.preventDefault();
+      if(!nickname || !nickname.trim()){
+          alert('빈칸은 안 됩니다!!');
+          return;
+      }
+      localStorage.setItem("name", nickname);
+      alert(`${nickname}님 환영합니다`);
+      setCheck(true);
+    },
+    [nickname]
+  );
   return (
-    <>  
-      <Tabs defaultActiveKey="1" style={{width: 400}}>
-        <Tabs.TabPane tab="내 루틴" key="1">
-          <MyRoutine /> {/*내 루틴 출력*/}
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="추천 루틴" key="2">
-          <RecommendRoutine /> {/*추천 루틴 출력*/}
-        </Tabs.TabPane>
-      </Tabs>
-    </> 
+    <>
+    {!check ? (
+        <InputNickname>
+          당신의 닉네임을 알려주세요!
+          <Form className="nicknameForm" onSubmit={onSubmitNickname}>
+            <Input className ="nicknameInput" value={nickname} onChange={onChangeNickname} />
+            <Button htmlType="submit" type="primary">입력</Button>
+          </Form>
+        </InputNickname>
+    ) : (
+      <div>
+        <Row>
+          <Col xs={24} sm={12} xl={7}>
+            <UserCalender />
+            <UserRecord />
+          </Col>
+          <Col xs={24} sm={12} xl={8}>
+            <Main/>
+          </Col>
+          <Col xs={24} sm={12} xl={9}>
+            <Youtube />
+          </Col>
+          <Col xs={24} sm={12} xl={6}>
+            <StopWatchForm/>
+          </Col>
+        </Row>
+      </div>
+    )}
+  </>
   );
 };
 

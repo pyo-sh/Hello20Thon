@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { opts } from "../apis/youtube";
+import { opts } from "../../apis/youtube";
 import * as ysearch from 'youtube-search';
 import { useDispatch, useSelector } from 'react-redux';
-import { YOUTUBE_VIDEO_REQUEST } from '../reducers/youtube';
+import { YOUTUBE_VIDEO_REQUEST } from '../../reducers/youtube';
 import { Input, Form, Button } from "antd";
 import styled from 'styled-components';
 

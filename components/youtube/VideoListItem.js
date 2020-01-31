@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { YOUTUBE_SELECT_VIDEO } from '../reducers/youtube';
+import { YOUTUBE_SELECT_VIDEO } from '../../reducers/youtube';
 import styled from 'styled-components';
 
 const VideoItemBox = styled.div`

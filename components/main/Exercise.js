@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useSeletor, useDispatch } from 'react-redux';
 import { Select, Input } from 'antd';
-import {GetPostureValueAction, GetCountValueAction} from '../reducers/user';
+import {GetPostureValueAction, GetCountValueAction} from '../../reducers/user';
 
 const { Option } = Select;
 
