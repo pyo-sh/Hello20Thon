@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card } from 'antd';
+import { useSelector } from "react-redux";
 import styled from 'styled-components';
+import RoutineDetail from './RoutineDetail';
 
 const ContentForm = styled.div`
     display: flex;
@@ -9,27 +10,14 @@ const ContentForm = styled.div`
     align-items: center;
 `;
 
-const Content = styled(Card)`
-    margin-bottom: 20px;
-    width: 300px;
-    font-size: 18px;
-`;
-
-const Routine = styled.div`
-    text-align: center;
-    cursor: pointer;
-`;
-
 const RecommendRoutine = () => {
+    const {recommendRoutine} = useSelector(state => state.user);
     return (
     <>
     <ContentForm>
-        <Content>
-                <Routine>상체 운동</Routine>
-            </Content>
-            <Content>
-                <Routine>하체 운동</Routine>
-        </Content>
+        {Object.keys(recommendRoutine).map(value => (
+            <RoutineDetail recommendValue={recommendRoutine[value]}/>
+        ))}
     </ContentForm> 
     </>
     );
