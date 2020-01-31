@@ -8,6 +8,7 @@ import produce from "immer";
   } */
 export const initialState = {
   id: 1,                        // 혹시 필요할까 추가함
+  name : "",
   _area: "",     //운동 부위 
   _posture: "",  //운동 자세 
   _count: 0,     //운동 개수, 시간
@@ -42,6 +43,8 @@ export const initialState = {
 };
 
 // Types
+export const SET_USERNAME = 'SET_USERNAME';
+
 export const ADD_RECORD_REQUEST = 'ADD_RECORD_REQUEST';
 export const ADD_RECORD_SUCCESS = 'ADD_RECORD_SUCCESS';
 export const ADD_RECORD_FAILURE = 'ADD_RECORD_FAILRUE';
@@ -71,6 +74,14 @@ export const SET_NOWPOINTINGDATE = 'SET_NOWPOINTINGDATE';
     name: "",
     trainings:[{ area: "", posture: "", count: number (갯수), done: true/false }],
   } */
+
+export const SetUserNameAction = (name) => {
+  return ({
+    type : SET_USERNAME,
+    data : name
+  })
+}
+
 export const AddRecordRequestAction = (object) => { 
   return({
     type: ADD_RECORD_REQUEST,
@@ -182,6 +193,10 @@ const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {
       // 기록 추가하는 부분
+      case SET_USERNAME : {
+        draft.name = action.data;
+        break;
+      }
       case ADD_RECORD_REQUEST: {
         draft.recordAdded = false;
         draft.isRecordAdding = true;
