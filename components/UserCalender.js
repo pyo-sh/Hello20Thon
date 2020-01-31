@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNowPointingDate } from '../reducers/user';
+import { setNowPointingDate } from '../reducers/day';
 import styled from 'styled-components';
 import { Calendar, Select, Radio, Col, Row, Badge  } from 'antd';
 const { Group, Button } = Radio;
@@ -11,6 +11,7 @@ const UpperDiv = styled.div`
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
     margin: auto;
+    margin-top: 20px;
 `;
 const CalenderHeader = styled.div`
     padding: 10px;
@@ -22,6 +23,9 @@ const CalenderHeader = styled.div`
 const UserCalender = () => {
     const dispatch = useDispatch();
     const [nowDate, setNowDate] = useState(new Date()); // 캘린더에서 표시하고 있는 State
+    const routine = useSelector(state => state.day.routine);
+    const memo = useSelector(state => state.day.memo);
+
     // onChange = 메뉴 판이 [내부 클릭에 의해] 바뀔 때 마다 저장
     const onCalenderChange = useCallback((value)=>{
         const dateTemp = new Date(value.year(), value.month(), value.date());
@@ -111,14 +115,20 @@ const UserCalender = () => {
     }
     // Month 캘린더일 때 정보 표시(했는지 안했는지)를 전부 list로
     const getListData = (value) => {
-        let listData = [{
-            date: new Date(),
-            type: 'warning',
-        }];
+        const dateValue = value.toString().slice(0, 15);
         let resultData = [];
-        if(listData[0].date.getFullYear() === value.year() && listData[0].date.getMonth() === value.month())
-            if(listData[0].date.getDate() === value.date())
-                resultData.push(listData[0]);
+        if(routine[dateValue]){
+            resultData.push({
+                date: value,
+                type: 'warning',
+            });
+        }
+        if(memo[dateValue]){
+            resultData.push({
+                date: value,
+                type: 'processing',
+            });
+        }
         return resultData || [];
     }
     // Month 캘린더일 때 정보 표시(했는지 안했는지)
