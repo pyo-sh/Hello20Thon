@@ -6,6 +6,36 @@ import produce from "immer";
     reason: {""}
 }
 */
+const dummyMemo = {
+  "Wed Jan 01 2020": [
+    {
+      key : 1,
+      contents : "아무거나 입니다."
+    },
+    {
+      key : 2,
+      contents : "오늘도 운동 열심히 했따!"
+    },
+    {
+      key : 3,
+      contents : "오늘도 열심히 할거다"
+    }
+  ],
+"Thu Jan 02 2020": [
+  {
+    key : 1,
+    contents : "ㅋㅋㅋㅋㅋ"
+  },
+  {
+    key : 2,
+    contents : "ㅋㅋㅇㄻㅇㄹ"
+  },
+  {
+    key : 3,
+    contents : "ㅋㅋㅋㅇㄻ"
+  }
+  ],
+}
 const dummyRecord = {
   "Wed Jan 01 2020": [
       {
@@ -70,7 +100,7 @@ const dummyRecord = {
 // State
 export const initialState = {
   routine: dummyRecord,            // 날짜에 대한 모든 기록
-  memo: {},
+  memo: dummyMemo,
   weight: {},
   reason: {},
   routineAdded: false,              // 루틴이 더해졌는지
@@ -189,14 +219,16 @@ export const UpdateRoutineFailure = (error) => {
   };
 };
 // memo에 관한 actions
-export const AddMemoRequest = () => {
+export const AddMemoRequest = (date, memoText) => {
   return {
     type: ADD_MEMO_REQUEST,
+    data : {date, memoText}
   };
 };
-export const AddMemoSuccess = () => {
+export const AddMemoSuccess = (data) => {
   return {
     type: ADD_MEMO_SUCCESS,
+    data
   };
 };
 export const AddMemoFailure = (error) => {
@@ -206,31 +238,37 @@ export const AddMemoFailure = (error) => {
   };
 };
 
-export const DeleteMemoRequest = () => {
+export const DeleteMemoRequest = (date, key) => {
   return {
     type:DELETE_MEMO_REQUEST,
+    data : {date, key}
   };
 };
-export const DeleteMemoSuccess = () => {
+export const DeleteMemoSuccess = (data) => {
   return {
     type:DELETE_MEMO_SUCCESS,
+    data
   };
 };
 export const DeleteMemoFailure = (error) => {
   return {
     type:DELETE_MEMO_FAILURE,
-    error: error,
+    error
   };
 };
 
-export const UpdateMemoRequest = () => {
+export const UpdateMemoRequest = (date, key, updateText) => {
   return {
     type: UPDATE_MEMO_REQUEST,
+    data : {
+      date, key, updateText
+    }
   };
 };
-export const UpdateMemoSuccess = () => {
+export const UpdateMemoSuccess = (data) => {
   return {
     type: UPDATE_MEMO_SUCCESS,
+    data,
   };
 };
 export const UpdateMemoFailure = (error) => {
@@ -375,7 +413,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
 
-      case ADD_MEMO_REQUEST: {
+      case ADD_MEMO_REQUEST: {  // memoAdde, isMemoAdding 같은거 하나도 안 씀. 정리 해야함
         draft.memoAdded = false;
         draft.isMemoAdding = true;
         draft.addMemoErrorReason = '';
@@ -384,6 +422,13 @@ const reducer = (state = initialState, action) => {
       case ADD_MEMO_SUCCESS: {
         draft.memoAdded = true;
         draft.isMemoAdding = false;
+        if(draft.memo[action.data.date] && draft.memo[action.data.date].length > 0){
+          const maxKey = draft.memo[action.data.date].reduce((acc, now) => acc < now.key ? now.key : acc);
+          draft.memo[action.data.date].push({key: maxKey+1, contents : action.data.memoText})
+        }else {
+          draft.memo[action.data.date] = [{key: 0, contents : action.data.memoText}];
+        }
+        
         break;
       }
       case ADD_MEMO_FAILURE: {
@@ -401,6 +446,8 @@ const reducer = (state = initialState, action) => {
       case DELETE_MEMO_SUCCESS: {
         draft.memoDeleted = true;
         draft.isMemoDeleting = false;
+        const index = draft.memo[action.data.date].findIndex(value => value.key === action.data.key);
+        draft.memo[action.data.date].splice(index,1);
         break;
       }
       case DELETE_MEMO_FAILURE: {
@@ -418,6 +465,8 @@ const reducer = (state = initialState, action) => {
       case UPDATE_MEMO_SUCCESS: {
         draft.memoUpdated = true;
         draft.isMemoUpdating = false;
+        const index = draft.memo[action.data.date].findIndex(value => value.key === action.data.key);
+        draft.memo[action.data.date][index].contents = action.data.updateText;
         break;
       }
       case UPDATE_MEMO_FAILURE: {

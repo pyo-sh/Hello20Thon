@@ -26,7 +26,7 @@ const UpperDiv = styled.div`
 const UserRecord = () => {
     const nowDate = useSelector(state => state.day.nowPointingDate);
     const routine  = useSelector(state => state.day.routine[nowDate]);
-
+    const memo = useSelector(state => state.day.memo[nowDate]);
     // 루틴들을 render
     const renderRoutine = () => {
         if(routine && routine.length !== 0){
@@ -48,7 +48,7 @@ const UserRecord = () => {
             </div>
             <div className="Memo">
                 <div className="Title">메모</div>
-                
+                <UserRecordMemo date={nowDate} memo={memo}/>
             </div>
         </UpperDiv>
     );

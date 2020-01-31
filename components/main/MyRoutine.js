@@ -21,7 +21,6 @@ import {
 } from "../../reducers/user";
 import { getExerciseCount, getExerciseName } from "../ExerciseFuction";
 import RoutineDetail from "./RoutineDetail";
-import AddExercise from "./AddExercise";
 
 const { Option } = Select;
 
