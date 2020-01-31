@@ -4,6 +4,7 @@ import { Card, Icon, Drawer, Modal, Select, Input, Form, Button, DatePicker } fr
 import styled from 'styled-components';
 import Exercise from './Exercise';
 import {GetAreaValueAction, ADD_EXERCISE_REQUEST} from '../../reducers/user';
+import { getExerciseName, getExerciseCount } from '../ExerciseFuction';
 
 const { Option } = Select;
 
