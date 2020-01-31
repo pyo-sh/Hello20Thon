@@ -25,6 +25,9 @@ const WeightInput = styled(Input)`
         -webkit-appearance: none;
         margin: 0;
     }
+    & :hover, :focus{
+        border: 1px solid #2ed573;
+    }
 `;
 
 const UserRecordWeight = () => {
