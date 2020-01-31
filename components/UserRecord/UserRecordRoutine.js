@@ -62,7 +62,11 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
     const renderTrainings = () => {
         if(trainings && trainings.length !== 0){
             return trainings.map((element, i) => (
-                <UserRecordTraining key={i} trainingProp={element}/>
+                <UserRecordTraining
+                    key={i}
+                    index={i}
+                    parentIndex={index}
+                    trainingProp={element}/>
             ));
         }
         else    return null;
