@@ -22,23 +22,21 @@ const CalenderHeader = styled.div`
 
 const UserCalender = () => {
     const dispatch = useDispatch();
-    const [nowDate, setNowDate] = useState(new Date()); // 캘린더에서 표시하고 있는 State
-    const routine = useSelector(state => state.day.routine);
-    const memo = useSelector(state => state.day.memo);
+    const [nowDate, setNowDate] = useState(new Date());         // 캘린더에서 표시하고 있는 State
+    const routine = useSelector(state => state.day.routine);    // 가지고 있는 routine
+    const memo = useSelector(state => state.day.memo);          // 가지고 있는 memo
 
     // onChange = 메뉴 판이 [내부 클릭에 의해] 바뀔 때 마다 저장
     const onCalenderChange = useCallback((value)=>{
         const dateTemp = new Date(value.year(), value.month(), value.date());
         const stringTemp = dateTemp.toString().slice(0, 15);
         setNowDate(stringTemp);
-
-        console.log("클릭", stringTemp);
     }, [nowDate]);
 
     // onPanelChange = 메뉴 판이 [헤더에 의해] 바뀔 때 마다 저장
-    const onPanelChange = useCallback((value, mode) => {
-        console.log(value.month(), mode);
-    }, [nowDate]);
+    // const onPanelChange = useCallback((value, mode) => {
+    //     console.log(value.month(), mode);
+    // }, [nowDate]);
     
     // 캘린더의 헤더를 Custom 해서 return
     const headerRender = ({ value, type, onChange, onTypeChange }) => {
@@ -140,7 +138,7 @@ const UserCalender = () => {
                 <Badge status={item.type}/>
             ))
         );
-    }, []);
+    }, [memo, routine]);
 
     function getMonthData(value) {
         if (value.month() === 8) {
@@ -163,7 +161,7 @@ const UserCalender = () => {
             <Calendar
                 fullscreen={false}
                 onChange={onCalenderChange}
-                onPanelChange={onPanelChange}
+                // onPanelChange={onPanelChange}
                 headerRender={headerRender}
                 dateCellRender={dateCellRender}
                 // monthCellRender={monthCellRender}

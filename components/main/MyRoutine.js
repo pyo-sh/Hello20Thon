@@ -19,9 +19,11 @@ import {
   AddRecordRequestAction,
   DELETE_EXERCISE_REQUEST
 } from "../../reducers/user";
+import {
+  AddRoutineRequest
+} from '../../reducers/day';
 import { getExerciseCount, getExerciseName } from "../ExerciseFuction";
 import RoutineDetail from "./RoutineDetail";
-import AddExercise from "./AddExercise";
 
 const { Option } = Select;
 
@@ -29,7 +31,8 @@ const ContentForm = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  padding-right: 30px;
 `;
 
 //루틴
@@ -50,6 +53,17 @@ const DeleteIcon = styled.div`
 
   &:hover {
     opacity: 0.7;
+  }
+`;
+
+const RoutineMainBox = styled.div`
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+  padding: 20px 0;
+
+  & .RoutineBox-Icon{
+    margin-right: 12.5px;
   }
 `;
 
@@ -114,6 +128,7 @@ const MyRoutine = () => {
   const { _area, _posture, _count, userRecord } = useSelector(
     state => state.user
   );
+  const nowDate = useSelector(state => state.day.nowPointingDate);
 
   const dispatch = useDispatch();
 
@@ -192,12 +207,23 @@ const MyRoutine = () => {
     const temp = totalExercise.filter(exercise => exercise.id !== id);
     setTotalExercise(temp);
   };
-
+  // 루틴을 내 캘린더에 저장할 때 (아이콘 클릭)
+  const addRoutineOnClick = useCallback((key) => (e)=>{
+    //nowDate
+    dispatch(AddRoutineRequest(nowDate, userRecord[key]));
+  }, [nowDate, userRecord]);
   return (
     <>
       <ContentForm>
         {Object.keys(userRecord).map(value => (
+          <RoutineMainBox>
+            <Icon 
+              className="RoutineBox-Icon"
+              type="plus"
+              onClick={addRoutineOnClick(value)}
+              />
             <RoutineDetail myValue={userRecord[value]}/>
+          </RoutineMainBox>
         ))}
 
         <ContentAdd onClick={onAddRoutineClick}>

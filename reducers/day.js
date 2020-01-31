@@ -10,7 +10,7 @@ const dummyRecord = {
   "Wed Jan 01 2020": [
       {
         key: 0,
-        name: "하체 뿜뿜 나만의 운동법",
+        routineName: "하체 뿜뿜 나만의 운동법",
         trainings: [
           {
             id: 0,
@@ -40,7 +40,7 @@ const dummyRecord = {
   "Thu Jan 02 2020": [
       {
         key: 1,
-        name: "어깨 불쑥 어깨깡패 운동법",
+        routineName: "어깨 불쑥 어깨깡패 운동법",
         trainings: [
 
         ],
@@ -50,7 +50,7 @@ const dummyRecord = {
   "Fri Jan 03 2020": [
       {
         key: 2,
-        name: "뒷태 미남 등 폭발 운동법",
+        routineName: "뒷태 미남 등 폭발 운동법",
         trainings: [
 
         ],
@@ -60,7 +60,7 @@ const dummyRecord = {
   "Sat Jan 04 2020": [
       {
         key: 3,
-        name: "오늘은 조졌다, 삼두이두복근",
+        routineName: "오늘은 조졌다, 삼두이두복근",
         trainings: [
 
         ],
@@ -76,15 +76,33 @@ export const initialState = {
   routineAdded: false,              // 루틴이 더해졌는지
   isRoutineAdding: false,           // 루틴을 추가하는 중
   addRoutineErrorReason: '',        // 루틴 추가 실패 요인
+  routineDeleted: false,            // 루틴이 삭제됐는지
+  isRoutineDeleting: false,         // 루틴을 삭제하는중
+  deleteRoutineErrorReason: '',     // 루틴 삭제 실패 요인
+  routineUpdated: false,            // 루틴이 업데이트 됐는지
+  isRoutineUpdating: false,         // 루틴을 업데이트 하는중
+  updateRoutineErrorReason: '',     // 루틴 업데이트 실패 요인
   memoAdded: false,                 // 메모가 더해졌는지
   isMemoAdding: false,              // 메모를 추가하는 중
   addMemoErrorReason: '',           // 메모 추가 실패 요인
+  memoDeleted: false,               // 메모가 삭제됐는지
+  isMemoDeleting: false,            // 메모를 삭제하는중
+  deleteMemoErrorReason: '',        // 메모 삭제 실패 요인
+  memoUpdated: false,               // 메모가 업데이트 됐는지
+  isMemoUpdating: false,            // 메모를 업데이트 하는중
+  updateMemoErrorReason: '',        // 메모 업데이트 실패 요인
   weightAdded: false,               // 몸무게가 더해졌는지
   isWeightAdding: false,            // 몸무게를 추가하는 중
   addWeightErrorReason: '',         // 몸무게 추가 실패 요인
   reasonAdded: false,               // 사유가 더해졌는지
   isReasonAdding: false,            // 사유를 추가하는 중
   addReasonErrorReason: '',         // 사유 추가 실패 요인
+  reasonDeleted: false,             // 사유가 삭제됐는지
+  isReasonDeleting: false,          // 사유를 삭제하는중
+  deleteReasonErrorReason: '',      // 사유 삭제 실패 요인
+  reasonUpdated: false,             // 사유가 업데이트 됐는지
+  isReasonUpdating: false,          // 사유를 업데이트 하는중
+  updateReasonErrorReason: '',      // 사유 업데이트 실패 요인
   nowPointingDate: "",              // 현재 유저가 가르키고있는 날짜
 };
 
@@ -138,14 +156,19 @@ export const SET_NOWPOINTINGDATE = 'SET_NOWPOINTINGDATE';
 
 // Actions
 // routine에 관한 actions
-export const AddRoutineRequest = () => {
+export const AddRoutineRequest = (date, object) => {
   return {
     type: ADD_ROUTINE_REQUEST,
+    data: {
+      date,
+      object,
+    }
   };
 };
-export const AddRoutineSuccess = () => {
+export const AddRoutineSuccess = (data) => {
   return {
     type: ADD_ROUTINE_SUCCESS,
+    data,
   };
 };
 export const AddRoutineFailure = (error) => {
@@ -155,14 +178,19 @@ export const AddRoutineFailure = (error) => {
   };
 };
 
-export const DeleteRoutineRequest = () => {
+export const DeleteRoutineRequest = (date, index) => {
   return {
-    type:DELETE_ROUTINE_REQUEST,
+    type: DELETE_ROUTINE_REQUEST,
+    data: {
+      date,
+      index
+    }
   };
 };
-export const DeleteRoutineSuccess = () => {
+export const DeleteRoutineSuccess = (data) => {
   return {
     type:DELETE_ROUTINE_SUCCESS,
+    data,
   };
 };
 export const DeleteRoutineFailure = (error) => {
@@ -243,15 +271,16 @@ export const UpdateMemoFailure = (error) => {
 export const AddWeightRequest = (date, weight) => {
   return {
     type: ADD_WEIGHT_REQUEST,
-    date: date,
-    weight: weight,
+    data:{
+      date,
+      weight
+    }
   };
 };
-export const AddWeightSuccess = (date, weight) => {
+export const AddWeightSuccess = (data) => {
   return {
     type: ADD_WEIGHT_SUCCESS,
-    date,
-    weight
+    data
   };
 };
 export const AddWeightFailure = (error) => {
@@ -333,6 +362,8 @@ const reducer = (state = initialState, action) => {
       case ADD_ROUTINE_SUCCESS: {
         draft.routineAdded = true;
         draft.isRoutineAdding = false;
+        if(draft.routine[action.data.date]) draft.routine[action.data.date].push(action.data.object);
+        else  draft.routine[action.data.date] = [action.data.object];
         break;
       }
       case ADD_ROUTINE_FAILURE: {
@@ -350,6 +381,12 @@ const reducer = (state = initialState, action) => {
       case DELETE_ROUTINE_SUCCESS: {
         draft.routineDeleted = true;
         draft.isRoutineDeleting = false;
+        // 마지막 삭제라면 아예 없앤다. {} 객체마저도 삭제
+        if(draft.routine[action.data.date].length === 1)
+          delete draft.routine[action.data.date];
+        // index와 같은 index를 만나면 삭제
+        else
+          draft.routine[action.data.date].splice(action.data.index, 1);
         break;
       }
       case DELETE_ROUTINE_FAILURE: {
@@ -435,7 +472,7 @@ const reducer = (state = initialState, action) => {
       case ADD_WEIGHT_SUCCESS: {
         draft.weightAdded = true;
         draft.isWeightAdding = false;
-        draft.weight[action.date] = action.weight;
+        draft.weight[action.data.date] = action.data.weight;
         break;
       }
       case ADD_WEIGHT_FAILURE: {
