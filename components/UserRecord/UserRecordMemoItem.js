@@ -1,14 +1,40 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Input } from "antd";
+import { Button, Input, Icon } from "antd";
 import styled from "styled-components";
 import { DeleteMemoRequest, UpdateMemoRequest } from "../../reducers/day";
 
 const MemoItemBox = styled.div`
   display: flex;
   justify-content: space-between;
-  & div {
-      display : flex;
+  align-items: center;
+  
+  padding: 10px 5px;
+  margin: 7.5px 0px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+
+  & .Memo-Item-Contents {
+    min-height: 32.5px;
+    display : flex;
+    align-items: center;
+    padding: 4px 11px;
+    white-space:pre-wrap;
+    width: 100%;
+  }
+  & .Memo-Item-Input{
+    resize: none;
+    overflow: hidden;
+    min-height: 32.5px;
+    & :hover, :focus{
+      border: 1px solid #f1c40f;
+      box-shadow: 0 0 0 2px rgba(250, 173, 20, 0.2);
+    }
+  }
+  & .Memo-Item-Icon{
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 5px;
   }
 `;
 
@@ -25,41 +51,49 @@ const UserRecordMemoItem = ({ date, item }) => {
     setIsUpdate(true);
     setUpdateText(item.contents);
   }, [item]);
-  const cancleUpdate = useCallback(() => {
-    setIsUpdate(false);
-  }, []);
+  // const cancleUpdate = useCallback(() => {
+  //   setIsUpdate(false);
+  // }, []);
 
   const updatingText = useCallback((e) => {
     setUpdateText(e.target.value);
   },[]);
 
   const sendUpdateText = useCallback(()=> {
-    dispatch(UpdateMemoRequest(date, item.key, updateText));
+    if(updateText && updateText.trim()){
+      dispatch(UpdateMemoRequest(date, item.key, updateText));
+    }
     setIsUpdate(false);
   }, [updateText]);
   return (
     <MemoItemBox>
       {!isUpdate ? (
         <>
-          <div>{item.contents}</div>
-          <div>
-            <Button type="primary" onClick={doUpdate}>
-              수정
-            </Button>
-            <Button type="danger" onClick={deleteItem}>
-              삭제
-            </Button>
+          <div 
+            className="Memo-Item-Contents"
+            onClick={doUpdate}
+            >
+            {item.contents}
           </div>
+          <Icon
+            className="Memo-Item-Icon"
+            type="close"
+            onClick={deleteItem}
+          />
         </>
       ) : (
         <>
-          <div>
-            <Input value={updateText} onChange={updatingText}></Input>
-          </div>
-          <div>
-            <Button type="primary" onClick={sendUpdateText}>확인</Button>
-            <Button type="danger" onClick={cancleUpdate}>취소</Button>
-          </div>
+          <Input.TextArea
+            className="Memo-Item-Input"
+            autoSize
+            value={updateText}
+            onChange={updatingText}
+            />
+          <Icon
+            className="Memo-Item-Icon"
+            type="check"
+            onClick={sendUpdateText}
+            />
         </>
       )}
     </MemoItemBox>
