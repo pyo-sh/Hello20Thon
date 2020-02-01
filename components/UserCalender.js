@@ -217,8 +217,8 @@ const UserCalender = () => {
         // console.log(value.date(), value.month());
         const listData = getListData(value);
         return (
-            listData.map(item => (
-                <Badge status={item.type}/>
+            listData.map((item, index) => (
+                <Badge status={item.type} key={index}/>
             ))
         );
     }, [memo, routine]);
