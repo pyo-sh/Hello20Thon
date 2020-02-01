@@ -8,6 +8,10 @@ function* addVideo(action) {
         })
     }catch(e){
         console.error(e);
+        yield put({
+            type: ADD_YOUTUBE_VIDEO_FAILURE,
+            error
+        })
     }
 }
 function* watchAddVideo(){

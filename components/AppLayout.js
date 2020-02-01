@@ -43,7 +43,7 @@ const AppLayout = ({ children, router }) => {
           defaultSelectedKeys={[pathname]}
           style={{ lineHeight: "64px" }}
         >
-          <Menu.Item key="/"><Link href="/"><a><b>HYM</b></a></Link></Menu.Item>
+          <Menu.Item key="/"><Link href="/"><a><img src="/images/favicon.ico" style={{marginTop: "-5px"}}/><b>HYM</b></a></Link></Menu.Item>
           <Menu.Item key="/howtouse"><Link href="howtouse"><a>사용법</a></Link></Menu.Item>
           <Menu.Item key="/searchimage"><Link href="searchimage"><a>운동사진검색</a></Link></Menu.Item>
         </Menu>

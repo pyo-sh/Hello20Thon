@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Row, Col } from "antd";
 import Youtube from "../components/youtube/Youtube";
-import Search from "./searchimage";
 import UserCalender from "../components/UserCalender";
 import UserRecord from "../components/main/UserRecord";
 import StopWatchForm from "../components/stopwatch/StopWatchForm";
@@ -89,7 +88,6 @@ const Home = () => {
           </Col>
           <Col xs={24} sm={12} xl={6}>
             <StopWatchForm/>
-            {/* <Search/> */}
           </Col>
         </Row>
       </div>

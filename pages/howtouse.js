@@ -8,6 +8,11 @@ const HowtouseWrapper = styled.div`
     justify-content : center;
     align-items : flex-start;
     font-size : 20px;
+    & div img {
+        width : 80%;
+        max-width : 300px;
+        min-width : 200px;
+    }
 `;
 // 사용법 순서 :
 // 달력 :
@@ -29,15 +34,26 @@ const Howtouse = () => {
             <div>
                 초보자분은 우리가 추천하는 초보자루틴을 적용하여 운동을 시작하실 수 있습니다.
                 중, 고급자분들은 자신만의 운동 루틴을 추가하여 하는 것을 추천드립니다.
-                어떤 운동인지 보고 싶으시면 구글에서 검색한 사진을 보여드립니다!
             </div>
             <div>
+            <img src="/images/youtube.png"/>
+                <div>
                 저희 서비스에서 유튜브 검색을 지원합니다!
                 유튜브 검색을 통해 운동 유튜버들의 자세를 참고하며 운동하세요! 
+                </div>
+                
             </div>
             <div>
-                스톱워치를 시간을 설정하고 운동을 해보세요!
+            <img src="/images/stopwatch.png"/>
+                <div>
+                스톱워치를 사용하여 시간을 설정하고 운동을 해보세요!
                 예쁜 목소리로 시간이 다 됐음을 알려줍니다!
+                </div>
+            </div>
+            <div>
+                <img src="/images/searchImage.png"/>
+                <div>
+            어떤 운동인지 보고 싶으시면 검색하세요! 구글에서 검색한 사진을 보여드리고 이미지를 클릭하면 해당 관련 글이 새 창에서 열립니다.</div>
             </div>
             <div>
                 여러분들의 운동 파트너 <b>HYM</b>!
