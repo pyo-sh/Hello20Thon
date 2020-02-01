@@ -102,6 +102,8 @@ const Howtouse = () => {
                 집에서도 할 수 있는 맨몸운동을 통해 모두가 건강한 세상을 만드는 것이 저희의 <b>목표</b>입니다.<br/>
             </div>
             <div className="How-Routine">
+                <img src="/images/routine1.png"/>
+                <img src="/images/routine2.png"/>
                 <div className="How-Description">
                     <div className="How-Description-Title"> 직접 만들어보는 루틴 </div>
                     <div className="How-Description-Content">
@@ -120,8 +122,8 @@ const Howtouse = () => {
                         운동을 못 했거나, 그 날 확인해야 할 사항이 있다면 메모기능을 사용하시면 간편합니다!
                     </div>
                 </div>
-                <img src="/images/calendar1.jpg"/>
-                <img src="/images/calendar2.jpg"/>
+                <img src="/images/calendar1.png"/>
+                <img src="/images/calendar2.png"/>
             </div>
             <div className="How-Youtube">
                 <img src="/images/youtube.png"/>

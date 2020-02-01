@@ -6,8 +6,7 @@ import UserRecordRoutine from '../userRecord/UserRecordRoutine';
 import styled from 'styled-components';
 
 const UpperDiv = styled.div`
-    max-width: 340px;
-    min-width: 260px;
+    width: 340px;
     padding: 10px;
     margin: 20px;
     border: 1px solid #d9d9d9;

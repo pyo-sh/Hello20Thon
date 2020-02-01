@@ -6,8 +6,7 @@ import { Calendar, Select, Radio, Col, Row, Badge  } from 'antd';
 const { Group, Button } = Radio;
 
 const UpperDiv = styled.div`
-    max-width: 340px;
-    min-width: 260px;
+    width: 340px;
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
     margin: 20px;
