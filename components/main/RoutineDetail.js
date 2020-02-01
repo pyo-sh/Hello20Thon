@@ -147,7 +147,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
     }
     return (
         <>
-            <Content>
+            <Content onClick={toggleShow}>
             {/* 추천 루틴은 삭제 안되게!!! */}
             {
                 myValue ?
@@ -162,7 +162,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                 :
                 <></>
             }
-                <Routine onClick={toggleShow}>{value.routineName}</Routine>
+                <Routine>{value.routineName}</Routine>
             </Content>
             <Drawer
                 title={value.routineName}
