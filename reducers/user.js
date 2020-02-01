@@ -9,9 +9,6 @@ import produce from "immer";
 export const initialState = {
   id: 1,                        // 혹시 필요할까 추가함
   name : "",
-  _area: "",     //운동 부위 
-  _posture: "",  //운동 자세 
-  _count: 0,     //운동 개수, 시간
   userRecord: {
     0: {
       key: 0,
@@ -19,8 +16,8 @@ export const initialState = {
       trainings: [
         {
           id: 1, 
-          area: "aerobic-exercise",     //운동 부위 
-          posture: "bicycle",  //운동 자세 
+          area: "유산소 운동",     //운동 부위 
+          posture: "자전거",  //운동 자세 
           count: 30,     //운동 개수, 시간
           done: false
         }
@@ -31,7 +28,6 @@ export const initialState = {
     0:{
       key: 0,
       routineName: "초보자 가슴 루틴",
-      //area 추가하3
       trainings: [
         {
           id: 1,
@@ -230,17 +226,9 @@ export const DELETE_RECORD_REQUEST = 'DELETE_RECORD_REQUEST';
 export const DELETE_RECORD_SUCCESS = 'DELETE_RECORD_SUCCESS';
 export const DELETE_RECORD_FAILURE = 'DELETE_RECORD_FAILRUE';
 
-// export const DELETE_EXERCISE_REQUEST = 'DELETE_EXERCISE_REQUEST';
-// export const DELETE_EXERCISE_SUCCESS = 'DELETE_EXERCISE_SUCCESS';
-// export const DELETE_EXERCISE_FAILURE = 'DELETE_EXERCISE_FAILRUE';
-
 export const UPDATE_RECORD_REQUEST = 'UPDATE_RECORD_REQUEST';
 export const UPDATE_RECORD_SUCCESS = 'UPDATE_RECORD_SUCCESS';
-export const UPDATE_RECORD_FAILURE = 'UPDATE_RECORD_FAILRUE';
-
-export const GET_AREA_VALUE = 'GET_AREA_VALUE';
-export const GET_POSTURE_VALUE = 'GET_POSTURE_VALUE';
-export const GET_COUNT_VALUE = 'GET_COUNT_VALUE';
+export const UPDATE_RECORD_FAILURE = 'UPDATE_RECORD_FAILURE';
 
 // Actions
 // 더하는 Actions
@@ -342,25 +330,6 @@ export const UpdateRecordFailureAction = (error) => {
   });
 };
 
-export const GetAreaValueAction = (areaValue) => {
-  return({
-    type: GET_AREA_VALUE,
-    data: areaValue
-  });
-};
-export const GetPostureValueAction = (postureValue) => {
-  return({
-    type: GET_POSTURE_VALUE,
-    data: postureValue
-  });
-};
-export const GetCountValueAction = (countValue) => {
-  return({
-    type: GET_COUNT_VALUE,
-    data: countValue
-  });
-};
-
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {
@@ -453,18 +422,6 @@ const reducer = (state = initialState, action) => {
       case UPDATE_RECORD_FAILURE: {
         draft.isRecordUpdating = false;
         draft.updateRecordErrorReason = action.error;
-        break;
-      }
-      case GET_AREA_VALUE: {
-        draft._area = action.data;
-        break;
-      }
-      case GET_POSTURE_VALUE: {
-        draft._posture = action.data;
-        break;
-      }
-      case GET_COUNT_VALUE: {
-        draft._count = action.data;
         break;
       }
       default:{
