@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from "./node_modules/react";
-import { useDispatch } from "./node_modules/react-redux";
-import { Button, Input } from "./node_modules/antd";
-import styled from "./node_modules/styled-components";
+import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Button, Input } from "antd";
+import styled from "styled-components";
 import { DeleteMemoRequest, UpdateMemoRequest } from "../../reducers/day";
 
 const MemoItemBox = styled.div`

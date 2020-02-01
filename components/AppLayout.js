@@ -37,7 +37,6 @@ const AppLayout = ({ children }) => {
       <LayoutHeader>
         <Menu
           mode="horizontal"
-          defaultSelectedKeys={["home"]}
           style={{ lineHeight: "64px" }}
         >
           <Menu.Item key="home"><Link href="/"><a><b>HYM</b></a></Link></Menu.Item>
