@@ -10,14 +10,82 @@ const UpperDiv = styled.div`
     min-width: 260px;
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
-    margin: auto;
-    margin-top: 20px;
+    margin: 20px;
+    & .ant-fullcalendar-selected-day .ant-fullcalendar-value, .ant-fullcalendar-month-panel-selected-cell .ant-fullcalendar-value{
+        color: black;
+        border-radius: none;
+        border-bottom: 2px solid #8854d0;
+        background: none;
+        box-shadow: none;
+    }
+    & .ant-fullcalendar-today .ant-fullcalendar-value, .ant-fullcalendar-month-panel-current-cell .ant-fullcalendar-value{
+        box-shadow: none;
+        color: rgba(0, 0, 0, 0.65);
+        background: #d980fa73;
+    }
+    & .ant-fullcalendar-value{
+        & :hover, :focus{
+            background: #d980fa20;
+        }
+        & :active{
+            background: #d980fa;
+        }
+    }
+    & .ant-fullcalendar-content{
+        justify-content: center;
+        & .ant-badge{
+            width: 8px;
+        }
+    }
 `;
-const CalenderHeader = styled.div`
+const CalendarHeader = styled.div`
     padding: 10px;
     & .Title{
         margin-Bottom: 10px;
     }
+    & .Calendar-Button{
+        border: none;
+        box-shadow: none;
+        margin: 1px;
+    }
+    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        color: #8854d0;
+        border: none;
+        border-radius: none;
+        border-bottom: 2px solid #8854d0;
+        box-shadow: none;
+    }
+    & .ant-radio-button-wrapper:hover{
+
+        color: #8854d0;
+        background: #d980fa20;
+        box-shadow: 0 0 0 1px #d980fa20;
+    }
+    & .ant-select-selection{
+        & :hover, :active, :focus{
+            border-color: #d980fa99;
+            box-shadow: 0 0 0 2px #d980fa30;
+        }
+    }
+    & .Year-Item{
+        & :hover, :focus{
+            background: #d980fa20;
+        }
+    }
+    /* & .Calendar-Button{
+        color: #d980fa;
+        border: 1px solid #d980fa73;
+        & :hover, :focus{
+            color: #d980fa; 
+            border: 1px solid #d980fa73;
+        }
+    } */
+    /* & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child{
+        border-color: #8854d099;
+    }
+    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        box-shadow: -1px 0 0 0 #8854d099;
+    } */
 `;
 
 const UserCalender = () => {
@@ -71,13 +139,13 @@ const UserCalender = () => {
         };
 
         return (
-            <CalenderHeader>
+            <CalendarHeader>
                 <div className="Title"> 운동 상태 </div>
                 <Row type="flex" justify="space-between">
                     <Col>
                         <Group onChange={e => onTypeChange(e.target.value)} value={type}>
-                            <Button value="month">Month</Button>
-                            <Button value="year">Year</Button>
+                            <Button className="Calendar-Button" value="month">Month</Button>
+                            <Button className="Calendar-Button" value="year">Year</Button>
                         </Group>
                     </Col>
                     <Col>
@@ -108,7 +176,7 @@ const UserCalender = () => {
                         </Select>
                     </Col>
                 </Row>
-            </CalenderHeader>
+            </CalendarHeader>
         );
     }
     // Month 캘린더일 때 정보 표시(했는지 안했는지)를 전부 list로

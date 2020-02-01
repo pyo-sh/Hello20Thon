@@ -551,8 +551,14 @@ const reducer = (state = initialState, action) => {
       case DELETE_MEMO_SUCCESS: {
         draft.memoDeleted = true;
         draft.isMemoDeleting = false;
-        const index = draft.memo[action.data.date].findIndex(value => value.key === action.data.key);
-        draft.memo[action.data.date].splice(index,1);
+        // 마지막 메모 삭제라면 전체 삭제
+        if(draft.memo[action.data.date].length === 1)
+          delete draft.memo[action.data.date];
+        // 마지막이 아니라 index를 찾아서 삭제해야 한다면
+        else{
+          const index = draft.memo[action.data.date].findIndex(value => value.key === action.data.key);
+          draft.memo[action.data.date].splice(index,1);
+        }
         localStorage.setItem("memo", JSON.stringify(draft.memo));
         break;
       }

@@ -71,11 +71,11 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
         }
         else    return null;
     }
-
+    // 삭제 버튼을 누를 시 발생
     const deleteOnClick = useCallback((e) => {
         const userSelect = confirm("정말 삭제하시겠습니까?");
+        // confirm 버튼을 눌렀을 때
         if(userSelect)  dispatch(DeleteRoutineRequest(nowDate, index));
-        else    console.log("겁쟁이녀석,,")
     }, [nowDate, index]);
 
     return (

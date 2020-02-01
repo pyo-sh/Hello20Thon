@@ -5,16 +5,14 @@ export const initialState = {
     selectVideo : {},
     youtubeError : '',
     nextPageToken : '',
-    lastSearch : '운동',
+    lastSearch : '맨몸운동',
 }
 
 export const YOUTUBE_VIDEO_REQUEST = "YOUTUBE_VIDEO_REQUEST";
 export const YOUTUBE_SELECT_VIDEO = "YOUTUBE_SELECT_VIDEO";
 export const ADD_YOUTUBE_VIDEO_REQUEST = "ADD_YOUTUBE_VIDEO_REQUEST";
 export const ADD_YOUTUBE_VIDEO_SUCCESS = "ADD_YOUTUBE_VIDEO_SUCCESS";
-// export const YOUTUBE_VIDEO_SUCCESS = "YOUTUBE_VIDEO_SUCCESS";
-// export const YOUTUBE_VIDEO_FAILURE = "YOUTUBE_VIDEO_FAILURE";
-
+export const ADD_YOUTUBE_VIDEO_FAILURE = "ADD_YOUTUBE_VIDEO_FAILURE";
 
 const reducer = (state = initialState, action) => {
     return produce(state, draft => {
@@ -34,6 +32,10 @@ const reducer = (state = initialState, action) => {
                     draft.videos.push(result);
                 })
                 draft.nextPageToken = action.data.pageInfo.nextPageToken;
+                break;
+            }
+            case ADD_YOUTUBE_VIDEO_FAILURE :{
+                draft.youtubeError = action.error;
                 break;
             }
             case YOUTUBE_SELECT_VIDEO : { // 리스트 목록 클릭 했을 때
