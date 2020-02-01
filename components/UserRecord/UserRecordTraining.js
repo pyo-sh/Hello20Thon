@@ -76,7 +76,7 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
                 onClick={iconToggle}
                 />
             <div className="Training-Posture">
-                {getExerciseName[posture]}
+                {posture}
             </div>
             <div className="Training-Count">
                 {count}{getExerciseCount(area)}

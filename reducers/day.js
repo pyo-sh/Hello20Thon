@@ -45,7 +45,7 @@ const dummyRecord = {
           {
             id: 0,
             area: "quads",
-            posture: "lunge",
+            posture: "런지",
             count: 12,
             done: true,
           },

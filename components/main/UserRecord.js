@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import UserRecordMemo from '../userRecord/UserRecordMemo';
 import UserRecordWeight from '../userRecord/UserRecordWeight';
 import UserRecordRoutine from '../userRecord/UserRecordRoutine';
 import styled from 'styled-components';
-import { Button, Modal } from 'antd';
 
 const UpperDiv = styled.div`
     max-width: 340px;
