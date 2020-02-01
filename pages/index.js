@@ -25,18 +25,12 @@ const InputNickname = styled.div`
   & .nicknameInput {
       width : 80%;
   }
+`;
 
-`;
-const VideoDiv = styled.div`
-  position: absolute;
-  top:50%;
-  left:50%;
-  transform : translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  opacity: 0.35;
-`;
+const UpperDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
 
 const Home = () => {
   const dispatch  = useDispatch();
@@ -85,28 +79,19 @@ const Home = () => {
             <Button htmlType="submit" type="primary">입력</Button>
           </Form>
         </InputNickname>
-        <VideoDiv>
-          
-        </VideoDiv>
       </>
     ) : (
-      <div>
-        <Row type="flex" justify="start">
-          <Col xs={24} sm={11} xl={6}>
-            <UserCalender />
-            <UserRecord />
-          </Col>
-          <Col xs={24} sm={13} xl={9}>
-            <Main/>
-          </Col>
-          <Col xs={24} sm={12} xl={9}>
-            {/* <Youtube /> */}
-          </Col>
-          <Col xs={24} sm={12} xl={6}>
-            <StopWatchForm/>
-          </Col>
-        </Row>
-      </div>
+      <UpperDiv>
+        <div>
+          <UserCalender/>
+            <UserRecord/>
+        </div>
+        <div>
+          <StopWatchForm/>
+          <Main/>
+        </div>
+        <Youtube />
+      </UpperDiv>
     )}
   </>
   );
