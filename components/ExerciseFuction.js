@@ -62,7 +62,7 @@
 // 유산소 운동만 분이다
 export const getExerciseCount = value => {
   switch (value) {
-    case "aerobic-exercise":
+    case "유산소":
       return "분";
     default:
       return "개";

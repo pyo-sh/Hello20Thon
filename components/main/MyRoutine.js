@@ -1,3 +1,4 @@
+//새로운 루틴을 추가할 때
 import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,13 +9,11 @@ import {
   Select,
   Input,
   Form,
-  Button
+  Button,
+  message
 } from "antd";
 import styled from "styled-components";
-import ExerciseDetail from "./ExerciseDetail";
 import {
-  GetAreaValueAction,
-  GetCountValueAction,
   AddRecordRequestAction
 } from "../../reducers/user";
 import {
@@ -62,6 +61,8 @@ const RoutineMainBox = styled.div`
   & > div :hover {
     cursor: pointer;
     border : 1px solid #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
   }
   & .RoutineBox-Icon{
     margin-right: 12.5px;
@@ -69,26 +70,25 @@ const RoutineMainBox = styled.div`
   & .RoutineBox-Icon:hover{
     margin-right: 12.5px;
     color : #1890FF;
+    opacity: 0.7;
   }
 `;
 
-//루틴 추가
+//루틴 추가 style
 const ContentAdd = styled(Card)`
-  margin-bottom: 20px;
+  margin-top: 20px;
   width: 300px;
   border: dashed 2px lightgray;
   text-align: center;
   font-size: 27px;
   cursor: pointer;
   color: gray;
-  /* & .AddRoutine{
-        color: gray;
-        opacity: 0.8;
-        margin-left: -10px;
-        display: flex;
-        justify-content: space-around;
-        align-items:center;
-    } */
+
+  & :hover {
+    border: dashed 2px #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
+  }
 `;
 
 const RoutineForm = styled.div`
@@ -113,6 +113,12 @@ const ExerciseAdd = styled(Card)`
   text-align: center;
   font-size: 18px;
   cursor: pointer;
+
+  & :hover {
+    border: dashed 2px #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
+  }
 `;
 
 const Routine = styled.div`
@@ -123,71 +129,96 @@ const Routine = styled.div`
 `;
 
 const MyRoutine = () => {
-  const [inputRoutineName, setInputRoutineName] = useState("");
-  const [clickInput, setClickInput] = useState(false);
-  const [isAddRoutineClick, setIsAddRoutineClick] = useState(false);
-  const [isAddExerciseClick, setIsAddExerciseClick] = useState(false);
+  const [inputRoutineName, setInputRoutineName] = useState(""); //루틴 이름 저장
+  const [clickInput, setClickInput] = useState(false);    //루틴 이름 입력 버튼 
+  const [isAddRoutineClick, setIsAddRoutineClick] = useState(false);    //ADD ROUTINE 버튼 클릭 여부
+  const [isAddExerciseClick, setIsAddExerciseClick] = useState(false);  //ADD EXERCISE 버튼 클릭 여부
   const [exerciseAreaValue, setExerciseAreaValue] = useState(''); //운동 부위 값 저장
-  const [totalExercise, setTotalExercise] = useState([]);
-  const [id, setId ] = useState(0);
-  const {userRecord } = useSelector(
+  const [detailExerciseValue, setDetailExerciseValue] = useState(''); //운동 자세 값 저장
+  const [exerciseCount, setExerciseCount] = useState(0);  //운동 횟수 저장
+  const [totalExercise, setTotalExercise] = useState([]); //추가된 운동을 저장하는 배열
+  const [id, setId] = useState(0);
+  const {userRecord} = useSelector(
     state => state.user
   );
   const nowDate = useSelector(state => state.day.nowPointingDate);
 
   const dispatch = useDispatch();
 
+  //운동 부위 값 가져오기
+  const getAreaValue = useCallback(value => {
+    setExerciseAreaValue(value);
+  }, []);
+
+  //운동 자세 값 저장
+  const getDetailValue = useCallback(postureValue => {
+      setDetailExerciseValue(postureValue)
+  }, []);
+
+  //운동 횟수 입력
+  const onCountText = useCallback((e) => {
+    setExerciseCount(e.target.value)
+  }, []);
+
   //ADD ROUTINE 버튼 클릭
-  const onAddRoutineClick = () => {
+  const onAddRoutineClick = useCallback((e) => {
     setIsAddRoutineClick(true);
-  };
+  }, []);
 
   // //ADD EXERCISE 버튼 클릭
-  const onAddExerciseClick = () => {
+  const onAddExerciseClick = useCallback((e) => {
     setIsAddExerciseClick(true);
-  };
+  }, []);
 
   //ADD ROUTINE Drawer의 만들기 버튼 눌렀을 때
-  const addRoutine = e => {
+  const addRoutine = useCallback(e => {
     e.preventDefault();
-    //루틴 이름, 날짜, 운동들 추가함
-    dispatch(
-      AddRecordRequestAction({
-        routineName: inputRoutineName,
-        trainings: totalExercise
-      })
-    );
+    if (!inputRoutineName || !inputRoutineName.trim()) {
+      message.error("루틴 이름을 입력해 주세요");
+    } else if(totalExercise.length === 0){
+      message.error("운동을 추가해 주세요");
+    }else {
+      message.success("새 루틴 추가!")
+      //루틴 이름, 날짜, 운동들 추가함
+      dispatch(
+        AddRecordRequestAction({
+          routineName: inputRoutineName,
+          trainings: totalExercise
+        })
+      );
+      setIsAddRoutineClick(false);
+      setClickInput(false);
+      //운동 추가 배열, 루틴 이름, id 초기화
+      setTotalExercise([]);
+      setInputRoutineName('');
+      setId(0);
+    } 
+  }, [inputRoutineName, totalExercise]);
+
+  //ADD ROUTINE Drawer의 취소버튼 눌렀을때
+  const onCloseDrawer = useCallback((e) => {
     setIsAddRoutineClick(false);
+    //운동 추가 배열, 루틴 이름 초기화
     setTotalExercise([]);
     setInputRoutineName('');
-    setClickInput(false);
-    setId(0);
-  };
+    setClickInput(false)
+  },[]);
 
-  //Drawer 취소버튼 눌렀을때
-  const onCloseDrawer = () => {
-    setIsAddRoutineClick(false);
-    setTotalExercise([]);
-    setInputRoutineName('');
-  };
-
-  // //Modal의 OK버튼 눌렀을 경우
-  const onOkModal = () => {
-    setTotalExercise([...totalExercise, {id : id ,area :_area, posture: _posture, count: _count}]);
+  //Modal의 OK버튼 눌렀을 경우
+  const onOkModal = useCallback((e) => {
+    //추가 할 운동의 id와 운동 부위, 운동 자세, 운동 횟수 배열에 추가
+    setTotalExercise([...totalExercise, {id : id ,area : exerciseAreaValue, posture: detailExerciseValue, count: exerciseCount}]);
     setId(id+1);
     setIsAddExerciseClick(false);
-    setExerciseAreaValue('');
-  };
+    //임시 저장된 값들 초기화
+    setExerciseAreaValue('');  
+    setDetailExerciseValue('');
+    setExerciseCount(0);
+  }, [id, exerciseAreaValue, detailExerciseValue, exerciseCount]);
 
-  const onCloseModal = () => {
+  const onCloseModal = useCallback((e) => {
     setIsAddExerciseClick(false);
-  };
-
-  //운동 부위 값 가져오기
-  const getAreaValue = value => {
-    dispatch(GetAreaValueAction(value));
-    setExerciseAreaValue(value);
-  };
+  }, []);
 
   //루틴 이름 입력
   const onChangeText = useCallback(e => {
@@ -199,7 +230,7 @@ const MyRoutine = () => {
     e => {
       e.preventDefault();
       if (!inputRoutineName || !inputRoutineName.trim()) {
-        alert("공백 금지!");
+        message.error("루틴 이름을 입력해 주세요")
       } else {
         setClickInput(true);
       }
@@ -207,23 +238,28 @@ const MyRoutine = () => {
     [inputRoutineName]
   );
 
-  const deleteExercise = id => e => {
-    const temp = totalExercise.filter(exercise => exercise.id !== id);
-    setTotalExercise(temp);
-  };
+  const deleteExercise = useCallback(id => e => {
+    const userSelect = confirm("정말 삭제하시겠습니까?");
+    if (userSelect) {
+      const temp = totalExercise.filter(exercise => exercise.id !== id);
+      setTotalExercise(temp);
+    } 
+  }, [totalExercise]);
+
   // 루틴을 내 캘린더에 저장할 때 (아이콘 클릭)
   const addRoutineOnClick = useCallback((key) => (e)=>{
     //nowDate
     dispatch(AddRoutineRequest(nowDate, userRecord[key]));
   }, [nowDate, userRecord]);
 
-  const routineNameUpdate = () => {
+  const routineNameUpdate = useCallback((e) => {
     setClickInput(false);
     setInputRoutineName('');
-  };
+  },[]);
 
   return (
     <>
+      {/* 내 루틴 배열 */}
       <ContentForm>
         {Object.keys(userRecord).map((value, i) => (
           <RoutineMainBox key={i}>
@@ -236,12 +272,13 @@ const MyRoutine = () => {
           </RoutineMainBox>
         ))}
 
+        {/* 이 버튼 누르면 ADD ROUINTE Drawer 창 열림 */}
         <ContentAdd onClick={onAddRoutineClick}>
-          {/* 이 버튼 누르면 ADD ROUINTE Drawer 창 열림 */}
           <Icon type="plus-circle" style={{ fontSize: 30, marginRight: 20 }} />
           ADD ROUTINE
         </ContentAdd>
 
+        {/* ADD ROUTINE Drawer 창 */}
         <Drawer
           title="나만의 루틴"
           placement="right"
@@ -250,6 +287,7 @@ const MyRoutine = () => {
           onClose={onCloseDrawer}
           visible={isAddRoutineClick}
         >
+          {/* 새 루틴에 운동 추가 */}
           <RoutineForm>
             {/*루틴 이름 작성 */}
             {clickInput ? (
@@ -270,8 +308,8 @@ const MyRoutine = () => {
               </Form>
             )}
 
+            {/* 이 버튼 누르면 Modal 창 열림 */}
             <ExerciseAdd onClick={onAddExerciseClick}>
-              {/* 이 버튼 누르면 Modal 창 열림 */}
               <div className="AddRoutine">
                 <div>
                   <Icon type="plus-circle" style={{ fontSize: 30 }} />
@@ -293,7 +331,7 @@ const MyRoutine = () => {
                   {/*삭제 버튼 누르면 추가한 운동 삭제 */}
                   <Routine>
                     <div style={{ fontSize: 25 }}>
-                      {getExerciseName[training.posture]}
+                      {training.posture}
                     </div>
                     <div style={{ fontSize: 20 }}>
                       {training.count}
@@ -315,23 +353,46 @@ const MyRoutine = () => {
             <Select
               style={{ width: 150, marginRight: 20 }}
               onChange={getAreaValue}
-              value = {getExerciseName[exerciseAreaValue]}
+              value = {Object.keys(getExerciseName).filter(v => v === exerciseAreaValue)}
             >
-              {/* {Object.keys(getExerciseArea).map((v, i) => <Option value={v} key={i}>{getExerciseArea[v]}</Option> )} */}
-              <Option value="aerobic-exercise">유산소 운동</Option>
+              {Object.keys(getExerciseName).map((v, i) => <Option value={v} key={i}>{v}</Option>)}
+              {/* <Option value="aerobic-exercise">유산소 운동</Option>
               <Option value="abs">복근</Option>
               <Option value="quads">하체</Option>
               <Option value="glutes">엉덩이</Option>
               <Option value="triceps">삼두</Option>
               <Option value="biceps">이두</Option>
               <Option value="back">등</Option>
-              <Option value="chest">가슴</Option>
+              <Option value="chest">가슴</Option> */}
             </Select>
-            {exerciseAreaValue != null ? (
-              <>
-                <ExerciseDetail value={exerciseAreaValue} />
-              </>
-            ) : (
+            {exerciseAreaValue 
+            ? (<>
+                {/* <ExerciseDetail value={exerciseAreaValue} /> */}
+                <Select 
+                  style={{width: 200}} 
+                  value={getExerciseName[exerciseAreaValue].filter(v => v === detailExerciseValue)} 
+                  onChange={getDetailValue}
+                >
+                  {getExerciseName[exerciseAreaValue].map((v, i) => <Option value={v} key={i}>{v}</Option>)}
+                </Select>
+                <div style={{marginTop: 10}}>
+                  {
+                    exerciseAreaValue == "유산소" ?
+                    <>
+                    <div>운동 시간(분 단위)</div>
+                    <Input onChange={onCountText} value={exerciseCount} style={{width: 100}}/>
+                    </>
+                    :
+                    <>
+                    <div>운동 횟수</div>
+                    <Input onChange={onCountText} value={exerciseCount} style={{width: 100}}/>
+                    </>
+                  }
+                    
+                </div>
+                </>) 
+                :
+              (
               <></>
             )}
           </Modal>
@@ -351,7 +412,7 @@ const MyRoutine = () => {
             <Button onClick={onCloseDrawer} style={{ marginRight: 8 }}>
               취소
             </Button>
-            <Button onClick={addRoutine} type="primary">
+            <Button onClick={addRoutine} type="primary" ghost>
               만들기
             </Button>
           </div>

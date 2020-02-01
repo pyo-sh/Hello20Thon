@@ -54,30 +54,8 @@ function* watchDeleteRecord() {
     yield takeLatest(DELETE_RECORD_REQUEST, deleteRecord)
 }
 
-// function* deleteExercise(action) {
-//     try{
-//         console.log(action.data)
-//         yield delay(1300);
-//         yield put({
-//             type: DELETE_EXERCISE_SUCCESS,
-//             data: action.data,
-//         });
-//     }catch{
-//         console.error(e);
-//         yield put({
-//             type: DELETE_EXERCISE_FAILURE,
-//             data: e
-//         });
-//     }
-// }
-
-// function* watchDeleteExercise() {
-//     yield takeLatest(DELETE_EXERCISE_REQUEST, deleteExercise)
-// }
-
 export default function* userSaga() {
     yield all([
-        // fork(watchDeleteExercise),
         fork(watchAddRecord),
         fork(watchAddRecommend),
         fork(watchUpdateRecord),
