@@ -79,7 +79,6 @@ const Searchimage = () => {
   }, []);
   const searchOnClick = useCallback(() => {
     setIsSearching(true);
-    setIsSearched(false);
   }, []);
   return (
     <SearchBox>

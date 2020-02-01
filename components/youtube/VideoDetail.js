@@ -15,7 +15,7 @@ const VideoDetail = ({video}) => {
         return <div>Loading</div>
     }
     const videoId = video.id;
-    const url = `https:www.youtube.com/embed/${videoId}`;
+    const url = `https://www.youtube.com/embed/${videoId}`;
     return (
         <DetailBox>
                 <Iframe url={url} width="100%" height="100%"
