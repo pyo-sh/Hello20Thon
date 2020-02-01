@@ -208,25 +208,21 @@ const MyRoutine = () => {
     const temp = totalExercise.filter(exercise => exercise.id !== id);
     setTotalExercise(temp);
   };
-<<<<<<< HEAD
   // 루틴을 내 캘린더에 저장할 때 (아이콘 클릭)
   const addRoutineOnClick = useCallback((key) => (e)=>{
     //nowDate
     dispatch(AddRoutineRequest(nowDate, userRecord[key]));
   }, [nowDate, userRecord]);
-=======
 
   const routineNameUpdate = () => {
     setClickInput(false);
     setInputRoutineName('');
   };
 
->>>>>>> choi
   return (
     <>
       <ContentForm>
         {Object.keys(userRecord).map(value => (
-<<<<<<< HEAD
           <RoutineMainBox>
             <Icon 
               className="RoutineBox-Icon"
@@ -235,9 +231,6 @@ const MyRoutine = () => {
               />
             <RoutineDetail myValue={userRecord[value]}/>
           </RoutineMainBox>
-=======
-            <RoutineDetail myValue={userRecord[value]} />
->>>>>>> choi
         ))}
 
         <ContentAdd onClick={onAddRoutineClick}>
