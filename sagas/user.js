@@ -1,9 +1,8 @@
 import { all, delay, fork, takeLatest, put } from 'redux-saga/effects';
-import { AddRecommendSuccessAction, AddRecommendFailureAction, ADD_RECOMMEND_REQUEST, DELETE_EXERCISE_REQUEST, DELETE_EXERCISE_SUCCESS, DELETE_EXERCISE_FAILURE, DELETE_RECORD_FAILURE, DELETE_RECORD_SUCCESS, DELETE_RECORD_REQUEST, UPDATE_RECORD_FAILURE, UPDATE_RECORD_SUCCESS, UPDATE_RECORD_REQUEST, ADD_RECORD_REQUEST ,  AddRecordSuccessAction, AddRecordFailureAction } from '../reducers/user';
+import { AddRecommendSuccessAction, AddRecommendFailureAction, ADD_RECOMMEND_REQUEST, DELETE_RECORD_REQUEST, UPDATE_RECORD_REQUEST, ADD_RECORD_REQUEST ,  AddRecordSuccessAction, AddRecordFailureAction, UpdateRecordFailureAction, UpdateRecordSuccessAction, DeleteRecordSuccessAction, DeleteRecordFailureAction } from '../reducers/user';
 
 function* addRecord(action) {
     try{
-        console.log(action.data);
         yield delay(1300);
         yield put(AddRecordSuccessAction(action.data));
     }catch(e){
@@ -18,7 +17,6 @@ function* watchAddRecord() {
 
 function* addRecommend(action) {
     try{
-        console.log(action.data);
         yield delay(1300);
         yield put(AddRecommendSuccessAction(action.data));
     }catch(e){
@@ -33,16 +31,11 @@ function* watchAddRecommend() {
 
 function* updateRecord(action) {
     try{
-        yield delay(1300);
-        yield put({
-            type: UPDATE_RECORD_SUCCESS,
-            data : action.data
-        });
-    }catch{
+        console.log(action.data)
+        yield put(UpdateRecordSuccessAction(action.data));
+    }catch(e){
         console.error(e);
-        yield put({
-            type: UPDATE_RECORD_FAILURE
-        });
+        yield put(UpdateRecordFailureAction({e}));
     }
 }
 
@@ -52,16 +45,10 @@ function* watchUpdateRecord() {
 
 function* deleteRecord(action) {
     try{
-        yield delay(1300);
-        yield put({
-            type: DELETE_RECORD_SUCCESS,
-            data : action.data
-        });
+        yield put(DeleteRecordSuccessAction(action.data));
     }catch{
         console.error(e);
-        yield put({
-            type: DELETE_RECORD_FAILURE
-        });
+        yield put(DeleteRecordFailureAction({e}));
     }
 }
 
@@ -94,6 +81,8 @@ export default function* userSaga() {
     yield all([
         // fork(watchDeleteExercise),
         fork(watchAddRecord),
-        fork(watchAddRecommend)
+        fork(watchAddRecommend),
+        fork(watchUpdateRecord),
+        fork(watchDeleteRecord)
     ])
 }

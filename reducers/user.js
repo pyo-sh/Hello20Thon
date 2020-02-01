@@ -34,21 +34,25 @@ export const initialState = {
       //area 추가하3
       trainings: [
         {
+          id: 1,
           posture: "lunge",
           count: 10,
           done: false
         },
         {
+          id: 2,
           posture: "sit-up",
           count: 20,
           done: false
         },
         {
+          id: 3,
           posture: "turning-kick",
           count: 10,
           done: false
         },
         {
+          id: 4,
           posture: "jump-rope",
           count: 500,
           done: false
@@ -60,16 +64,19 @@ export const initialState = {
       routineName: "초보자 2",
       trainings: [
         {
+          id: 1,
           posture: "push-up",
           count: 30,
           done: false
         },
         {
+          id: 2,
           posture: "squats",
           count: 20,
           done: false
         },
         {
+          id: 3,
           posture: "chin-ups",
           count: 10,
           done: false
@@ -138,7 +145,6 @@ export const SetUserNameAction = (name) => {
 }
 
 export const AddRecordRequestAction = (object) => { 
-  console.log(object)
   return({
     type: ADD_RECORD_REQUEST,
     data: object,
@@ -159,7 +165,6 @@ export const AddRecordFailureAction = (error) => {
 
 //추천 루틴 내 루틴에 추가하는 Action
 export const AddRecommendRequestAction = (object) => { 
-  console.log(object)
   return({
     type: ADD_RECOMMEND_REQUEST,
     data: object,
@@ -180,15 +185,16 @@ export const AddRecommendFailureAction = (error) => {
 
 // 삭제하는 Actions
 export const DeleteRecordRequestAction = (key) => { 
+  console.log(key)
   return({
     type: DELETE_RECORD_REQUEST,
-    key: key,
+    data: key,
   });
 };
-export const DeleteRecordSuccessAction = (key) => { 
+export const DeleteRecordSuccessAction = (data) => { 
   return({
     type: DELETE_RECORD_SUCCESS,
-    key: key,
+    data
   });
 };
 export const DeleteRecordFailureAction = (error) => { 
@@ -198,16 +204,21 @@ export const DeleteRecordFailureAction = (error) => {
   });
 };
 // 업데이트하는 Actions
-export const UpdateRecordRequestAction = (object) => { 
+export const UpdateRecordRequestAction = (key, object, routineName) => { 
   return({
     type: UPDATE_RECORD_REQUEST,
-    data: object,
+    data: 
+    {
+      object, 
+      key,
+      routineName
+    }
   });
 };
-export const UpdateRecordSuccessAction = (object) => { 
+export const UpdateRecordSuccessAction = (data) => { 
   return({
     type: UPDATE_RECORD_SUCCESS,
-    data: object,
+    data
   });
 };
 export const UpdateRecordFailureAction = (error) => { 
@@ -251,12 +262,11 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case ADD_RECORD_SUCCESS: {
-        console.log("성공");
-        console.log(action.data);
         draft.recordAdded = true;
         draft.isRecordAdding = false;
         const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
         draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        draft.id = 1;
         break;
       }
       case ADD_RECORD_FAILURE: {
@@ -290,9 +300,10 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case DELETE_RECORD_SUCCESS: {
+        console.log(action.data)
         draft.recordDeleted = true;
         draft.isRecordDeleting = false;
-        delete draft.userRecord[action.key];
+        delete draft.userRecord[action.data];
         break;
       }
       case DELETE_RECORD_FAILURE: {
@@ -300,25 +311,6 @@ const reducer = (state = initialState, action) => {
         draft.deleteRecordErrorReason = action.error;
         break;
       }
-      //운동 삭제하는 부분
-      // case DELETE_EXERCISE_REQUEST: {
-      //   draft.exerciseDeleted = false;
-      //   draft.isExerciseDeleting = true;
-      //   draft.deleteExerciseErrorReason = '';
-      //   break;
-      // }
-      // case DELETE_EXERCISE_SUCCESS: {
-      //   draft.exerciseDeleted = true;
-      //   draft.isExerciseDeleting = false;
-      //   const index = draft.userRecord.key.trainings.findIndex(v=> v.id === action.data);
-      //   draft.userRecord.key.trainings.splice(index,1);
-      //   break;
-      // }
-      // case DELETE_EXERCISE_FAILURE: {
-      //   draft.isExerciseDeleting = false;
-      //   draft.DeleteExerciseErrorReason = action.error;
-      //   break;
-      // }
       // 기록 업데이트하는 부분
       case UPDATE_RECORD_REQUEST: {
         draft.recordUpdated = false;
@@ -329,7 +321,8 @@ const reducer = (state = initialState, action) => {
       case UPDATE_RECORD_SUCCESS: {
         draft.recordUpdated = true;
         draft.isRecordUpdating = false;
-        draft.userRecord[action.data.key] = action.data;
+        draft.userRecord[action.data.key].trainings = action.data.object;
+        draft.userRecord[action.data.key].routineName = action.data.routineName;
         break;
       }
       case UPDATE_RECORD_FAILURE: {
