@@ -74,7 +74,6 @@ const SearchBox = styled.div`
 const Searchimage = () => {
   const [searchText, setSearchText] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [isSearched, setIsSearched] = useState(false);
   const searchTextOnChange = useCallback(e => {
     setSearchText(e.target.value);
   }, []);
@@ -110,7 +109,7 @@ const Searchimage = () => {
       <Search
         searchText={searchText}
         isSearching={isSearching}
-        func={{ setIsSearched, setIsSearching }}
+        func={ {setIsSearching }}
       />
     </SearchBox>
   );
