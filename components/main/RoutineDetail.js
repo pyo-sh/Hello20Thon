@@ -4,8 +4,9 @@ import { Card, Drawer, Button, Icon, Modal, Select, Form, Input } from 'antd';
 import { getExerciseCount, getExerciseName } from "../ExerciseFuction";
 import { useDispatch, useSelector } from 'react-redux';
 import { AddRecommendRequestAction, GetAreaValueAction, UpdateRecordRequestAction, DeleteRecordRequestAction } from '../../reducers/user';
-import Exercise from './Exercise';
+import ExerciseDetail from './ExerciseDetail';
 const { Option } = Select;
+
 const Content = styled(Card)`
   width: 300px;
   font-size: 18px;
@@ -16,6 +17,7 @@ const Routine = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  cursor: pointer;
 `;
 
 const RoutineForm = styled.div`
@@ -23,6 +25,12 @@ const RoutineForm = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+
+  & > .InputRoutineName{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 `;
 
 //운동 추가
@@ -81,6 +89,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
 
     const addRecommendRoutine = () => {
         dispatch(AddRecommendRequestAction(value))
+        setShowDetail(!showDetail);
         // console.log(value);
     };
 
@@ -180,10 +189,9 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                     {
                         //이름 수정 눌렀을 경우 
                         !clickInputName ? (
-                        <>
-                        <div>{tempName}</div>
-                        <Button type="primary" onClick={routineNameUpdate}>수정</Button>
-                        </>
+                        <div className = "InputRoutineName">
+                        {tempName}<Button type="link" onClick={routineNameUpdate}>수정</Button>
+                        </div>
                         ) : (
                         <Form onSubmit={onRoutineName}>
                             <Input
@@ -192,7 +200,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                             value={updateRoutineName}
                             style={{ width: 200 }}
                             />
-                            <Button type="primary" htmlType="submit">
+                            <Button type="link" htmlType="submit">
                             입력
                             </Button>
                         </Form>
@@ -207,8 +215,8 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                     </div>
                     </ExerciseAdd>
                     
-                    {totalExercise.map(training => (
-                        <Content>
+                    {totalExercise.map((training, i) => (
+                        <Content key={i}>
                             <DeleteIcon>
                                 <Icon
                                 type="close"
@@ -229,8 +237,8 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                     </>
                     : 
                     <>
-                    {value.trainings.map(training => (
-                        <Content>
+                    {value.trainings.map((training,i) => (
+                        <Content key={i}>
                             <Routine>        
                                 <div style={{ fontSize: 25 }}>
                                 {getExerciseName[training.posture]}
@@ -321,7 +329,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
             </Select>
             {exerciseAreaValue != null ? (
               <>
-                <Exercise value={exerciseAreaValue} />
+                <ExerciseDetail value={exerciseAreaValue} />
               </>
             ) : (
               <></>

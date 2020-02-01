@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useSeletor, useDispatch } from 'react-redux';
-import { Select, Input, Button } from 'antd';
+import { Select, Input, message } from 'antd';
 import {GetPostureValueAction, GetCountValueAction} from '../../reducers/user';
 import {getExerciseName} from '../ExerciseFuction';
 
 const { Option } = Select;
 
-const Exercise = ({value}) => {
+const ExerciseDetail = ({value}) => {
     const dispatch = useDispatch();
     const [detailExerciseValue, setDetailExerciseValue] = useState('');
     const [exerciseCount, setExerciseCount] = useState(0);
@@ -19,14 +19,10 @@ const Exercise = ({value}) => {
 
     //운동 횟수 입력
     const onChangeText = useCallback((e) => {
-        console.log(e.target.value)
         setExerciseCount(e.target.value)
-    }, [exerciseCount]);
-
-    const getCount = (exerciseCount) => {
-        dispatch(GetCountValueAction(exerciseCount))
-        // console.log(e.target.value)
-    };
+        dispatch(GetCountValueAction(e.target.value))
+        
+    }, []);
 
     switch(value){
         case 'aerobic-exercise':
@@ -48,7 +44,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 시간</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -74,7 +69,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -100,7 +94,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -126,7 +119,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -149,7 +141,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -174,7 +165,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -198,7 +188,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
                     </div>
                     </>
                     :
@@ -222,7 +211,6 @@ const Exercise = ({value}) => {
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        {/* <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button> */}
                     </div>
                     </>
                     :
@@ -235,4 +223,4 @@ const Exercise = ({value}) => {
     }
 };
 
-export default Exercise;
+export default ExerciseDetail;
