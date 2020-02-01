@@ -6,6 +6,8 @@ import styled from "styled-components";
 const TimerBox = styled.div`
     border : 1px solid #EDEDED;
     border-radius : 5px;
+    width: 400px;
+    margin: 20px;
     & div {
         display: flex;
         justify-content: center;

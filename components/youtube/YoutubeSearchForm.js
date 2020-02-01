@@ -8,6 +8,8 @@ import styled from 'styled-components';
 
 const YoutubeForm = styled(Form)`
     display : flex;
+    padding : 10px;
+    padding-left: 0;
     & .searchInput {
       width : 40%;
       margin-right: 5px;

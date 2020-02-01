@@ -7,8 +7,12 @@ import styled from "styled-components";
 
 // 유튜브 검색 해서 나오게 하는것.
 const YoutubeWrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+  flex: 1;
+  min-width: 450px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px;
+  padding-top: 20px;
 `;
 const YoutubeBox = styled.div`
   display: flex;

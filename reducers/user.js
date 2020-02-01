@@ -1,32 +1,12 @@
 import produce from "immer";
 
-/* user record저장방식 
-  key : { 
-    key: "",
-    name: "",
-    trainings:[{ area: "", posture: "", count: number (갯수), done: true/false }],
-  } */
 export const initialState = {
   id: 1,                        // 혹시 필요할까 추가함
   name : "",
-  _area: "",     //운동 부위 
-  _posture: "",  //운동 자세 
-  _count: 0,     //운동 개수, 시간
-  userRecord: {
-    0: {
-      key: 0,
-      routineName: "운동을 추가 해 보세요!", //루틴 이름
-      trainings: [
-        {
-          id: 1, 
-          area: "aerobic-exercise",     //운동 부위 
-          posture: "bicycle",  //운동 자세 
-          count: 30,     //운동 개수, 시간
-          done: false
-        }
-      ]
-    },
-  },               // 유저가 기록한 루틴들
+  _area: "",                    //운동 부위 
+  _posture: "",                 //운동 자세 
+  _count: 0,                    //운동 개수, 시간
+  userRecord: {},               // 유저가 기록한 루틴들
   recommendRoutine: {
     0:{
       key: 0,
