@@ -15,20 +15,29 @@ const HowtouseWrapper = styled.div`
     }
     & .Title{
         align-self: center;
+        margin-bottom: 10px;
         font-size: 80px;
         font-family: fantasy;
     }
     & .SubTitle{
-        display: flex;
-        justify-content: center;
+        text-align:center;
         margin: 0 auto;
+        margin-bottom: 50px;
+        font-size: 25px;
         padding: 20px;
-        border: 1px solid #d9d9d9;
+        border-top: 3px solid #d9d9d9;
+        border-bottom: 3px solid #d9d9d9;
         border-radius: 4px;
+    }
+    & .LastTitle{
+        align-self: center;
+        font-size: 15px;
+        margin: 20px 0;
     }
     & .How-Routine{
         display: flex;
         padding: 10px;
+        padding-bottom: 30px;
         margin: 20px;
         border-bottom: 5px solid #00943230;
     }
@@ -36,12 +45,14 @@ const HowtouseWrapper = styled.div`
         align-self: flex-end;
         display: flex;
         padding: 10px;
+        padding-bottom: 30px;
         margin: 20px;
         border-bottom: 5px solid #d980fa30;
     }
     & .How-Youtube{
         display: flex;
         padding: 10px;
+        padding-bottom: 30px;
         margin: 20px;
         border-bottom: 5px solid #0652DD30;
     }
@@ -49,12 +60,14 @@ const HowtouseWrapper = styled.div`
         align-self: flex-end;
         display: flex;
         padding: 10px;
+        padding-bottom: 30px;
         margin: 20px;
         border-bottom: 5px solid #FFC31230;
     }
     & .How-Search{
         display: flex;
         padding: 10px;
+        padding-bottom: 30px;
         margin: 20px;
         border-bottom: 5px solid #1e272e30;
     }
@@ -86,8 +99,7 @@ const Howtouse = () => {
             <div className="SubTitle">
                 사용해주셔서 감사합니다. <br/>
                 저희는 맨몸운동을 하고자 하는 여러분들을 위해 만들어졌습니다.<br/>
-                집에서도 할 수 있는 맨몸운동을 통해 모두가 건강한 세상을 만드는 것이 저희의 목표입니다.<br/>
-                우리 서비스의 사용 방법을 알려드리겠습니다.
+                집에서도 할 수 있는 맨몸운동을 통해 모두가 건강한 세상을 만드는 것이 저희의 <b>목표</b>입니다.<br/>
             </div>
             <div className="How-Routine">
                 <div className="How-Description">
@@ -108,6 +120,8 @@ const Howtouse = () => {
                         운동을 못 했거나, 그 날 확인해야 할 사항이 있다면 메모기능을 사용하시면 간편합니다!
                     </div>
                 </div>
+                <img src="/images/calendar1.jpg"/>
+                <img src="/images/calendar2.jpg"/>
             </div>
             <div className="How-Youtube">
                 <img src="/images/youtube.png"/>
@@ -139,8 +153,8 @@ const Howtouse = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                여러분들의 운동 파트너 <b>HYM</b>!
+            <div className="LastTitle">
+                운동 파트너 <b>HYM</b>!
                 더 발전하도록 노력하겠습니다!!
             </div>
         </HowtouseWrapper>
