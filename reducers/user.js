@@ -29,60 +29,174 @@ export const initialState = {
   },               // 유저가 기록한 루틴들
   recommendRoutine: {
     0:{
-      key: 1,
-      routineName: "초보자 1",
+      key: 0,
+      routineName: "초보자 가슴 루틴",
       //area 추가하3
       trainings: [
         {
           id: 1,
-          posture: "lunge",
-          count: 10,
+          posture: "푸쉬업",
+          count: 15,
           done: false
         },
         {
           id: 2,
-          posture: "sit-up",
-          count: 20,
+          posture: "와이드 푸쉬업",
+          count: 15,
           done: false
         },
         {
           id: 3,
-          posture: "turning-kick",
+          posture: "내로우 푸쉬업",
           count: 10,
           done: false
         },
         {
           id: 4,
-          posture: "jump-rope",
-          count: 500,
+          posture: "디클라인 푸쉬업",
+          count: 8,
+          done: false
+        },
+        {
+          id: 5,
+          posture: "인클라인 푸쉬업",
+          count: 12,
+          done: false
+        },
+        {
+          id: 6,
+          posture: "딥스",
+          count: 5,
           done: false
         }
       ]
     },
     1:{
-      key: 2,
-      routineName: "초보자 2",
+      key: 1,
+      routineName: "초보자 하체루틴",
       trainings: [
         {
           id: 1,
-          posture: "push-up",
-          count: 30,
+          posture: "스쿼트",
+          count: 15,
           done: false
         },
         {
           id: 2,
-          posture: "squats",
-          count: 20,
+          posture: "와이드 스쿼트",
+          count: 15,
           done: false
         },
         {
           id: 3,
-          posture: "chin-ups",
+          posture: "런지",
           count: 10,
           done: false
-        }
+        },
+        {
+          id: 4,
+          posture: "사이드 런지",
+          count: 12,
+          done: false
+        },
+        {
+          id: 5,
+          posture: "백 런지",
+          count: 10,
+          done: false
+        },
+        {
+          id: 6,
+          posture: "버피테스트",
+          count: 10,
+          done: false
+        },
       ]
-    }
+    },
+    2:{
+      key: 2,
+      routineName: "복근 박살 루틴",
+      trainings: [
+        {
+          id: 1,
+          posture: "크런치",
+          count: 12,
+          done: false
+        },
+        {
+          id: 2,
+          posture: "리버스 크런치",
+          count: 12,
+          done: false
+        },
+        {
+          id: 3,
+          posture: "레그 레이즈",
+          count: 12,
+          done: false
+        },
+        {
+          id: 4,
+          posture: "플러터 킥",
+          count: 20,
+          done: false
+        },
+        {
+          id: 5,
+          posture: "사이드 레그 레이즈",
+          count: 15,
+          done: false
+        },
+        {
+          id: 6,
+          posture: "바이시클 크런치",
+          count: 15,
+          done: false
+        },
+      ]
+    },
+    3:{
+      key: 3,
+      routineName: "초보자 전신 루틴",
+      trainings: [
+        {
+          id: 1,
+          posture: "점핑잭",
+          count: 50,
+          done: false
+        },
+        {
+          id: 2,
+          posture: "푸쉬업",
+          count: 15,
+          done: false
+        },
+        {
+          id: 3,
+          posture: "스쿼트",
+          count: 20,
+          done: false
+        },
+        {
+          id: 4,
+          posture: "마운틴 클라이머",
+          count: 20,
+          done: false
+        },
+        {
+          id: 5,
+          posture: "바이시클 크런치",
+          count: 15,
+          done: false
+        },
+        {
+          id: 6,
+          posture: "버피 테스트",
+          count: 15,
+          done: false
+        },
+      ]
+    },
   },
   recommendAdded: false,           // 추가 루틴이 더해졌는지
   isRecommendAdding: false,        // 추가 루틴을 추가하는 중
@@ -266,6 +380,7 @@ const reducer = (state = initialState, action) => {
         draft.isRecordAdding = false;
         const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
         draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        localStorage.setItem("userRecord", JSON.stringify(draft.userRecord));
         draft.id = 1;
         break;
       }
@@ -285,6 +400,7 @@ const reducer = (state = initialState, action) => {
         draft.isRecommendAdding = false;
         const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
         draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        localStorage.setItem("userRecord", JSON.stringify(draft.userRecord));
         break;
       }
       case ADD_RECOMMEND_FAILURE: {
@@ -304,6 +420,7 @@ const reducer = (state = initialState, action) => {
         draft.recordDeleted = true;
         draft.isRecordDeleting = false;
         delete draft.userRecord[action.data];
+        localStorage.setItem("userRecord", JSON.stringify(draft.userRecord));
         break;
       }
       case DELETE_RECORD_FAILURE: {
@@ -323,6 +440,7 @@ const reducer = (state = initialState, action) => {
         draft.isRecordUpdating = false;
         draft.userRecord[action.data.key].trainings = action.data.object;
         draft.userRecord[action.data.key].routineName = action.data.routineName;
+        localStorage.setItem("userRecord", JSON.stringify(draft.userRecord));
         break;
       }
       case UPDATE_RECORD_FAILURE: {

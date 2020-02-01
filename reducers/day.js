@@ -191,7 +191,18 @@ export const UPDATE_REASON_FAILURE = 'UPDATE_REASON_FAILURE';
 // 현재 날짜
 export const SET_NOWPOINTINGDATE = 'SET_NOWPOINTINGDATE';
 
+export const SET_ROUTINE_MEMO = "SET_ROUTINE_MEMO";
 // Actions
+// 로컬스토리지에 루틴과 메모 있을 경우 세팅
+export const setRoutineMemo = ({routine, memo}) => {
+  return {
+    type :SET_ROUTINE_MEMO,
+    data : {
+      routine,
+      memo
+    }
+  }
+}
 // routine에 관한 actions
 export const AddRoutineRequest = (date, object) => {
   return {
@@ -422,6 +433,11 @@ export const setNowPointingDate = (value) => {
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {
+      case SET_ROUTINE_MEMO : {
+        draft.routine = action.data.routine;
+        draft.memo = action.data.memo;
+        break;
+      }
       case ADD_ROUTINE_REQUEST: {
         draft.routineAdded = false;
         draft.isRoutineAdding = true;
@@ -433,6 +449,7 @@ const reducer = (state = initialState, action) => {
         draft.isRoutineAdding = false;
         if(draft.routine[action.data.date]) draft.routine[action.data.date].push(action.data.object);
         else  draft.routine[action.data.date] = [action.data.object];
+        localStorage.setItem("routine", JSON.stringify(draft.routine));
         break;
       }
       case ADD_ROUTINE_FAILURE: {
@@ -456,6 +473,7 @@ const reducer = (state = initialState, action) => {
         // index와 같은 index를 만나면 삭제
         else
           draft.routine[action.data.date].splice(action.data.index, 1);
+        localStorage.setItem("routine", JSON.stringify(draft.routine));
         break;
       }
       case DELETE_ROUTINE_FAILURE: {
@@ -473,6 +491,7 @@ const reducer = (state = initialState, action) => {
       case UPDATE_ROUTINE_SUCCESS: {
         draft.routineUpdated = true;
         draft.isRoutineUpdating = false;
+        localStorage.setItem("routine", JSON.stringify(draft.routine));
         break;
       }
       case UPDATE_ROUTINE_FAILURE: {
@@ -490,6 +509,7 @@ const reducer = (state = initialState, action) => {
         draft.trainingToggled = true;
         draft.isTrainingToggling = false;
         draft.routine[action.data.date][action.data.routineIndex].trainings[action.data.trainingIndex].done = action.data.result;
+        localStorage.setItem("routine", JSON.stringify(draft.routine));
         break;
       };
       case TOGGLE_TRAINING_FAILURE: {
@@ -513,7 +533,7 @@ const reducer = (state = initialState, action) => {
         }else {
           draft.memo[action.data.date] = [{key: 0, contents : action.data.memoText}];
         }
-        
+        localStorage.setItem("memo", JSON.stringify(draft.memo));
         break;
       }
       case ADD_MEMO_FAILURE: {
@@ -533,6 +553,7 @@ const reducer = (state = initialState, action) => {
         draft.isMemoDeleting = false;
         const index = draft.memo[action.data.date].findIndex(value => value.key === action.data.key);
         draft.memo[action.data.date].splice(index,1);
+        localStorage.setItem("memo", JSON.stringify(draft.memo));
         break;
       }
       case DELETE_MEMO_FAILURE: {
@@ -552,6 +573,7 @@ const reducer = (state = initialState, action) => {
         draft.isMemoUpdating = false;
         const index = draft.memo[action.data.date].findIndex(value => value.key === action.data.key);
         draft.memo[action.data.date][index].contents = action.data.updateText;
+        localStorage.setItem("memo", JSON.stringify(draft.memo));
         break;
       }
       case UPDATE_MEMO_FAILURE: {
@@ -570,6 +592,7 @@ const reducer = (state = initialState, action) => {
         draft.weightAdded = true;
         draft.isWeightAdding = false;
         draft.weight[action.data.date] = action.data.weight;
+        localStorage.setItem("weight", JSON.stringify(draft.weight));
         break;
       }
       case ADD_WEIGHT_FAILURE: {

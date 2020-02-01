@@ -3,7 +3,6 @@ import { AddRecommendSuccessAction, AddRecommendFailureAction, ADD_RECOMMEND_REQ
 
 function* addRecord(action) {
     try{
-        yield delay(1300);
         yield put(AddRecordSuccessAction(action.data));
     }catch(e){
         console.error(e);
@@ -17,7 +16,6 @@ function* watchAddRecord() {
 
 function* addRecommend(action) {
     try{
-        yield delay(1300);
         yield put(AddRecommendSuccessAction(action.data));
     }catch(e){
         console.error(e);

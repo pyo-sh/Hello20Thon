@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import PropTypes from "prop-types";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button } from "antd";
 import styled from "styled-components";
 
 const { Header, Footer } = Layout;
@@ -29,6 +29,9 @@ const LayoutFooter = styled(Footer)`
 `;
 const AppLayout = ({ children }) => {
   const {name} = useSelector(state => state.user);
+  const resetOnClick = useCallback(() => {
+    localStorage.clear();
+  },[]);
   return (
     <LayoutWrapper>
       <LayoutHeader>
@@ -39,8 +42,12 @@ const AppLayout = ({ children }) => {
         >
           <Menu.Item key="home"><Link href="/"><a><b>HYM</b></a></Link></Menu.Item>
           <Menu.Item key="howtouse"><Link href="howtouse"><a>사용법</a></Link></Menu.Item>
+          <Menu.Item key="searchimage"><Link href="searchimage"><a>운동사진검색</a></Link></Menu.Item>
         </Menu>
-        {name && <span>{`${name}님 환영합니다.`}</span>}
+        <div>
+        {name && <span>{`${name}님 환영합니다.  `}</span>}
+        <Button onClick={resetOnClick} type="danger">초기화</Button>
+        </div>
       </LayoutHeader>
       {children}
       <LayoutFooter>HYM : Team DPengers</LayoutFooter>

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddWeightRequest } from '../../reducers/day';
 import { Input } from 'antd';
-
 import styled from 'styled-components';
 
 const UpperDiv = styled.div`

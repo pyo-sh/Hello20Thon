@@ -2,13 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Row, Col } from "antd";
 import Youtube from "../components/youtube/Youtube";
-import Search from "../components/search/Search";
+import Search from "./searchimage";
 import UserCalender from "../components/UserCalender";
 import UserRecord from "../components/main/UserRecord";
 import StopWatchForm from "../components/stopwatch/StopWatchForm";
 import Main from '../components/main/Main';
 import styled from 'styled-components';
 import { SetUserNameAction } from "../reducers/user";
+import { setRoutineMemo } from "../reducers/day";
 
 const InputNickname = styled.div`
   width : 100%;
@@ -35,10 +36,15 @@ const Home = () => {
 
   useEffect(() => { // 처음에 로컬스토리지에 데이터 저장 되어있는지 확인.
     const checkName = localStorage.getItem("name");
+    const memo = JSON.parse(localStorage.getItem("memo"));
+    const routine = JSON.parse(localStorage.getItem("routine"));
+    const userRecord = JSON.parse(localStorage.getItem("userRecord"));
     if (checkName) {
       setCheck(true);
       dispatch(SetUserNameAction(checkName));
     }
+    (memo || routine) && dispatch(setRoutineMemo({routine, memo}));
+    // userRecord && dispatch()
    // 처음에 이름 있으면 로컬스토리지 데이터
     // 다들고 와서 기본값으로 세팅해줘야 할듯.
   }, []);

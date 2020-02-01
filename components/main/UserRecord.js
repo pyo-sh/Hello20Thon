@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import UserRecordMemo from '../UserRecord/UserRecordMemo';
-import UserRecordWeight from '../UserRecord/UserRecordWeight';
-import UserRecordRoutine from '../UserRecord/UserRecordRoutine';
+import UserRecordMemo from '../userRecord/UserRecordMemo';
+import UserRecordWeight from '../userRecord/UserRecordWeight';
+import UserRecordRoutine from '../userRecord/UserRecordRoutine';
 import styled from 'styled-components';
 import { Button, Modal } from 'antd';
 
