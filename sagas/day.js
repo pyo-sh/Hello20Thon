@@ -6,6 +6,9 @@ import {
     DELETE_ROUTINE_REQUEST,
     DeleteRoutineSuccess,
     DeleteRoutineFailure,
+    TOGGLE_TRAINING_REQUEST,
+    ToggleTrainingSuccess,
+    ToggleTrainingFailure,
     ADD_WEIGHT_REQUEST,
     AddWeightSuccess,
     AddWeightFailure,
@@ -45,6 +48,19 @@ function* deleteRoutine(action) {
 
 function* watchDeleteRoutine() {
     yield takeLatest(DELETE_ROUTINE_REQUEST, deleteRoutine);
+}
+
+function* toggleTraining(action) {
+    try{
+        yield put(ToggleTrainingSuccess(action.data));
+    }catch(error){
+        console.error(error);
+        yield put(ToggleTrainingFailure(error));
+    }
+}
+
+function* watchToggleTraining() {
+    yield takeLatest(TOGGLE_TRAINING_REQUEST, toggleTraining);
 }
 
 function* addWeight(action) {
@@ -104,6 +120,7 @@ export default function* daySaga() {
     yield all([
         fork(watchAddRoutine),
         fork(watchDeleteRoutine),
+        fork(watchToggleTraining),
         fork(watchAddWeight),
         fork(watchAddMemo),
         fork(watchDeleteMemo),

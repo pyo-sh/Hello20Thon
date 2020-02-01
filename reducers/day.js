@@ -112,6 +112,9 @@ export const initialState = {
   routineUpdated: false,            // 루틴이 업데이트 됐는지
   isRoutineUpdating: false,         // 루틴을 업데이트 하는중
   updateRoutineErrorReason: '',     // 루틴 업데이트 실패 요인
+  trainingToggled: false,           // 운동 확인 토글 됐는지
+  isTrainingToggling: false,        // 운동 확인을 토글 하는중
+  togglingTrainingErrorReason: '',  // 운동 확인 토글 실패 요인
   memoAdded: false,                 // 메모가 더해졌는지
   isMemoAdding: false,              // 메모를 추가하는 중
   addMemoErrorReason: '',           // 메모 추가 실패 요인
@@ -149,6 +152,10 @@ export const DELETE_ROUTINE_FAILURE = 'DELETE_ROUTINE_FAILURE';
 export const UPDATE_ROUTINE_REQUEST = 'UPDATE_ROUTINE_REQUEST';
 export const UPDATE_ROUTINE_SUCCESS = 'UPDATE_ROUTINE_SUCCESS';
 export const UPDATE_ROUTINE_FAILURE = 'UPDATE_ROUTINE_FAILURE';
+
+export const TOGGLE_TRAINING_REQUEST = 'TOGGLE_TRAINING_REQUEST';
+export const TOGGLE_TRAINING_SUCCESS = 'TOGGLE_TRAINING_SUCCESS';
+export const TOGGLE_TRAINING_FAILURE = 'TOGGLE_TRAINING_FAILURE';
 // memo
 export const ADD_MEMO_REQUEST = 'ADD_MEMO_REQUEST';
 export const ADD_MEMO_SUCCESS = 'ADD_MEMO_SUCCESS';
@@ -244,6 +251,30 @@ export const UpdateRoutineFailure = (error) => {
   return {
     type: UPDATE_ROUTINE_FAILURE,
     error: error,
+  };
+};
+
+export const ToggleTrainingRequest = (date, routineIndex, trainingIndex, result) => {
+  return {
+    type: TOGGLE_TRAINING_REQUEST,
+    data: {
+      date,
+      routineIndex,
+      trainingIndex,
+      result
+    }
+  };
+};
+export const ToggleTrainingSuccess = (data) => {
+  return {
+    type: TOGGLE_TRAINING_SUCCESS,
+    data
+  };
+};
+export const ToggleTrainingFailure = (error) => {
+  return {
+    type: TOGGLE_TRAINING_FAILURE,
+    error: error
   };
 };
 // memo에 관한 actions
@@ -449,6 +480,23 @@ const reducer = (state = initialState, action) => {
         draft.updateRoutineErrorReason = action.error;
         break;
       }
+
+      case TOGGLE_TRAINING_REQUEST: {
+        draft.trainingToggled = false;
+        draft.isTrainingToggling = true;
+        break;
+      };
+      case TOGGLE_TRAINING_SUCCESS: {
+        draft.trainingToggled = true;
+        draft.isTrainingToggling = false;
+        draft.routine[action.data.date][action.data.routineIndex].trainings[action.data.trainingIndex].done = action.data.result;
+        break;
+      };
+      case TOGGLE_TRAINING_FAILURE: {
+        draft.isTrainingToggling = false;
+        draft.togglingTrainingErrorReason = action.error;
+        break;
+      };
 
       case ADD_MEMO_REQUEST: {  // memoAdde, isMemoAdding 같은거 하나도 안 씀. 정리 해야함
         draft.memoAdded = false;

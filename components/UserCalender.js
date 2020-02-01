@@ -115,11 +115,26 @@ const UserCalender = () => {
     const getListData = (value) => {
         const dateValue = value.toString().slice(0, 15);
         let resultData = [];
+        // 루틴에 해당하는 value가 있다면?
         if(routine[dateValue]){
+            let isDone = true;  // done이 전부 다 됐는지 확인하는 bool
+            // routine들의 리스트를 map
+            routine[dateValue].map((routines)=>{
+                // trainings가 비어있지 않다면?
+                if(routines.trainings && routines.trainings.length !== 0){
+                    // trainings의 배열을 확인해서
+                    routines.trainings.map((element)=>{
+                    // 작업을 전 부 완료했는지 본다.
+                    isDone = isDone && element.done;
+                    });
+                }
+                // trainings가 비어있다면 아니다.
+                else isDone = false;
+            });
             resultData.push({
                 date: value,
-                type: 'warning',
-            });
+                type: isDone ? 'success' : 'warning'
+            })
         }
         if(memo[dateValue]){
             resultData.push({

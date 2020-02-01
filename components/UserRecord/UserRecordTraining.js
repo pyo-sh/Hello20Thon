@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { ToggleTrainingRequest } from '../../reducers/day';
 import { Icon } from 'antd';
 import styled from 'styled-components';
 import { getExerciseCount, getExerciseName } from '../ExerciseFuction';
@@ -38,13 +40,20 @@ const UpperDiv = styled.div`
         margin-left: auto;
     }
 `;
+const DoneIcon = styled(Icon)`
+    font-size: 30px;
+    color:  ${props => props.myoption === "yes" ? "#52c41a" : "black"};
+`;
 
-const UserRecordTraining = ( { trainingProp } ) => {
+const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
+    const dispatch = useDispatch();
     const [id, setId] = useState(0);            // 운동의 ID
     const [area, setArea] = useState("");       // 운동 범위
     const [posture, setPosture] = useState(""); // 운동 종류
     const [count, setCount] = useState(0);      // 운동 갯수
     const [done, setDone] = useState(false);    // 했는지 안했는지
+    const { isTrainingToggling } = useSelector(state => state.day);
+    const nowDate = useSelector(state => state.day.nowPointingDate);
 
     // componentDidMount
     useEffect(() => {
@@ -55,12 +64,17 @@ const UserRecordTraining = ( { trainingProp } ) => {
         setDone(trainingProp.done);
     },[trainingProp])
 
+    const iconToggle = useCallback((e) => {
+        dispatch(ToggleTrainingRequest(nowDate, parentIndex, index, !done));
+    }, [nowDate, index, parentIndex, done]);
+
     return (
         <UpperDiv done={done}>
-            {done
-            ?   <Icon type="check" style={{color: '#52c41a', fontSize: '30px'}}/>
-            :   <Icon type="border" style={{fontSize: '27px'}}/>
-            }
+            <DoneIcon
+                type={isTrainingToggling ? "loading" : done ? "check" : "border"}
+                myoption={done ? "yes" : "no"}
+                onClick={iconToggle}
+                />
             <div className="Training-Posture">
                 {getExerciseName[posture]}
             </div>
