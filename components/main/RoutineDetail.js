@@ -47,6 +47,12 @@ const ExerciseAdd = styled(Card)`
   text-align: center;
   font-size: 18px;
   cursor: pointer;
+  
+  & :hover {
+    border: dashed 2px #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
+  }
 `;
 
 const DeleteIcon = styled.div`
@@ -97,6 +103,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
 
     //내 루틴에 추천 루틴 추가 
     const addRecommendRoutine = useCallback(() => {
+        message.success("내 루틴에 추가 완료!")
         dispatch(AddRecommendRequestAction(value))
         setShowDetail(!showDetail);
     }, [showDetail, value]);
@@ -109,6 +116,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
 
     //수정 완료 버튼 눌렀을 때 
     const updateRoutine = useCallback(() =>{
+        message.success("수정 완료!")
         dispatch(UpdateRecordRequestAction(value.key, totalExercise, tempName));
         setClickUpdate(false);
         setTotalExercise([]);
@@ -151,7 +159,8 @@ const RoutineDetail = ({myValue, recommendValue}) => {
     },[totalExercise]);
 
     const deleteRecord = useCallback(() =>{
-        dispatch(DeleteRecordRequestAction(value.key));
+        const userSelector = confirm("정말 삭제하시겠습니까?")
+        if (userSelector) dispatch(DeleteRecordRequestAction(value.key));
     }, [value && value.key]);
 
     //루틴 이름 입력
@@ -302,7 +311,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                             clickUpdate ? 
                             <>
                             {/* myValue의 trainings에 값을 넣어야함 addRecord */}
-                            <Button type="primary" onClick={updateRoutine}>
+                            <Button type="primary" ghost onClick={updateRoutine}>
                             완료
                             </Button>
                             <Button onClick={onCloseDrawer} style={{ marginLeft: 8 }}>
@@ -311,7 +320,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                             </>
                             :
                             <>
-                            <Button type="primary" onClick={clickUpdateButton}>
+                            <Button type="primary" ghost onClick={clickUpdateButton}>
                             수정
                             </Button>
                             <Button onClick={onCloseDrawer} style={{ marginLeft: 8 }}>
@@ -323,7 +332,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                         :
                         // 추가 루틴을 눌렀을 때 
                         <>
-                        <Button type="primary" onClick={addRecommendRoutine}>
+                        <Button type="primary" ghost onClick={addRecommendRoutine}>
                         추가
                         </Button>
                         <Button onClick={onCloseDrawer} style={{ marginLeft: 8 }}>

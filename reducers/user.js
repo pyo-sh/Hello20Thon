@@ -9,21 +9,7 @@ import produce from "immer";
 export const initialState = {
   id: 1,                        // 혹시 필요할까 추가함
   name : "",
-  userRecord: {
-    0: {
-      key: 0,
-      routineName: "운동을 추가 해 보세요!", //루틴 이름
-      trainings: [
-        {
-          id: 1, 
-          area: "유산소 운동",     //운동 부위 
-          posture: "자전거",  //운동 자세 
-          count: 30,     //운동 개수, 시간
-          done: false
-        }
-      ]
-    },
-  },               // 유저가 기록한 루틴들
+  userRecord: {},               // 유저가 기록한 루틴들
   recommendRoutine: {
     0:{
       key: 0,

@@ -61,6 +61,8 @@ const RoutineMainBox = styled.div`
   & > div :hover {
     cursor: pointer;
     border : 1px solid #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
   }
   & .RoutineBox-Icon{
     margin-right: 12.5px;
@@ -68,23 +70,26 @@ const RoutineMainBox = styled.div`
   & .RoutineBox-Icon:hover{
     margin-right: 12.5px;
     color : #1890FF;
+    opacity: 0.7;
   }
 `;
 
-const ExerciseBox = styled.div`
-  font-size: 30px;
-  padding: 20px 0;
-`;
 
 //루틴 추가 style
 const ContentAdd = styled(Card)`
-  margin-bottom: 20px;
+  margin-top: 20px;
   width: 300px;
   border: dashed 2px lightgray;
   text-align: center;
   font-size: 27px;
   cursor: pointer;
   color: gray;
+
+  & :hover {
+    border: dashed 2px #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
+  }
 `;
 
 const RoutineForm = styled.div`
@@ -109,6 +114,12 @@ const ExerciseAdd = styled(Card)`
   text-align: center;
   font-size: 18px;
   cursor: pointer;
+
+  & :hover {
+    border: dashed 2px #1890FF;
+    color: #1890FF;
+    opacity: 0.7;
+  }
 `;
 
 const Routine = styled.div`
@@ -168,6 +179,7 @@ const MyRoutine = () => {
     } else if(totalExercise.length === 0){
       message.error("운동을 추가해 주세요");
     }else {
+      message.success("새 루틴 추가!")
       //루틴 이름, 날짜, 운동들 추가함
       dispatch(
         AddRecordRequestAction({
@@ -228,8 +240,11 @@ const MyRoutine = () => {
   );
 
   const deleteExercise = useCallback(id => e => {
-    const temp = totalExercise.filter(exercise => exercise.id !== id);
-    setTotalExercise(temp);
+    const userSelect = confirm("정말 삭제하시겠습니까?");
+    if (userSelect) {
+      const temp = totalExercise.filter(exercise => exercise.id !== id);
+      setTotalExercise(temp);
+    } 
   }, [totalExercise]);
 
   // 루틴을 내 캘린더에 저장할 때 (아이콘 클릭)
@@ -362,8 +377,19 @@ const MyRoutine = () => {
                   {getExerciseName[exerciseAreaValue].map((v, i) => <Option value={v} key={i}>{v}</Option>)}
                 </Select>
                 <div style={{marginTop: 10}}>
-                    <div>운동 시간</div>
+                  {
+                    exerciseAreaValue == "유산소" ?
+                    <>
+                    <div>운동 시간(분 단위)</div>
                     <Input onChange={onCountText} value={exerciseCount} style={{width: 100}}/>
+                    </>
+                    :
+                    <>
+                    <div>운동 횟수</div>
+                    <Input onChange={onCountText} value={exerciseCount} style={{width: 100}}/>
+                    </>
+                  }
+                    
                 </div>
                 </>) 
                 :
@@ -387,7 +413,7 @@ const MyRoutine = () => {
             <Button onClick={onCloseDrawer} style={{ marginRight: 8 }}>
               취소
             </Button>
-            <Button onClick={addRoutine} type="primary">
+            <Button onClick={addRoutine} type="primary" ghost>
               만들기
             </Button>
           </div>

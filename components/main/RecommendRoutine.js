@@ -16,6 +16,8 @@ const RoutineMainBox = styled.div`
   & > div :hover {
     cursor: pointer;
     border : 1px solid #1890FF;
+    color : #1890FF;
+    opacity: 0.7;
   }
 `;
 const RecommendRoutine = () => {
