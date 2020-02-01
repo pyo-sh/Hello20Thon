@@ -217,7 +217,7 @@ export const initialState = {
 
 // Types
 export const SET_USERNAME = 'SET_USERNAME';
-
+export const SET_USERRECORD = "SET_USERRECORD";
 export const ADD_RECORD_REQUEST = 'ADD_RECORD_REQUEST';
 export const ADD_RECORD_SUCCESS = 'ADD_RECORD_SUCCESS';
 export const ADD_RECORD_FAILURE = 'ADD_RECORD_FAILRUE';
@@ -255,6 +255,13 @@ export const SetUserNameAction = (name) => {
   return ({
     type : SET_USERNAME,
     data : name
+  })
+}
+
+export const SetUserRecord = (userRecord) => {
+  return ({
+    type: SET_USERRECORD,
+    data : userRecord
   })
 }
 
@@ -367,6 +374,10 @@ const reducer = (state = initialState, action) => {
       // 기록 추가하는 부분
       case SET_USERNAME : {
         draft.name = action.data;
+        break;
+      }
+      case SET_USERRECORD : {
+        draft.userRecord = action.data;
         break;
       }
       case ADD_RECORD_REQUEST: {
