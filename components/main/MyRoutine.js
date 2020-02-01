@@ -61,9 +61,16 @@ const RoutineMainBox = styled.div`
   font-size: 30px;
   align-items: center;
   padding: 20px 0;
-
+  & div :hover {
+    cursor: pointer;
+    border : 1px solid #1890FF;
+  }
   & .RoutineBox-Icon{
     margin-right: 12.5px;
+  }
+  & .RoutineBox-Icon:hover{
+    margin-right: 12.5px;
+    color : #1890FF;
   }
 `;
 
