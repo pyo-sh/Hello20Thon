@@ -10,7 +10,7 @@ const UpperDiv = styled.div`
     max-width: 340px;
     min-width: 260px;
     padding: 10px;
-    margin: 20px auto;
+    margin: 20px;
     border: 1px solid #d9d9d9;
     border-Radius: 4px;
 

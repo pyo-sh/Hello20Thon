@@ -11,29 +11,24 @@ const UpperDiv = styled.div`
         display : flex;
         align-items: center;
     }
-    & .Memo-Items{
-        padding: 10px 5px;
-        margin: 7.5px 0px;
-        border: 1px solid #d9d9d9;
-        border-radius: 4px;
-    }
 `;
 const AddInput = styled(Input)`
     margin-right: 5px;
     height: 35px;
     & :hover, :focus{
-        border: 1px solid #2ed573;
+        border: 1px solid #f1c40f;
+        box-shadow: 0 0 0 2px rgba(250, 173, 20, 0.2);
     }
 `;
 
 const AddButton = styled(Button)`
     width: 60px;
     height: 35px;
-    color: #2ed573;
-    border: 1px solid #2ed573;
+    color: #e58e26;
+    border: 1px solid #f1c40f;
     & :hover, :focus{
-        color: #2ed573;
-        border: 1px solid #2ed573;
+        color: #f1c40f;
+        border: 1px solid #f1c40f;
     }
 `;
 

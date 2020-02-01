@@ -27,7 +27,6 @@ const Search = ({searchText, func, isSearching}) => {
             const imageLink = image.data.items.map(item => ({image:item.link, link: item.image.contextLink}));
            setImgs(prev => imageLink);
            func.setIsSearching(false);
-           func.setIsSearched(true);
        }).catch(err => console.error(err));
         }
     },[searchText, isSearching]);

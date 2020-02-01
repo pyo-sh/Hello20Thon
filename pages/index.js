@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Row, Col } from "antd";
 import Youtube from "../components/youtube/Youtube";
-import Search from "./searchimage";
 import UserCalender from "../components/UserCalender";
 import UserRecord from "../components/main/UserRecord";
 import StopWatchForm from "../components/stopwatch/StopWatchForm";
@@ -28,6 +27,17 @@ const InputNickname = styled.div`
   }
 
 `;
+const VideoDiv = styled.div`
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform : translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.35;
+`;
+
 const Home = () => {
   const dispatch  = useDispatch();
   const [check, setCheck] = useState(false);
@@ -67,6 +77,7 @@ const Home = () => {
   return (
     <>
     {!check ? (
+      <>
         <InputNickname>
           당신의 닉네임을 알려주세요!
           <Form className="nicknameForm" onSubmit={onSubmitNickname}>
@@ -74,14 +85,18 @@ const Home = () => {
             <Button htmlType="submit" type="primary">입력</Button>
           </Form>
         </InputNickname>
+        <VideoDiv>
+          
+        </VideoDiv>
+      </>
     ) : (
       <div>
-        <Row>
-          <Col xs={24} sm={12} xl={7}>
+        <Row type="flex" justify="start">
+          <Col xs={24} sm={11} xl={6}>
             <UserCalender />
             <UserRecord />
           </Col>
-          <Col xs={24} sm={12} xl={8}>
+          <Col xs={24} sm={13} xl={9}>
             <Main/>
           </Col>
           <Col xs={24} sm={12} xl={9}>
@@ -89,7 +104,6 @@ const Home = () => {
           </Col>
           <Col xs={24} sm={12} xl={6}>
             <StopWatchForm/>
-            {/* <Search/> */}
           </Col>
         </Row>
       </div>

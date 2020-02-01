@@ -26,7 +26,7 @@ const UpperDiv = styled.div`
     justify-content: flex-start;
     align-items: center;
 
-    border: 2px solid ${props => props.done   ?   "#7bed9faa"   :   "#f5222d50"};
+    border: 2px solid ${props => props.done   ?   "#7bed9faa"   :   "#e74c3c"};
     border-radius: 4px;
     margin: 5px 0;
     padding: 10px;
