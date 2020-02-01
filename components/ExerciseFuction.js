@@ -128,7 +128,7 @@ export const getExerciseName = ( value ) => {
         case "chest-squeezes": return "체스트 스퀴즈"
         case "shoulder-taps": return "숄더탭"
 
-        default: return "None"
+        default: return "선택해주세요"
     }
 }
 

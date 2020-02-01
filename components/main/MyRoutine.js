@@ -21,7 +21,6 @@ import {
 } from "../../reducers/user";
 import { getExerciseCount, getExerciseName } from "../ExerciseFuction";
 import RoutineDetail from "./RoutineDetail";
-import AddExercise from "./AddExercise";
 
 const { Option } = Select;
 
@@ -107,7 +106,7 @@ const MyRoutine = () => {
   const [clickInput, setClickInput] = useState(false);
   const [isAddRoutineClick, setIsAddRoutineClick] = useState(false);
   const [isAddExerciseClick, setIsAddExerciseClick] = useState(false);
-  const [exerciseAreaValue, setExerciseAreaValue] = useState(0); //운동 부위 값 저장
+  const [exerciseAreaValue, setExerciseAreaValue] = useState(''); //운동 부위 값 저장
   const [key, setKey] = useState(1);
   const [totalExercise, setTotalExercise] = useState([]);
   const [id, setId ] = useState(0);
@@ -158,6 +157,7 @@ const MyRoutine = () => {
     setTotalExercise([...totalExercise, {id : id ,area :_area, posture: _posture, count: _count}]);
     setId(id+1);
     setIsAddExerciseClick(false);
+    setExerciseAreaValue('');
   };
 
   const onCloseModal = () => {
@@ -193,11 +193,16 @@ const MyRoutine = () => {
     setTotalExercise(temp);
   };
 
+  const routineNameUpdate = () => {
+    setClickInput(false);
+    setInputRoutineName('');
+  };
+
   return (
     <>
       <ContentForm>
         {Object.keys(userRecord).map(value => (
-            <RoutineDetail myValue={userRecord[value]}/>
+            <RoutineDetail myValue={userRecord[value]} />
         ))}
 
         <ContentAdd onClick={onAddRoutineClick}>
@@ -216,8 +221,11 @@ const MyRoutine = () => {
         >
           <RoutineForm>
             {/*루틴 이름 작성 */}
-            {clickInput == true ? (
+            {clickInput ? (
+              <>
               <div>{inputRoutineName}</div>
+              <Button type="primary" onClick={routineNameUpdate}>수정</Button>
+              </>
             ) : (
               <Form onSubmit={onRoutineName}>
                 <Input
@@ -248,7 +256,7 @@ const MyRoutine = () => {
                       type="close"
                       onClick={deleteExercise(training.id)}
                     />
-                  </DeleteIcon>{" "}
+                  </DeleteIcon>
                   {/*삭제 버튼 누르면 추가한 운동 삭제 */}
                   <Routine>
                     <div style={{ fontSize: 25 }}>
@@ -256,7 +264,7 @@ const MyRoutine = () => {
                     </div>
                     <div style={{ fontSize: 20 }}>
                       {training.count}
-                      {getExerciseCount(training.posture)}
+                      {getExerciseCount(training.area)}
                     </div>
                   </Routine>
                 </Content>
@@ -264,6 +272,7 @@ const MyRoutine = () => {
             })}
           </RoutineForm>
 
+          {/* 따로 빼자 */}
           <Modal
             title="운동 추가하기"
             visible={isAddExerciseClick}
@@ -273,8 +282,8 @@ const MyRoutine = () => {
             <div>운동 종류</div>
             <Select
               style={{ width: 150, marginRight: 20 }}
-              placeholder="Select a exercise"
               onChange={getAreaValue}
+              value = {getExerciseName(exerciseAreaValue)}
             >
               <Option value="aerobic-exercise">유산소 운동</Option>
               <Option value="abs">복근</Option>

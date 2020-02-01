@@ -2,12 +2,13 @@ import React, { useState, useCallback } from 'react';
 import { useSeletor, useDispatch } from 'react-redux';
 import { Select, Input, Button } from 'antd';
 import {GetPostureValueAction, GetCountValueAction} from '../../reducers/user';
+import {getExerciseName} from '../ExerciseFuction';
 
 const { Option } = Select;
 
 const Exercise = ({value}) => {
     const dispatch = useDispatch();
-    const [DetailExerciseValue, setDetailExerciseValue] = useState('');
+    const [detailExerciseValue, setDetailExerciseValue] = useState('');
     const [exerciseCount, setExerciseCount] = useState(0);
 
     const getDetailValue = (postureValue) => {
@@ -20,7 +21,7 @@ const Exercise = ({value}) => {
     const onChangeText = useCallback((e) => {
         console.log(e.target.value)
         setExerciseCount(e.target.value)
-    }, []);
+    }, [exerciseCount]);
 
     const getCount = (exerciseCount) => {
         dispatch(GetCountValueAction(exerciseCount))
@@ -31,7 +32,7 @@ const Exercise = ({value}) => {
         case 'aerobic-exercise':
             return (
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="walk">걷기</Option>
                     <Option value="run">달리기</Option>
                     <Option value="jump-rope">줄넘기</Option>
@@ -41,7 +42,7 @@ const Exercise = ({value}) => {
                     <Option value="circuit">서킷 트레이닝</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -58,7 +59,7 @@ const Exercise = ({value}) => {
         case 'abs':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="sit-up">윗몸 일으키기</Option>
                     <Option value="reverse-crunche">리버스 크런치</Option>
                     <Option value="bicycle-crunche">바이시클 크런치</Option>
@@ -67,7 +68,7 @@ const Exercise = ({value}) => {
                     <Option value="elbow-plank">엘보우 플랭크</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -84,7 +85,7 @@ const Exercise = ({value}) => {
         case 'quads':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="lunge">런치</Option>
                     <Option value="high-knee">하이니</Option>
                     <Option value="turning-kick">터닝킥</Option>
@@ -93,7 +94,7 @@ const Exercise = ({value}) => {
                     <Option value="lunges-step-up">런지 스텝업</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -110,7 +111,7 @@ const Exercise = ({value}) => {
         case 'glutes':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="squats">스쿼트</Option>
                     <Option value="donkey-kick">동키킥</Option>
                     <Option value="bridge">힙 브릿지</Option>
@@ -119,7 +120,7 @@ const Exercise = ({value}) => {
                     <Option value="side-leg-raise">사이드 레그 레이즈</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -136,13 +137,13 @@ const Exercise = ({value}) => {
         case 'triceps':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="close-grip-push-up">클로즈 그립 푸쉬업</Option>
                     <Option value="dips">딥스</Option>
                     <Option value="punch">펀치</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -159,7 +160,7 @@ const Exercise = ({value}) => {
         case 'biceps':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="chin-ups">턱걸이</Option>
                     <Option value="doorframe-rows">문틀 로우</Option>
                     <Option value="body-rows">바디 로우</Option>
@@ -167,7 +168,7 @@ const Exercise = ({value}) => {
                     <Option value="pseudo-planche">수도 플란체 푸쉬업</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -184,14 +185,14 @@ const Exercise = ({value}) => {
         case 'back':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="pull-ups">풀 업</Option>
                     <Option value="elbow-lifts">팔꿈치 들어올리기</Option>
                     <Option value="star-plank">스타 플랭크</Option>
                     <Option value="alt-armLeg-plank">반대쪽 팔다리 들어올리기 플랭크</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
@@ -208,20 +209,20 @@ const Exercise = ({value}) => {
         case 'chest':
             return(
                 <>
-                <Select style={{width: 200}} placeholder="Select a exercise" onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
                     <Option value="push-up">팔굽혀 펴기</Option>
                     <Option value="plank-rotations">플랭크 로테이션</Option>
                     <Option value="chest-squeezes">체스트 스퀴즈</Option>
                     <Option value="shoulder-taps">숄더탭</Option>
                 </Select>
                 {
-                    DetailExerciseValue != null
+                    detailExerciseValue != null
                     ?
                     <>
                     <div style={{marginTop: 10}}>
                         <div>운동 횟수</div>
                         <Input onChange={onChangeText} value={exerciseCount} style={{width: 100}}/>
-                        <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button>
+                        {/* <Button type="primary" onClick={getCount(exerciseCount)}>입력</Button> */}
                     </div>
                     </>
                     :
