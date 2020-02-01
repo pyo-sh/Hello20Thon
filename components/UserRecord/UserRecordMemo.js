@@ -35,6 +35,7 @@ const UserRecordMemo = ({date, memo}) => {
                 placeholder="What did you do?"
                 value = {memoText}
                 onChange={onChangeMemoText}
+                onPressEnter={addMemoText}
             />
             <AddButton onClick={addMemoText}>추가</AddButton>
         </UpperDiv>

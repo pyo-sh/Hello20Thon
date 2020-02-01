@@ -32,7 +32,7 @@ const Exercise = ({value}) => {
         case 'aerobic-exercise':
             return (
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="walk">걷기</Option>
                     <Option value="run">달리기</Option>
                     <Option value="jump-rope">줄넘기</Option>
@@ -59,7 +59,7 @@ const Exercise = ({value}) => {
         case 'abs':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="sit-up">윗몸 일으키기</Option>
                     <Option value="reverse-crunche">리버스 크런치</Option>
                     <Option value="bicycle-crunche">바이시클 크런치</Option>
@@ -85,7 +85,7 @@ const Exercise = ({value}) => {
         case 'quads':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="lunge">런치</Option>
                     <Option value="high-knee">하이니</Option>
                     <Option value="turning-kick">터닝킥</Option>
@@ -111,7 +111,7 @@ const Exercise = ({value}) => {
         case 'glutes':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="squats">스쿼트</Option>
                     <Option value="donkey-kick">동키킥</Option>
                     <Option value="bridge">힙 브릿지</Option>
@@ -137,7 +137,7 @@ const Exercise = ({value}) => {
         case 'triceps':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="close-grip-push-up">클로즈 그립 푸쉬업</Option>
                     <Option value="dips">딥스</Option>
                     <Option value="punch">펀치</Option>
@@ -160,7 +160,7 @@ const Exercise = ({value}) => {
         case 'biceps':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="chin-ups">턱걸이</Option>
                     <Option value="doorframe-rows">문틀 로우</Option>
                     <Option value="body-rows">바디 로우</Option>
@@ -185,7 +185,7 @@ const Exercise = ({value}) => {
         case 'back':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="pull-ups">풀 업</Option>
                     <Option value="elbow-lifts">팔꿈치 들어올리기</Option>
                     <Option value="star-plank">스타 플랭크</Option>
@@ -209,7 +209,7 @@ const Exercise = ({value}) => {
         case 'chest':
             return(
                 <>
-                <Select style={{width: 200}} value={getExerciseName(detailExerciseValue)} onChange={getDetailValue}>
+                <Select style={{width: 200}} value={getExerciseName[detailExerciseValue]} onChange={getDetailValue}>
                     <Option value="push-up">팔굽혀 펴기</Option>
                     <Option value="plank-rotations">플랭크 로테이션</Option>
                     <Option value="chest-squeezes">체스트 스퀴즈</Option>

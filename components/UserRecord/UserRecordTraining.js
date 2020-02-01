@@ -62,7 +62,7 @@ const UserRecordTraining = ( { trainingProp } ) => {
             :   <Icon type="border" style={{fontSize: '27px'}}/>
             }
             <div className="Training-Posture">
-                {getExerciseName(posture)}
+                {getExerciseName[posture]}
             </div>
             <div className="Training-Count">
                 {count}{getExerciseCount(area)}

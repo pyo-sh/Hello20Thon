@@ -288,7 +288,7 @@ const MyRoutine = () => {
                   {/*삭제 버튼 누르면 추가한 운동 삭제 */}
                   <Routine>
                     <div style={{ fontSize: 25 }}>
-                      {getExerciseName(training.posture)}
+                      {getExerciseName[training.posture]}
                     </div>
                     <div style={{ fontSize: 20 }}>
                       {training.count}
@@ -311,7 +311,7 @@ const MyRoutine = () => {
             <Select
               style={{ width: 150, marginRight: 20 }}
               onChange={getAreaValue}
-              value = {getExerciseName(exerciseAreaValue)}
+              value = {getExerciseName[exerciseAreaValue]}
             >
               <Option value="aerobic-exercise">유산소 운동</Option>
               <Option value="abs">복근</Option>

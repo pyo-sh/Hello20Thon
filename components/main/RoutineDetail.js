@@ -217,7 +217,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                             </DeleteIcon>{" "}
                             <Routine>        
                                 <div style={{ fontSize: 25 }}>
-                                {getExerciseName(training.posture)}
+                                {getExerciseName[training.posture]}
                                 </div>
                                 <div style={{ fontSize: 20 }}>
                                 {training.count}
@@ -233,7 +233,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                         <Content>
                             <Routine>        
                                 <div style={{ fontSize: 25 }}>
-                                {getExerciseName(training.posture)}
+                                {getExerciseName[training.posture]}
                                 </div>
                                 <div style={{ fontSize: 20 }}>
                                 {training.count}
