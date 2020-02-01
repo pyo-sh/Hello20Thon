@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import UserRecordMemo from '../sss/UserRecordMemo';
-import UserRecordWeight from '../sss/UserRecordWeight';
-import UserRecordRoutine from '../sss/UserRecordRoutine';
+import UserRecordMemo from '../userRecord/UserRecordMemo';
+import UserRecordWeight from '../userRecord/UserRecordWeight';
+import UserRecordRoutine from '../userRecord/UserRecordRoutine';
 import styled from 'styled-components';
 
 const UpperDiv = styled.div`
