@@ -20,6 +20,7 @@ const RoutineMainBox = styled.div`
     opacity: 0.7;
   }
 `;
+
 const RecommendRoutine = () => {
     const {recommendRoutine} = useSelector(state => state.user);
     return (

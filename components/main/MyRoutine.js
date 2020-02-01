@@ -74,7 +74,6 @@ const RoutineMainBox = styled.div`
   }
 `;
 
-
 //루틴 추가 style
 const ContentAdd = styled(Card)`
   margin-top: 20px;

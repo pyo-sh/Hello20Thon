@@ -47,7 +47,6 @@ const ExerciseAdd = styled(Card)`
   text-align: center;
   font-size: 18px;
   cursor: pointer;
-  
   & :hover {
     border: dashed 2px #1890FF;
     color: #1890FF;
