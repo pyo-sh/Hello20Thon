@@ -9,16 +9,37 @@ import Main from '../components/main/Main';
 import styled from 'styled-components';
 import { SetUserNameAction, SetUserRecord } from "../reducers/user";
 import { setRoutineMemo } from "../reducers/day";
-
+import Slick from 'react-slick';
+const MainWrapper = styled.div`
+  position : relative;
+  width : 100%;
+  height: 100vh;
+  & .slick{
+  position: absolute;
+  top: 50%;
+  left : 50%;
+  transform : translate(-50%, -50%);
+  width: 100%;
+  height: 90vh;
+  z-index: -1;
+  opacity: 0.35;
+  overflow : hidden;
+  }
+  & .backImg img{
+    width : 100%;
+    height : 100vh;
+  }
+`;
 const InputNickname = styled.div`
   width : 100%;
   height : 85vh;
   font-size: 40px;
   font-weight : bold;
-  display : flex;
+  display : flex; 
+  flex-direction : column;
   justify-content : center;
   align-items : center;
-  flex-direction : column;
+  flex-direction : column; 
   & .nicknameForm{
     display : flex;
   }
@@ -27,16 +48,8 @@ const InputNickname = styled.div`
   }
 
 `;
-const VideoDiv = styled.div`
-  position: absolute;
-  top:50%;
-  left:50%;
-  transform : translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  opacity: 0.35;
-`;
+
+const mainPicture = [1,2,3,4];
 
 const Home = () => {
   const dispatch  = useDispatch();
@@ -77,7 +90,7 @@ const Home = () => {
   return (
     <>
     {!check ? (
-      <>
+      <MainWrapper>
         <InputNickname>
           당신의 닉네임을 알려주세요!
           <Form className="nicknameForm" onSubmit={onSubmitNickname}>
@@ -85,10 +98,22 @@ const Home = () => {
             <Button htmlType="submit" type="primary">입력</Button>
           </Form>
         </InputNickname>
-        <VideoDiv>
-          
-        </VideoDiv>
-      </>
+        <Slick
+       className="slick"
+        initialSlide={0}
+        autoplay={true}
+        autoplaySpeed={2500}
+        infinite={true}
+        slidesToShow={1}
+        slidesToScroll={1}
+      >
+        {mainPicture.map((pic,i) => (
+          <div className = "backImg">
+            <img key={i} src={`/images/${pic}.jpg`}/>
+          </div>
+        ))}
+        </Slick>
+      </MainWrapper>
     ) : (
       <div>
         <Row type="flex" justify="start">

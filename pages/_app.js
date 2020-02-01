@@ -10,7 +10,6 @@ import { createStore, compose, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
 import Head from 'next/head';
-import Helmet from 'react-helmet';
 
 const Hym = ({ Component, store,}) => {
   return (
@@ -19,6 +18,8 @@ const Hym = ({ Component, store,}) => {
                 <title>HYM</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.25.3/antd.css"/>
                 <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+                <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
             </Head>
         <AppLayout>
           <Component />

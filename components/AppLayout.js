@@ -34,6 +34,9 @@ const AppLayout = ({ children, router }) => {
   const {name} = useSelector(state => state.user);
   const resetOnClick = useCallback(() => {
     localStorage.clear();
+    alert('정보가 초기화 되었습니다.');
+    console.log(router);
+    router.reload();
   },[]);
   return (
     <LayoutWrapper>
