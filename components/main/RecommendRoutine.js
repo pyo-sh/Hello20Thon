@@ -15,8 +15,8 @@ const RecommendRoutine = () => {
     return (
     <>
     <ContentForm>
-        {Object.keys(recommendRoutine).map(value => (
-            <RoutineDetail recommendValue={recommendRoutine[value]}/>
+        {Object.keys(recommendRoutine).map((value, i) => (
+            <RoutineDetail key={i} recommendValue={recommendRoutine[value]}/>
         ))}
     </ContentForm> 
     </>

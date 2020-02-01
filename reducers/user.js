@@ -15,7 +15,7 @@ export const initialState = {
   userRecord: {
     0: {
       key: 0,
-      routineName: "더미입니다", //루틴 이름
+      routineName: "운동을 추가 해 보세요!", //루틴 이름
       trainings: [
         {
           id: 1, 
@@ -378,8 +378,12 @@ const reducer = (state = initialState, action) => {
       case ADD_RECORD_SUCCESS: {
         draft.recordAdded = true;
         draft.isRecordAdding = false;
-        const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
-        draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        if(JSON.stringify(draft.userRecord) == '{}'){
+          draft.userRecord[0] = {...action.data, key: 0}
+        }else{
+          const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
+          draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        }
         localStorage.setItem("userRecord", JSON.stringify(draft.userRecord));
         draft.id = 1;
         break;
@@ -398,8 +402,12 @@ const reducer = (state = initialState, action) => {
       case ADD_RECOMMEND_SUCCESS: {
         draft.recommendAdded = true;
         draft.isRecommendAdding = false;
-        const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
-        draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        if(JSON.stringify(draft.userRecord) == '{}'){
+          draft.userRecord[0] = {...action.data, key: 0}
+        }else{
+          const maxKey = Object.keys(draft.userRecord).reduce((accu, now) => accu < parseInt(now) ? now : accu);
+          draft.userRecord[parseInt(maxKey)+1] = {...action.data, key:parseInt(maxKey)+1};
+        }
         localStorage.setItem("userRecord", JSON.stringify(draft.userRecord));
         break;
       }
@@ -416,7 +424,6 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case DELETE_RECORD_SUCCESS: {
-        console.log(action.data)
         draft.recordDeleted = true;
         draft.isRecordDeleting = false;
         delete draft.userRecord[action.data];
