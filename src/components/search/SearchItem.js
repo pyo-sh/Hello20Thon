@@ -12,7 +12,7 @@ const SearchItem = ({ img }) => {
   return (
     <SearchItemBox>
       <a href={img.link} target="_blank">
-        <img width = "100%" src={img.image} title={img.title}></img>
+        <img width = "100%" src={img.image} title={img.title} alt={img.title}></img>
       </a>
     </SearchItemBox>
   );

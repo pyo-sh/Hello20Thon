@@ -39,7 +39,7 @@ const VideoListItem = ({video, check}) => {
             <span>{check ? <Icon className="videoIcon" type="caret-right" /> : null}</span>
             <VideoItemBox>
                 <div>
-                    <img src={video.thumbnails.default.url}/>
+                    <img src={video.thumbnails.default.url} alt={video.title}/>
                 </div>
                 <div className="videoContent">
                     <div><b>{video.title}</b></div>

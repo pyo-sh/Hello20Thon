@@ -102,8 +102,8 @@ const Howtouse = () => {
                 집에서도 할 수 있는 맨몸운동을 통해 모두가 건강한 세상을 만드는 것이 저희의 <b>목표</b>입니다.<br/>
             </div>
             <div className="How-Routine">
-                <img src="/images/routine1.png"/>
-                <img src="/images/routine2.png"/>
+                <img src="/images/routine1.png" alt="루틴 설명1"/>
+                <img src="/images/routine2.png" alt="루틴 설명2"/>
                 <div className="How-Description">
                     <div className="How-Description-Title"> 직접 만들어보는 루틴 </div>
                     <div className="How-Description-Content">
@@ -122,11 +122,11 @@ const Howtouse = () => {
                         운동을 못 했거나, 그 날 확인해야 할 사항이 있다면 메모기능을 사용하시면 간편합니다!
                     </div>
                 </div>
-                <img src="/images/calendar1.png"/>
-                <img src="/images/calendar2.png"/>
+                <img src="/images/calendar1.png" alt="캘린더 설명1"/>
+                <img src="/images/calendar2.png" alt="캘린더 설명2"/>
             </div>
             <div className="How-Youtube">
-                <img src="/images/youtube.png"/>
+                <img src="/images/youtube.png" alt="유튜브 설명"/>
                 <div className="How-Description">
                     <div className="How-Description-Title"> 유튜브 검색 </div>
                     <div className="How-Description-Content">
@@ -143,10 +143,10 @@ const Howtouse = () => {
                         예쁜 목소리로 시간이 다 됐음을 알려줍니다!
                     </div>
                 </div>
-                <img src="/images/stopwatch.png"/>
+                <img src="/images/stopwatch.png" alt="스톱워치 설명"/>
             </div>
             <div className="How-Search">
-                <img src="/images/searchImage.png"/>
+                <img src="/images/searchImage.png" alt="이미지 검색 설명"/>
                 <div className="How-Description">
                     <div className="How-Description-Title"> 운동사진 검색 </div>
                     <div className="How-Description-Content">
