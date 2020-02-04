@@ -80,8 +80,10 @@ const RoutineDetail = ({myValue, recommendValue}) => {
     const [totalExercise, setTotalExercise] = useState([]);
     const [id, setId] = useState(value.trainings.length+1);
     const [clickInputName, setClickInputName] = useState(false);
-    const [updateRoutineName, setUpdateRoutineName] = useState('');
-    const [tempName, setTempName] = useState(value.routineName);
+    const [updateRoutineName, setUpdateRoutineName] = useState(''); //수정된 루틴 이름
+    const [tempName, setTempName] = useState(value.routineName);    //루틴 이름 수정
+    const [directExerciseValue, setDirectExerciseValue] = useState(''); //직접 입력하기
+    const [exerciseCountDetail, setExerciseCountDetail] = useState('');  //시간이지 횟수인지
 
     //상세 루틴의 ADD EXERCISE 버튼 클릭
     const onAddExerciseClick = useCallback(() => {
@@ -121,20 +123,31 @@ const RoutineDetail = ({myValue, recommendValue}) => {
         setTotalExercise([]);
     }, [value && value.key, totalExercise, tempName]);
 
-    //상세 루틴의 운동 추가 Modal의 OK버튼 눌렀을 경우
-    const onOkModal = useCallback(() => {
-        setTotalExercise(prev =>[...prev, {id : id ,area :exerciseAreaValue, posture: detailExerciseValue, count: exerciseCount}]);
+    const onOkModal = useCallback((e) => {
+        if(directExerciseValue){
+          setTotalExercise([...totalExercise, {id: id, area: exerciseAreaValue, posture: directExerciseValue, count: exerciseCount, countDetail: exerciseCountDetail}]);
+          setDirectExerciseValue('');
+        } else{
+          //추가 할 운동의 id와 운동 부위, 운동 자세, 운동 횟수 배열에 추가
+          setTotalExercise([...totalExercise, {id : id ,area : exerciseAreaValue, posture: detailExerciseValue, count: exerciseCount, countDetail: exerciseCountDetail}]);
+        }
+        setId(id+1);
         setIsAddExerciseClick(false);
-        setId(id+1)
         //임시 저장된 값들 초기화
         setExerciseAreaValue('');  
         setDetailExerciseValue('');
+        setExerciseCountDetail('');
         setExerciseCount(0);
-    }, [id, totalExercise, exerciseAreaValue, detailExerciseValue, exerciseCount]);
+      }, [id, exerciseAreaValue, detailExerciseValue, exerciseCount, directExerciseValue, exerciseCountDetail]);
 
     //상세 루틴의 운동 추가 Modal 닫을 때 
     const onCloseModal = useCallback(() => {
         setIsAddExerciseClick(false);
+        setExerciseAreaValue('');
+        setDetailExerciseValue('');
+        setDirectExerciseValue('');
+        setExerciseCountDetail('');
+        setExerciseCount(0);
     }, []);
 
     //운동 부위 값 가져오기
@@ -145,6 +158,11 @@ const RoutineDetail = ({myValue, recommendValue}) => {
     //운동 자세 값 저장
     const getDetailValue = useCallback(postureValue => {
         setDetailExerciseValue(postureValue) 
+    }, []);
+
+    // 시간인지 횟수 인지 저장
+    const getExerciseCountDetail = useCallback(countDetailValue => {
+        setExerciseCountDetail(countDetailValue)
     }, []);
 
     //운동 횟수 입력
@@ -184,6 +202,11 @@ const RoutineDetail = ({myValue, recommendValue}) => {
     const routineNameUpdate = useCallback((e) => {
         setClickInputName(!clickInputName);
     }, [clickInputName]);
+
+    //직접 입력 창
+    const onDirectInput = useCallback(e => {
+        setDirectExerciseValue(e.target.value);
+    }, []);
 
     return (
         <>
@@ -261,7 +284,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                                     </div>
                                     <div style={{ fontSize: 20 }}>
                                     {training.count}
-                                    {getExerciseCount(training.area)}
+                                    {getExerciseCount(training.countDetail)}
                                     </div>
                                 </Routine>
                             </Content>
@@ -279,7 +302,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                                 </div>
                                 <div style={{ fontSize: 20 }}>
                                 {training.count}
-                                {getExerciseCount(training.area)}
+                                {getExerciseCount(training.countDetail)}
                                 </div>
                             </Routine>
                         </Content>
@@ -342,32 +365,46 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                 </div>
             </Drawer>
 
-            <Modal
+          <Modal
             title="운동 추가하기"
             visible={isAddExerciseClick}
             onOk={onOkModal}
             onCancel={onCloseModal}
-            >
+            width = {620}
+          >
             <div>운동 종류</div>
             <Select
-              style={{ width: 150, marginRight: 20 }}
-              onChange={getAreaValue}
-              value = {Object.keys(getExerciseName).filter(v => v === exerciseAreaValue)}
+                placeholder = "운동 부위"
+                style={{ width: 120, marginRight: 20 }}
+                onChange={getAreaValue}
+                value = {Object.keys(getExerciseName).filter(v => v === exerciseAreaValue)}
             >
               {Object.keys(getExerciseName).map((v, i) => <Option value={v} key={i}>{v}</Option>)}
             </Select>
             {exerciseAreaValue 
             ? (<>
                 <Select 
-                  style={{width: 200}} 
-                  value={getExerciseName[exerciseAreaValue].filter(v => v === detailExerciseValue)} 
-                  onChange={getDetailValue}
+                    placeholder = "운동 자세"
+                    style={{width: 190, marginRight: 20}} 
+                    value={getExerciseName[exerciseAreaValue].filter(v => v === detailExerciseValue)} 
+                    onChange={getDetailValue}
                 >
                   {getExerciseName[exerciseAreaValue].map((v, i) => <Option value={v} key={i}>{v}</Option>)}
                 </Select>
-                <div style={{marginTop: 10}}>
-                    <div>운동 시간</div>
-                    <Input onChange={onCountText} value={exerciseCount} style={{width: 100}}/>
+                {
+                  detailExerciseValue == "직접 입력하기" ? <Input placeholder = "직접 운동을 입력하세요" onChange={onDirectInput} value={directExerciseValue} style={{width: 210}}/> : <></>
+                }
+                <div style={{marginTop: 20}}>
+                  <div>운동 시간/횟수 (시간은 분 단위입니다.)</div>
+                  <Select 
+                    style={{width: 100, marginRight: 20}}
+                    onChange = {getExerciseCountDetail}
+                    value = {exerciseCountDetail}
+                  >
+                    <Option value="시간">시간</Option>
+                    <Option value="횟수">횟수</Option>
+                  </Select>
+                  <Input onChange={onCountText} value={exerciseCount} style={{width: 50}}/>  
                 </div>
                 </>) 
                 :

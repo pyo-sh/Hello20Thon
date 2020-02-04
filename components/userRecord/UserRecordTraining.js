@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ToggleTrainingRequest } from '../../reducers/day';
 import { Icon } from 'antd';
 import styled from 'styled-components';
-import { getExerciseCount, getExerciseName } from '../ExerciseFuction';
+import { getExerciseCount } from '../ExerciseFuction';
 
 const UpperDiv = styled.div`
     position: relative;
@@ -51,6 +51,7 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
     const [area, setArea] = useState("");       // 운동 범위
     const [posture, setPosture] = useState(""); // 운동 종류
     const [count, setCount] = useState(0);      // 운동 갯수
+    const [countDetail, setCountDetail] = useState('')  // 운동 시간인지 횟수인지 구분
     const [done, setDone] = useState(false);    // 했는지 안했는지
     const { isTrainingToggling } = useSelector(state => state.day);
     const nowDate = useSelector(state => state.day.nowPointingDate);
@@ -61,6 +62,7 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
         setArea(trainingProp.area);
         setPosture(trainingProp.posture);
         setCount(trainingProp.count);
+        setCountDetail(trainingProp.countDetail);
         setDone(trainingProp.done);
     },[trainingProp])
 
@@ -79,7 +81,7 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
                 {posture}
             </div>
             <div className="Training-Count">
-                {count}{getExerciseCount(area)}
+                {count}{getExerciseCount(countDetail)}
             </div>
         </UpperDiv>
     );

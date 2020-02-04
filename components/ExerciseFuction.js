@@ -62,7 +62,7 @@
 // 유산소 운동만 분이다
 export const getExerciseCount = value => {
   switch (value) {
-    case "유산소":
+    case "시간":
       return "분";
     default:
       return "개";
@@ -71,6 +71,7 @@ export const getExerciseCount = value => {
 
 export const getExerciseName = {
   "유산소": [
+    "직접 입력하기",
     "걷기",
     "달리기",
     "줄넘기",
@@ -80,6 +81,7 @@ export const getExerciseName = {
     "점핑잭"
   ],
   "복근": [
+    "직접 입력하기",
     "윗몸 일으키기",
     "크런치",
     "리버스 크런치",
@@ -94,6 +96,7 @@ export const getExerciseName = {
   ],
 
   "하체": [
+    "직접 입력하기",
     "런지",
     "사이드 런지",
     "백 런지",
@@ -110,12 +113,14 @@ export const getExerciseName = {
   ],
 
   "삼두": [
+    "직접 입력하기",
     "원암 트라이셉스 푸쉬업",
     "다이아몬드 푸쉬업",
     "딥스",
     "내로우 푸쉬업"
   ],
   "가슴": [
+    "직접 입력하기",
     "푸쉬업",
     "와이드 푸쉬업",
     "내로우 푸쉬업",
@@ -124,8 +129,9 @@ export const getExerciseName = {
     "딥스",
     "체스트 스퀴즈"
   ],
-  "이두": ["친업"],
+  "이두": ["직접 입력하기", "친업"],
   "등": [
+    "직접 입력하기",
     "친업",
     "문틀 로우",
     "바디 로우",
@@ -135,19 +141,11 @@ export const getExerciseName = {
     "슈퍼맨"
   ],
   "어깨" : [
+    "직접 입력하기",
     "숄더탭",
     "파이크 푸쉬업",
     "타이프라이터 푸쉬업",
     "숄더 시저스",
     "트라이앵글 프레스",
   ]
-  // 등
-
-  // 가슴
-
-  // 어깨
-
-  // 기타
 };
-
-// export default  getExerciseName;
