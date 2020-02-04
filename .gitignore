@@ -1,3 +1,3 @@
 node_modules
 .next
-apis/apiKey.js
+src/apis/apiKey.js
