@@ -22,6 +22,8 @@ const VideoDetail = ({video}) => {
                 display="initial" allow="fullscreen"/>
             <div>
                 <div><b>{video.title}</b></div>
+                <div>{video.channelTitle}</div>
+                <hr/>
                 <div>{video.description}</div>
             </div>
         </DetailBox>

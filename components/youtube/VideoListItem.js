@@ -2,19 +2,31 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { YOUTUBE_SELECT_VIDEO } from '../../reducers/youtube';
 import styled from 'styled-components';
+import { Icon } from 'antd'; 
 
+const VideoItemLi = styled.li`
+    display : flex;
+    & span {
+        display : inline-flex;
+        width : 20px;
+        align-items : center;
+    }
+    
+`;
 const VideoItemBox = styled.div`
     display: flex;
     border : 1px solid #EDEDED;
     align-items : center;
+    width : 100%;
     & div img {
         cursor : pointer;
     }
-    & div {
-        text-align : center;
+    & .videoContent {
+        display : flex;
+        flex-direction : column;
     }
 `;
-const VideoListItem = ({video}) => {
+const VideoListItem = ({video, check}) => {
     const dispatch = useDispatch();
     const selectVideo = useCallback(() => {
         dispatch({
@@ -23,14 +35,18 @@ const VideoListItem = ({video}) => {
         })
     }, []);
     return (
-        <li onClick={selectVideo}>
+        <VideoItemLi onClick={selectVideo}>
+            <span>{check ? <Icon className="videoIcon" type="caret-right" /> : null}</span>
             <VideoItemBox>
                 <div>
                     <img src={video.thumbnails.default.url}/>
                 </div>
-                <div><b>{video.title}</b></div>
+                <div className="videoContent">
+                    <div><b>{video.title}</b></div>
+                    <div>{video.channelTitle}</div>
+                </div>
             </VideoItemBox>
-        </li>
+        </VideoItemLi>
     );
 };
 

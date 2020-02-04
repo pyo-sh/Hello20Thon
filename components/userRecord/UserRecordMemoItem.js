@@ -20,6 +20,7 @@ const MemoItemBox = styled.div`
     align-items: center;
     padding: 4px 11px;
     white-space:pre-wrap;
+    cursor : pointer;
     width: 100%;
   }
   & .Memo-Item-Input{
@@ -35,6 +36,9 @@ const MemoItemBox = styled.div`
     font-size: 20px;
     margin-left: 10px;
     margin-right: 5px;
+    & :hover {
+      color : ${props => props.isUpdate ? "yellowgreen" : "red"}
+    }
   }
 `;
 
@@ -66,7 +70,7 @@ const UserRecordMemoItem = ({ date, item }) => {
     setIsUpdate(false);
   }, [updateText]);
   return (
-    <MemoItemBox>
+    <MemoItemBox isUpdate={isUpdate}>
       {!isUpdate ? (
         <>
           <div 
