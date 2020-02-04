@@ -31,10 +31,10 @@ const MainWrapper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    height: 85vh;
+    height: 90vh;
     z-index: -1;
     background : rgba(0,0,0,0.6);
-
+    overflow: hidden;
   }
   & .backImg img {
     width: 100%;
