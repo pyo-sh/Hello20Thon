@@ -21,6 +21,7 @@ const MemoItemBox = styled.div`
     padding: 4px 11px;
     white-space:pre-wrap;
     width: 100%;
+    cursor: pointer;
   }
   & .Memo-Item-Input{
     resize: none;
