@@ -1,4 +1,4 @@
-import { all, delay, fork, takeLatest, put } from 'redux-saga/effects';
+import { all, fork, takeLatest, put } from 'redux-saga/effects';
 import {
     ADD_ROUTINE_REQUEST,
     AddRoutineSuccess,
@@ -9,6 +9,12 @@ import {
     TOGGLE_TRAINING_REQUEST,
     ToggleTrainingSuccess,
     ToggleTrainingFailure,
+    UPDATE_ROUTINENAME_REQUEST,
+    UpdateRoutineNameSuccess,
+    UpdateRoutineNameFailure,
+    UPDATE_TRAININGCOUNT_REQUEST,
+    UpdateTrainingCountSuccess,
+    UpdateTrainingCountFailure,
     ADD_WEIGHT_REQUEST,
     AddWeightSuccess,
     AddWeightFailure,
@@ -61,6 +67,32 @@ function* toggleTraining(action) {
 
 function* watchToggleTraining() {
     yield takeLatest(TOGGLE_TRAINING_REQUEST, toggleTraining);
+}
+
+function* updateRoutineName(action) {
+    try{
+        yield put(UpdateRoutineNameSuccess(action.data));
+    }catch(error){
+        console.error(error);
+        yield put(UpdateRoutineNameFailure(error));
+    }
+}
+
+function* watchUpdateRoutineName() {
+    yield takeLatest(UPDATE_ROUTINENAME_REQUEST, updateRoutineName);
+}
+
+function* updateTrainingCount(action) {
+    try{
+        yield put(UpdateTrainingCountSuccess(action.data));
+    }catch(error){
+        console.error(error);
+        yield put(UpdateTrainingCountFailure(error));
+    }
+}
+
+function* watchUpdateTrainingCount() {
+    yield takeLatest(UPDATE_TRAININGCOUNT_REQUEST, updateTrainingCount);
 }
 
 function* addWeight(action) {
@@ -121,6 +153,8 @@ export default function* daySaga() {
         fork(watchAddRoutine),
         fork(watchDeleteRoutine),
         fork(watchToggleTraining),
+        fork(watchUpdateRoutineName),
+        fork(watchUpdateTrainingCount),
         fork(watchAddWeight),
         fork(watchAddMemo),
         fork(watchDeleteMemo),

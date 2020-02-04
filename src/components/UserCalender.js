@@ -41,6 +41,9 @@ const CalendarHeader = styled.div`
     padding: 10px;
     & .Title{
         margin-Bottom: 10px;
+        font-size: 25px;
+        /* border-bottom: 1px solid #d9d9d9; */
+        text-align: center;
     }
     & .Calendar-Button{
         border: none;
@@ -55,7 +58,6 @@ const CalendarHeader = styled.div`
         box-shadow: none;
     }
     & .ant-radio-button-wrapper:hover{
-
         color: #8854d0;
         background: #d980fa20;
         box-shadow: 0 0 0 1px #d980fa20;
@@ -71,20 +73,6 @@ const CalendarHeader = styled.div`
             background: #d980fa20;
         }
     }
-    /* & .Calendar-Button{
-        color: #d980fa;
-        border: 1px solid #d980fa73;
-        & :hover, :focus{
-            color: #d980fa; 
-            border: 1px solid #d980fa73;
-        }
-    } */
-    /* & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child{
-        border-color: #8854d099;
-    }
-    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
-        box-shadow: -1px 0 0 0 #8854d099;
-    } */
 `;
 
 const UserCalender = () => {
@@ -118,28 +106,22 @@ const UserCalender = () => {
          dispatch(setNowPointingDate(stringTemp));
 
         // Month의 Select Option 추가
-        const monthOptions = [];
-        for (let index = 0; index < 12; index++) {
-            monthOptions.push(
-                <Select.Option className="Month-Item" key={`${index}`}>
-                    {months[index]}
-                </Select.Option>
-            );
-        };
+        const monthOptions = Array(12).fill(0).map((v, index) => (
+            <Select.Option className="Month-Item" key={`${index}`}>
+                {months[index]}
+            </Select.Option>
+        )); 
 
         // Year의 Select Option 추가
-        const yearOptions = [];
-        for (let i = year - 5; i < year + 5; i += 1) {
-            yearOptions.push(
-                <Select.Option key={i} value={i} className="Year-Item">
-                    {i}
-                </Select.Option>,
-            );
-        };
+        const yearOptions = Array(11).fill(0).map((v, index) => (
+            <Select.Option key={index} value={year-5+index} className="Year-Item">
+                {year-5+index}
+            </Select.Option>
+        ));
 
         return (
             <CalendarHeader>
-                <div className="Title"> 운동 상태 </div>
+                <div className="Title"> Calender </div>
                 <Row type="flex" justify="space-between">
                     <Col>
                         <Group onChange={e => onTypeChange(e.target.value)} value={type}>
