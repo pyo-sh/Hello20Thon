@@ -177,9 +177,6 @@ export const initialState = {
   recommendAdded: false,           // 추가 루틴이 더해졌는지
   isRecommendAdding: false,        // 추가 루틴을 추가하는 중
   addRecommendErrorReason: '',     // 추가 루틴 추가 실패 요인
-  exerciseDeleted: false,           // 운동이 삭제됐는지
-  isExerciseDeleting: false,        // 운동을 삭제하는 중
-  deleteExerciseErrorReason: '',     // 운동 삭제 실패 요인
   recordAdded: false,           // 기록이 더해졌는지
   isRecordAdding: false,        // 기록을 추가하는 중
   addRecordErrorReason: '',     // 기록 추가 실패 요인
@@ -274,7 +271,6 @@ export const AddRecommendFailureAction = (error) => {
 
 // 삭제하는 Actions
 export const DeleteRecordRequestAction = (key) => { 
-  console.log(key)
   return({
     type: DELETE_RECORD_REQUEST,
     data: key,
