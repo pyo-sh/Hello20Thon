@@ -1,7 +1,7 @@
 import React from 'react';
 import Iframe from 'react-iframe';
 import styled from 'styled-components';
-
+import { ConvertSystemSourcetoHtml } from '../replacehtml';
 const DetailBox = styled.div`
     width : 100%;
     height : 40vh;
@@ -21,10 +21,10 @@ const VideoDetail = ({video}) => {
                 <Iframe url={url} width="100%" height="100%"
                 display="initial" allow="fullscreen"/>
             <div>
-                <div><b>{video.title}</b></div>
-                <div>{video.channelTitle}</div>
+                <div><b>{ConvertSystemSourcetoHtml(video.title)}</b></div>
+                <div>{ConvertSystemSourcetoHtml(video.channelTitle)}</div>
                 <hr/>
-                <div>{video.description}</div>
+                <div>{ConvertSystemSourcetoHtml(video.description)}</div>
             </div>
         </DetailBox>
     );

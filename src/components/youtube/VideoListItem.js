@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { YOUTUBE_SELECT_VIDEO } from '../../reducers/youtube';
 import styled from 'styled-components';
 import { Icon } from 'antd'; 
+import { ConvertSystemSourcetoHtml } from '../replacehtml';
 
 const VideoItemLi = styled.li`
     display : flex;
@@ -42,8 +43,8 @@ const VideoListItem = ({video, check}) => {
                     <img src={video.thumbnails.default.url} alt={video.title}/>
                 </div>
                 <div className="videoContent">
-                    <div><b>{video.title}</b></div>
-                    <div>{video.channelTitle}</div>
+                    <div><b>{ConvertSystemSourcetoHtml(video.title)}</b></div>
+                    <div>{ConvertSystemSourcetoHtml(video.channelTitle)}</div>
                 </div>
             </VideoItemBox>
         </VideoItemLi>
