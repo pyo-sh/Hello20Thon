@@ -18,14 +18,14 @@ export const initialState = {
   trainingToggled: false,           // 운동 확인 토글 됐는지
   isTrainingToggling: false,        // 운동 확인을 토글 하는중
   togglingTrainingErrorReason: '',  // 운동 확인 토글 실패 요인
-  memoAdded: false,                 // 메모가 더해졌는지
-  isMemoAdding: false,              // 메모를 추가하는 중
+  // memoAdded: false,                 // 메모가 더해졌는지
+  // isMemoAdding: false,              // 메모를 추가하는 중
   addMemoErrorReason: '',           // 메모 추가 실패 요인
-  memoDeleted: false,               // 메모가 삭제됐는지
-  isMemoDeleting: false,            // 메모를 삭제하는중
+  // memoDeleted: false,               // 메모가 삭제됐는지
+  // isMemoDeleting: false,            // 메모를 삭제하는중
   deleteMemoErrorReason: '',        // 메모 삭제 실패 요인
-  memoUpdated: false,               // 메모가 업데이트 됐는지
-  isMemoUpdating: false,            // 메모를 업데이트 하는중
+  // memoUpdated: false,               // 메모가 업데이트 됐는지
+  // isMemoUpdating: false,            // 메모를 업데이트 하는중
   updateMemoErrorReason: '',        // 메모 업데이트 실패 요인
   weightAdded: false,               // 몸무게가 더해졌는지
   isWeightAdding: false,            // 몸무게를 추가하는 중
