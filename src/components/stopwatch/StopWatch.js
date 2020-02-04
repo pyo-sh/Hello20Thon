@@ -6,17 +6,30 @@ import styled from "styled-components";
 const TimerBottom = styled.div`
   display: flex;
   flex-direction: column;
-  & div p {
-    font-size: 20px;
-  }
-  & .btnBox {
+  margin: 10px;
+  & .TimerBottom-Time{
     display: flex;
+    justify-content: center;
+    font-size: 45px;
+    margin-bottom: 15px;
   }
-  & div .timeBtn {
-    display : flex;
-    justify-content : center;
-    flex : 1;
-    width : 33%;
+  & .TimerBottom-BtnBox {
+    display: flex;
+    & Button{
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      width: 70px;
+      height: 35px;
+      margin: 8px;
+    }
+  }
+  & .TimerBottom-Reset{
+    & :hover, :focus{
+      color: #8854d0;
+      background-color: #fff;
+      border-color: #8854d0;
+    }
   }
 `;
 
@@ -58,15 +71,15 @@ const StopWatch = ({ allSeconds }) => {
   }, [time]);
   return (
     <TimerBottom>
-      <div>
-        <p>{`${hour < 10 ? `0${hour}` : hour} : ${
-          minute < 10 ? `0${minute}` : minute
-        } : ${second < 10 ? `0${second}` : second}`}</p>
+      <div className="TimerBottom-Time">
+        {`${hour < 10 ? `0${hour}` : hour} : ${
+        minute < 10 ? `0${minute}` : minute} :
+        ${second < 10 ? `0${second}` : second}`}
       </div>
-      <div className = "btnBox">
-        <Button className="timeBtn" type = "primary" onClick={onClickStart}>Start</Button>
-        <Button className="timeBtn" type = "danger" onClick={pause}>Pause</Button>
-        <Button className="timeBtn" type = "default" onClick={reset}>Reset</Button>
+      <div className="TimerBottom-BtnBox">
+        <Button className="TimerBottom-Btn" type="primary" ghost onClick={onClickStart}>Start</Button>
+        <Button className="TimerBottom-Btn" type="danger" ghost onClick={pause}>Pause</Button>
+        <Button className="TimerBottom-Reset" type="dashed" onClick={reset}>Reset</Button>
       </div>
     </TimerBottom>
   );

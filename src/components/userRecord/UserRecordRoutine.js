@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteRoutineRequest } from '../../reducers/day';
-import { Button, Icon } from 'antd';
+import { DeleteRoutineRequest, UpdateRoutineNameRequest } from '../../reducers/day';
+import { Button, Icon, Input } from 'antd';
 import styled from 'styled-components';
 import UserRecordTraining from './UserRecordTraining';
 
@@ -17,10 +17,22 @@ const UpperDiv = styled.div`
         margin: 7px;
         padding-top: 5px;
     }
+    & .List-Title-Input{
+        width: 225px;
+        height: 35px;
+        font-size: 20px;
+        & :hover, :focus{
+            border: 1px solid #00cec9;
+            box-shadow: 0 0 0 2px #00cec930;
+        }
+    }
     & .List-Title{
         width: 225px;
         margin-left: 5px;
         font-size: 20px;
+        padding: 2px 0;
+        padding-left: 7px;
+        cursor: pointer;
     }
     & .List-Exercises{
         border-top: 1px solid #d9d9d9;
@@ -56,6 +68,7 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
     const nowDate = useSelector(state => state.day.nowPointingDate);
     const [key, setKey] = useState(0);
     const [name, setName] = useState("");                   // 루틴 이름 설정
+    const [isNameChanging, setIsNameChanging] = useState(false);
     const [trainings, setTrainings] = useState([]);         // 운동들의 배열
     const [isOpened, setIsOpened] = useState(false);        // 열 수 있게하는 bool
 
@@ -87,6 +100,22 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
         if(userSelect)  dispatch(DeleteRoutineRequest(nowDate, index));
     }, [nowDate, index]);
 
+    const nameOnClick = useCallback((e) => {
+        setIsNameChanging(true);
+    }, []);
+    const updatingName = useCallback((e) => {
+        setName(e.target.value);
+    }, [name]);
+    const sendUpdateName = useCallback((e) => {
+        if(name && name.trim()){
+            dispatch(UpdateRoutineNameRequest(nowDate, index, name));
+        }
+        else{
+            setName(routineProp.routineName)
+        }
+        setIsNameChanging(false);
+    }, [nowDate, index, name, routineProp.routineName]);
+
     // 루틴을 여는 Icon을 눌렀을 때 발생하는 Event
     const openOnClick = useCallback((e) => {
         setIsOpened(true);
@@ -98,7 +127,18 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
     return (
         <UpperDiv>
             <div className="List">
-                <div className="List-Title">{name}</div>
+                {isNameChanging
+                ?   <Input
+                        className="List-Title-Input"
+                        defaultValue={name}
+                        onChange={updatingName}
+                        onPressEnter={sendUpdateName}
+                        />
+                :   <div
+                        className="List-Title"
+                        onClick={nameOnClick}
+                        >{name}</div>
+                }
                 <DeleteButton type="danger" ghost onClick={deleteOnClick}>삭제</DeleteButton>
             </div>
             {isOpened
