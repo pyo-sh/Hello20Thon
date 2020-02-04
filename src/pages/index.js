@@ -25,6 +25,17 @@ const MainWrapper = styled.div`
     opacity: 0.35;
     overflow: hidden;
   }
+  & .slickAfter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 85vh;
+    z-index: -1;
+    background : rgba(0,0,0,0.6);
+
+  }
   & .backImg img {
     width: 100%;
     height: 100vh;
@@ -33,18 +44,34 @@ const MainWrapper = styled.div`
 const InputNickname = styled.div`
   width: 100%;
   height: 85vh;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
   display: flex;
+  color : white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   & .nicknameForm {
     display: flex;
+    justify-content : center;
+    width : 25%;
+    margin-top : 30px;
+    font-size: 18px;
+    height : 50px;
+    padding : 0 20px;
   }
   & .nicknameInput {
     width: 80%;
+    min-width : 150px;
+    height : 50px;
+    padding : 0 20px;
+    margin-right: 5px;
+    background : rgba(153,153,153,0.5);
+    color : white;
+  }
+  & .nicknameForm button {
+    height: 50px;
   }
 `;
 
@@ -99,14 +126,15 @@ const Home = () => {
       {!check ? (
         <MainWrapper>
           <InputNickname>
-            당신의 닉네임을 알려주세요!
+            <div>당신에게 가장 가까운 운동 파트너 HYM, 지금 바로 시작해보세요!</div>
+            <div>당신의 닉네임을 알려주세요!</div>
             <Form className="nicknameForm" onSubmit={onSubmitNickname}>
               <Input
                 className="nicknameInput"
                 value={nickname}
                 onChange={onChangeNickname}
               />
-              <Button htmlType="submit" type="primary">
+              <Button htmlType="submit" type="danger">
                 입력
               </Button>
             </Form>
@@ -126,6 +154,7 @@ const Home = () => {
               </div>
             ))}
           </Slick>
+          <div className="slickAfter"></div>
         </MainWrapper>
       ) : (
         <UpperDiv>

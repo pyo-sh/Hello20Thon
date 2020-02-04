@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ToggleTrainingRequest } from '../../reducers/day';
-import { Icon } from 'antd';
+import { ToggleTrainingRequest, UpdateTrainingCountRequest } from '../../reducers/day';
+import { Icon, Input } from 'antd';
 import styled from 'styled-components';
 import { getExerciseCount } from '../ExerciseFuction';
 
@@ -33,7 +33,38 @@ const UpperDiv = styled.div`
         margin-left: 10px;
     }
     & .Training-Count{
+        display: flex;
+        justify-content: flex-end;
         margin-left: auto;
+        & .Training-Count-Input{
+            width: 35px;
+            height: 30px;
+            & ::-webkit-outer-spin-button, ::-webkit-inner-spin-button{
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            & :hover, :focus{
+                border: 1px solid #00cec9;
+                box-shadow: 0 0 0 2px #00cec930;
+            }
+            text-align: end;
+            padding: 4px 2px;
+            margin-bottom: 2px;
+            font-size: 20px;
+        }
+        & .Training-Count-Number{
+            width: 35px;
+            height: 30px;
+            padding: 0 4px;
+            padding-bottom: 4px;
+            text-align: end;
+            cursor: pointer;
+        }
+        & .Training-Count-Cell{
+            width: 22px;
+            padding-top: 2px;
+            margin-left: 3px;
+        }
     }
 `;
 const DoneIcon = styled(Icon)`
@@ -47,9 +78,10 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
     const [area, setArea] = useState("");       // 운동 범위
     const [posture, setPosture] = useState(""); // 운동 종류
     const [count, setCount] = useState(0);      // 운동 갯수
+    const [isCountUpdating, setIsCountUpdating] = useState(false);  // 운동 시간 / 갯수 바꾸는 중인지
     const [countDetail, setCountDetail] = useState('')  // 운동 시간인지 횟수인지 구분
     const [done, setDone] = useState(false);    // 했는지 안했는지
-    const { isTrainingToggling } = useSelector(state => state.day);
+    const { isTrainingToggling } = useSelector(state => state.day);     // 운동 했는지 안했는지 토글
     const nowDate = useSelector(state => state.day.nowPointingDate);
 
     // componentDidMount
@@ -66,6 +98,16 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
         dispatch(ToggleTrainingRequest(nowDate, parentIndex, index, !done));
     }, [nowDate, index, parentIndex, done]);
 
+    const countOnClick = useCallback((e) => {
+        setIsCountUpdating(true);
+    }, []);
+    const sendUpdateCount = useCallback((e) => {
+        const value = parseInt(e.target.value);
+        if(value)
+            dispatch(UpdateTrainingCountRequest(nowDate, parentIndex, index, value));
+        setIsCountUpdating(false);
+    }, []);
+
     return (
         <UpperDiv done={done}>
             <DoneIcon
@@ -77,7 +119,19 @@ const UserRecordTraining = ( { index, parentIndex, trainingProp } ) => {
                 {posture}
             </div>
             <div className="Training-Count">
-                {count}{getExerciseCount(countDetail)}
+                {isCountUpdating
+                ?   <Input 
+                        className="Training-Count-Input"
+                        type="number"
+                        defaultValue={count}
+                        onPressEnter={sendUpdateCount}
+                    />
+                :   <div 
+                        className="Training-Count-Number"
+                        onClick={countOnClick}
+                        >{count}</div>
+                }
+                <div className="Training-Count-Cell">{getExerciseCount(countDetail)}</div>
             </div>
         </UpperDiv>
     );
