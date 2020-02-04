@@ -1,7 +1,7 @@
 // 이미 추가 된 루틴에 운동을 추가 할 때 사용하는 컴포넌트
 import React, { useState,useCallback , useEffect} from 'react';
 import styled from "styled-components";
-import { Card, Drawer, Button, Icon, Modal, Select, Form, Input, message } from 'antd';
+import { Card, Drawer, Button, Icon, Modal, Select, Form, Input, message, Popconfirm } from 'antd';
 import { getExerciseCount, getExerciseName } from "../ExerciseFuction";
 import { useDispatch } from 'react-redux';
 import { AddRecommendRequestAction, UpdateRecordRequestAction, DeleteRecordRequestAction } from '../../reducers/user';
@@ -32,9 +32,10 @@ const RoutineForm = styled.div`
   align-items: center;
 
   & > .InputRoutineName{
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
   }
 `;
 
@@ -62,6 +63,7 @@ const DeleteIcon = styled.div`
   font-size: 20px;
   color: gray;
   opacity: 0;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.7;
@@ -272,12 +274,19 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                     {totalExercise.map((training, i) => (
                         <ExerciseBox key={i}>
                             <Content>
+                              <Popconfirm
+                                title="정말로 삭제하시겠습니까?"
+                                placement="topRight"
+                                onConfirm={deleteTotalExercise(training.id)}
+                                okText="네"
+                                cancelText="아니요"
+                              >
                                 <DeleteIcon>
                                     <Icon
                                     type="close"
-                                    onClick={deleteTotalExercise(training.id)}
                                     />
-                                </DeleteIcon>{" "}
+                                </DeleteIcon>
+                                </Popconfirm>
                                 <Routine>        
                                     <div style={{ fontSize: 25 }}>
                                     {training.posture}

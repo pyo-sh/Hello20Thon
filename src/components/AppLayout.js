@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import PropTypes from "prop-types";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Popconfirm } from "antd";
 import styled from "styled-components";
 import { withRouter } from 'next/router';
 
@@ -61,7 +61,15 @@ const AppLayout = ({ children, router }) => {
         </Menu>
         <div>
         {name && <span>{`${name}님 환영합니다.  `}</span>}
-        <Button onClick={resetOnClick} type="danger">초기화</Button>
+        <Popconfirm
+          title="정말로 삭제하시겠습니까?"
+          placement="bottom"
+          onConfirm={resetOnClick}
+          okText="네"
+          cancelText="아니요"
+        >
+        <Button type="danger">초기화</Button>
+        </Popconfirm>
         </div>
       </LayoutHeader>
       {children}

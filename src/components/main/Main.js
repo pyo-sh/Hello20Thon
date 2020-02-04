@@ -11,7 +11,7 @@ const UpperDiv = styled.div`
 const Main = () => {
     return (
       <UpperDiv>  
-        <Tabs defaultActiveKey="1" style={{width: 400}}>
+        <Tabs defaultActiveKey="1" type="card" style={{width: 400}}>
           <Tabs.TabPane tab="내 루틴" key="1">
             <MyRoutine /> {/*내 루틴 출력*/}
           </Tabs.TabPane>
