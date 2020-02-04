@@ -121,8 +121,8 @@ const Home = () => {
             slidesToScroll={1}
           >
             {mainPicture.map((pic, i) => (
-              <div className="backImg">
-                <img key={i} src={`/images/${pic}.jpg`} />
+              <div key={i} className="backImg">
+                <img  src={`/images/${pic}.jpg`} />
               </div>
             ))}
           </Slick>
