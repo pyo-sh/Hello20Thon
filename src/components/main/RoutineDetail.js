@@ -178,8 +178,8 @@ const RoutineDetail = ({myValue, recommendValue}) => {
     },[totalExercise]);
 
     const deleteRecord = useCallback(() =>{
-        const userSelector = confirm("정말 삭제하시겠습니까?")
-        if (userSelector) dispatch(DeleteRecordRequestAction(value.key));
+        dispatch(DeleteRecordRequestAction(value.key));
+        setShowDetail(!showDetail);
     }, [value && value.key]);
 
     //루틴 이름 입력
@@ -210,6 +210,10 @@ const RoutineDetail = ({myValue, recommendValue}) => {
         setDirectExerciseValue(e.target.value);
     }, []);
 
+    const onDeleteIcon = useCallback(()=>{
+      setShowDetail(!showDetail);
+    }, []);
+
     return (
         <>
             <Content onClick={toggleShow}>
@@ -217,12 +221,19 @@ const RoutineDetail = ({myValue, recommendValue}) => {
             {
                 myValue ?
                 <>
-                <DeleteIcon>
+                <Popconfirm
+                    title="정말로 삭제하시겠습니까?"
+                    placement="topRight"
+                    onConfirm={deleteRecord}
+                    okText="네"
+                    cancelText="아니요"
+                >
+                <DeleteIcon onClick={onDeleteIcon}>
                 <Icon
                   type="close"
-                  onClick={deleteRecord}
                 />
                 </DeleteIcon>
+                </Popconfirm>
                 </>
                 :
                 <></>

@@ -6,6 +6,9 @@ import styled from 'styled-components';
 
 const UpperDiv = styled.div`
   margin: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
 `;
 
 const Main = () => {
