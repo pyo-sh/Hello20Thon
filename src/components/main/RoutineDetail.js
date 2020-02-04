@@ -404,7 +404,7 @@ const RoutineDetail = ({myValue, recommendValue}) => {
                     <Option value="시간">시간</Option>
                     <Option value="횟수">횟수</Option>
                   </Select>
-                  <Input onChange={onCountText} value={exerciseCount} style={{width: 50}}/>  
+                  <Input type="number" onChange={onCountText} value={exerciseCount} style={{width: 80}}/>  
                 </div>
                 </>) 
                 :
