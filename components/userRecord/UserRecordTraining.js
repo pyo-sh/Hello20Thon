@@ -8,28 +8,24 @@ import { getExerciseCount } from '../ExerciseFuction';
 const UpperDiv = styled.div`
     position: relative;
     bottom: 10px;
-    height: 100%;
+
+    margin: 5px 0;
+    padding: 10px;
+    border: 2px solid ${props => props.done   ?   "#7bed9faa"   :   "#e74c3c"};
+    border-radius: 4px;
 
     overflow: hidden;
-    animation-name: openup; 
+    animation-name: openup;
     animation-duration: 0.3s;
     @keyframes openup {
-        from {
-            height: 20px;
-        }
-        to {
-            height: 55px;
-        }
+        from { height: 0px; }
+        to { height: 55px; }
     }
+    height: 100%;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
-    border: 2px solid ${props => props.done   ?   "#7bed9faa"   :   "#e74c3c"};
-    border-radius: 4px;
-    margin: 5px 0;
-    padding: 10px;
 
     font-size: 20px;
 

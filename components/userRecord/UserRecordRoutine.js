@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteRoutineRequest } from '../../reducers/day';
-import { Button } from 'antd';
+import { Button, Icon } from 'antd';
 import styled from 'styled-components';
 import UserRecordTraining from './UserRecordTraining';
 
@@ -26,16 +26,23 @@ const UpperDiv = styled.div`
         border-top: 1px solid #d9d9d9;
         margin-top: 20px;
         padding: 5px;
-        
         & .List-Exercises-Title{
             width: 80px;
             position: relative;
             bottom: 20px;
             background-color: white;
-
             font-size: 17px;
             text-align: center;
         }
+    }
+    & .List-Exercises-Icon{
+        cursor: pointer;
+        width: 100%;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid #d9d9d9;
     }
 `;
 const DeleteButton = styled(Button)`
@@ -48,8 +55,9 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
     const dispatch = useDispatch();
     const nowDate = useSelector(state => state.day.nowPointingDate);
     const [key, setKey] = useState(0);
-    const [name, setName] = useState("");
-    const [trainings, setTrainings] = useState([]);
+    const [name, setName] = useState("");                   // 루틴 이름 설정
+    const [trainings, setTrainings] = useState([]);         // 운동들의 배열
+    const [isOpened, setIsOpened] = useState(false);        // 열 수 있게하는 bool
 
     // Prop이 바뀔 때 마다 render
     useEffect(() => {
@@ -66,7 +74,8 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
                     key={i}
                     index={i}
                     parentIndex={index}
-                    trainingProp={element}/>
+                    trainingProp={element}
+                    />
             ));
         }
         else    return null;
@@ -78,16 +87,40 @@ const UserRecordRoutine = ( { index, routineProp } ) => {
         if(userSelect)  dispatch(DeleteRoutineRequest(nowDate, index));
     }, [nowDate, index]);
 
+    // 루틴을 여는 Icon을 눌렀을 때 발생하는 Event
+    const openOnClick = useCallback((e) => {
+        setIsOpened(true);
+    }, []);
+    const closeOnClick = useCallback((e) => {
+        setIsOpened(false);
+    }, []);
+
     return (
         <UpperDiv>
             <div className="List">
                 <div className="List-Title">{name}</div>
                 <DeleteButton type="danger" ghost onClick={deleteOnClick}>삭제</DeleteButton>
             </div>
-            <div className="List-Exercises">
-                <div className="List-Exercises-Title"> Trainings </div>
-                {renderTrainings()}
-            </div>
+            {isOpened
+            ?<>
+                <div className="List-Exercises">
+                    <div className="List-Exercises-Title"> Trainings </div>
+                    {renderTrainings()}
+                </div>
+                <div
+                    className="List-Exercises-Icon"
+                    onClick={closeOnClick}
+                    >
+                    <Icon type="up"/>
+                </div>
+            </>
+            :   <div
+                    className="List-Exercises-Icon"
+                    onClick={openOnClick}
+                    >
+                    <Icon type="down"/>
+                </div>
+                    }
         </UpperDiv>
     );
 };

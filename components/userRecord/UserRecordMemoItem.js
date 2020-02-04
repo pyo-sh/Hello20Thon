@@ -22,6 +22,7 @@ const MemoItemBox = styled.div`
     white-space:pre-wrap;
     cursor : pointer;
     width: 100%;
+    cursor: pointer;
   }
   & .Memo-Item-Input{
     resize: none;
