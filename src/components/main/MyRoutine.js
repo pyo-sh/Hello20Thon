@@ -10,7 +10,8 @@ import {
   Input,
   Form,
   Button,
-  message
+  message,
+  Popconfirm
 } from "antd";
 import styled from "styled-components";
 import {
@@ -47,6 +48,7 @@ const DeleteIcon = styled.div`
   font-size: 20px;
   color: gray;
   opacity: 0;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.7;
@@ -98,9 +100,10 @@ const RoutineForm = styled.div`
   align-items: center;
 
   & > .InputRoutineName{
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
   }
 `;
 
@@ -235,6 +238,7 @@ const MyRoutine = () => {
     setExerciseCount(0);
   }, [id, exerciseAreaValue, detailExerciseValue, exerciseCount, directExerciseValue, exerciseCountDetail]);
 
+  //운동 추가 창닫기
   const onCloseModal = useCallback((e) => {
     setIsAddExerciseClick(false);
     setExerciseAreaValue('');
@@ -262,12 +266,9 @@ const MyRoutine = () => {
     [inputRoutineName]
   );
 
+  //추가 중인 운동 삭제
   const deleteExercise = useCallback(id => e => {
-    const userSelect = confirm("정말 삭제하시겠습니까?");
-    if (userSelect) {
-      const temp = totalExercise.filter(exercise => exercise.id !== id);
-      setTotalExercise(temp);
-    } 
+      setTotalExercise(totalExercise.filter(exercise => exercise.id !== id));
   }, [totalExercise]);
 
   // 루틴을 내 캘린더에 저장할 때 (아이콘 클릭)
@@ -315,7 +316,7 @@ const MyRoutine = () => {
           <RoutineForm>
             {/*루틴 이름 작성 */}
             {clickInput ? (
-              <div>
+              <div className="InputRoutineName">
                 {inputRoutineName}<Button type="link" onClick={routineNameUpdate}>수정</Button>
               </div> 
             ) : (
@@ -346,12 +347,19 @@ const MyRoutine = () => {
             {totalExercise.map((training, i) => {
               return (
                 <Content key={i}>
+                  <Popconfirm
+                    title="정말로 삭제하시겠습니까?"
+                    placement="topRight"
+                    onConfirm={deleteExercise(training.id)}
+                    okText="네"
+                    cancelText="아니요"
+                  >
                   <DeleteIcon>
                     <Icon
                       type="close"
-                      onClick={deleteExercise(training.id)}
                     />
                   </DeleteIcon>
+                  </Popconfirm>
                   {/*삭제 버튼 누르면 추가한 운동 삭제 */}
                   <Routine>
                     <div style={{ fontSize: 25 }}>
