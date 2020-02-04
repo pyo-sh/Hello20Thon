@@ -25,8 +25,12 @@ const LayoutFooter = styled(Footer)`
   display: flex;
   margin-top : auto;
   justify-content: center;
+  background : #121212;
+  letter-spacing : 3px;
+  font-weight : 400;
   align-items: center;
   font-weight : bold;
+  color : white;
   font-size :1em;
 `;
 const AppLayout = ({ children, router }) => {
@@ -35,10 +39,15 @@ const AppLayout = ({ children, router }) => {
   const resetOnClick = useCallback(() => {
     localStorage.clear();
     alert('정보가 초기화 되었습니다.');
-    console.log(router);
     router.reload();
   },[]);
   return (
+    <>
+     <style jsx global>{`
+        body {
+          font-family: 'Noto Sans KR', sans-serif;
+        }
+      `}</style>
     <LayoutWrapper>
       <LayoutHeader>
         <Menu
@@ -58,6 +67,7 @@ const AppLayout = ({ children, router }) => {
       {children}
       <LayoutFooter>HYM : Team DPengers</LayoutFooter>
     </LayoutWrapper>
+    </>
   );
 };
 
