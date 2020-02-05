@@ -18,7 +18,7 @@ const YoutubeBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: space-between;
-  flex-direction : column;
+  flex-direction: column;
 `;
 const Youtube = () => {
   const { selectVideo, videos } = useSelector(state => state.youtube);

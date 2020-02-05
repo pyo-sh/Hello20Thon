@@ -6,19 +6,19 @@ import styled from "styled-components";
 const TimerBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items:center;
-  border : 1px solid #d9d9d9;
-  border-radius : 5px;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
   width: 400px;
   margin: 20px;
   padding: 15px;
   & div input {
-    width : 10vw;
-    max-width : 100px;
-    min-width : 50px;
+    width: 10vw;
+    max-width: 100px;
+    min-width: 50px;
     margin-left: 4px;
   }
-  & .Timer-Title{
+  & .Timer-Title {
     width: 100%;
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -26,25 +26,25 @@ const TimerBox = styled.div`
     text-align: center;
     border-bottom: 1px solid #d9d9d9;
   }
-  & .Timer-Body{
+  & .Timer-Body {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  & .Timer-GetTime{
+  & .Timer-GetTime {
     margin: 10px;
-    & div{
+    & div {
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 7px;
     }
-    & label{
+    & label {
       font-size: 20px;
       margin-left: 5px;
     }
   }
-  & .Timer-Input{
+  & .Timer-Input {
     width: 60px;
     padding-right: 5px;
     font-size: 20px;
@@ -52,10 +52,12 @@ const TimerBox = styled.div`
     border: none;
     border-radius: 0px;
     border-bottom: 2px solid #d9d9d9;
-    & ::-webkit-outer-spin-button, ::-webkit-inner-spin-button{
+    & ::-webkit-outer-spin-button,
+    ::-webkit-inner-spin-button {
       margin-left: 10px;
     }
-    & :hover, :focus{
+    & :hover,
+    :focus {
       border-bottom: 2px solid #00000090;
       box-shadow: none;
     }
@@ -96,7 +98,7 @@ const StopWatchForm = () => {
               className="Timer-Input"
               value={h}
               onChange={onChangeH}
-              />
+            />
             <label htmlFor="hour">시</label>
           </div>
           <div>
@@ -107,18 +109,18 @@ const StopWatchForm = () => {
               className="Timer-Input"
               value={m}
               onChange={onChangeM}
-              />
+            />
             <label htmlFor="minute">분</label>
           </div>
           <div>
             <Input
               placeholder="초"
-              id ="second"
+              id="second"
               type="number"
               className="Timer-Input"
               value={s}
               onChange={onChangeS}
-              />
+            />
             <label htmlFor="second">초</label>
           </div>
         </div>

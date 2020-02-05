@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useTimer } from "use-timer";
-import { Button } from 'antd';
+import { Button } from "antd";
 import styled from "styled-components";
 // stopwatch 버튼 및 초
 const TimerBottom = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px;
-  & .TimerBottom-Time{
+  & .TimerBottom-Time {
     display: flex;
     justify-content: center;
     font-size: 45px;
@@ -15,7 +15,7 @@ const TimerBottom = styled.div`
   }
   & .TimerBottom-BtnBox {
     display: flex;
-    & Button{
+    & button {
       display: flex;
       justify-content: center;
       flex: 1;
@@ -24,8 +24,9 @@ const TimerBottom = styled.div`
       margin: 8px;
     }
   }
-  & .TimerBottom-Reset{
-    & :hover, :focus{
+  & .TimerBottom-Reset {
+    & :hover,
+    :focus {
       color: #8854d0;
       background-color: #fff;
       border-color: #8854d0;
@@ -62,24 +63,37 @@ const StopWatch = ({ allSeconds }) => {
       audio.current.play();
       setStartCheck(false);
       return;
-    } 
+    }
   }, [time]);
 
-  const onClickStart = useCallback(() => { // 시작하고 stat했다고 체크
+  const onClickStart = useCallback(() => {
+    // 시작하고 stat했다고 체크
     start();
-    setStartCheck(true)
+    setStartCheck(true);
   }, [time]);
   return (
     <TimerBottom>
       <div className="TimerBottom-Time">
         {`${hour < 10 ? `0${hour}` : hour} : ${
-        minute < 10 ? `0${minute}` : minute} :
+          minute < 10 ? `0${minute}` : minute
+        } :
         ${second < 10 ? `0${second}` : second}`}
       </div>
       <div className="TimerBottom-BtnBox">
-        <Button className="TimerBottom-Btn" type="primary" ghost onClick={onClickStart}>Start</Button>
-        <Button className="TimerBottom-Btn" type="danger" ghost onClick={pause}>Pause</Button>
-        <Button className="TimerBottom-Reset" type="dashed" onClick={reset}>Reset</Button>
+        <Button
+          className="TimerBottom-Btn"
+          type="primary"
+          ghost
+          onClick={onClickStart}
+        >
+          Start
+        </Button>
+        <Button className="TimerBottom-Btn" type="danger" ghost onClick={pause}>
+          Pause
+        </Button>
+        <Button className="TimerBottom-Reset" type="dashed" onClick={reset}>
+          Reset
+        </Button>
       </div>
     </TimerBottom>
   );

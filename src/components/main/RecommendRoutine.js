@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 import { useSelector } from "react-redux";
-import styled from 'styled-components';
-import RoutineDetail from './RoutineDetail';
+import styled from "styled-components";
+import RoutineDetail from "./RoutineDetail";
 
 const ContentForm = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const RoutineMainBox = styled.div`
@@ -15,25 +15,25 @@ const RoutineMainBox = styled.div`
   padding: 20px 0;
   & > div :hover {
     cursor: pointer;
-    border : 1px solid #1890FF;
-    color : #1890FF;
+    border: 1px solid #1890ff;
+    color: #1890ff;
     opacity: 0.7;
   }
 `;
 
 const RecommendRoutine = () => {
-    const {recommendRoutine} = useSelector(state => state.user);
-    return (
+  const { recommendRoutine } = useSelector(state => state.user);
+  return (
     <>
-    <ContentForm>
+      <ContentForm>
         {Object.keys(recommendRoutine).map((value, i) => (
-            <RoutineMainBox key={i} >
-                <RoutineDetail recommendValue={recommendRoutine[value]}/>
-            </RoutineMainBox>
+          <RoutineMainBox key={i}>
+            <RoutineDetail recommendValue={recommendRoutine[value]} />
+          </RoutineMainBox>
         ))}
-    </ContentForm> 
+      </ContentForm>
     </>
-    );
+  );
 };
 
 export default RecommendRoutine;

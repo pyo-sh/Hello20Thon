@@ -1,7 +1,7 @@
 export function ConvertSystemSourcetoHtml(str) {
-    if(!str){
-        return;
-    }
+  if (!str) {
+    return;
+  }
   return str
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")

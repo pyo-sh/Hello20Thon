@@ -35,9 +35,9 @@ const Search = ({ searchText, func, isSearching }) => {
   }, [searchText, isSearching]);
   return (
     <ImageBox>
-      <Row type="flex" justify="center" gutter={[12,12]}>
+      <Row type="flex" justify="center" gutter={[12, 12]}>
         {imgs.map((img, i) => (
-          <Col xs ={24}sm ={8} lg={6}>
+          <Col xs={24} sm={8} lg={6}>
             <SearchItem key={i} img={img} />
           </Col>
         ))}
