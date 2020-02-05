@@ -83,8 +83,9 @@ const DoneIcon = styled(Icon)`
 
 const UserRecordTraining = ({ index, parentIndex, trainingProp }) => {
   const dispatch = useDispatch();
-  const [id, setId] = useState(0); // 운동의 ID
-  const [area, setArea] = useState(""); // 운동 범위
+  // back 제작 및 추가사항 개발 시 id / area 사용 요구
+  // const [id, setId] = useState(0); // 운동의 ID
+  // const [area, setArea] = useState(""); // 운동 범위
   const [posture, setPosture] = useState(""); // 운동 종류
   const [count, setCount] = useState(0); // 운동 갯수
   const [isCountUpdating, setIsCountUpdating] = useState(false); // 운동 시간 / 갯수 바꾸는 중인지
@@ -95,8 +96,8 @@ const UserRecordTraining = ({ index, parentIndex, trainingProp }) => {
 
   // componentDidMount
   useEffect(() => {
-    setId(trainingProp.id);
-    setArea(trainingProp.area);
+    // setId(trainingProp.id);
+    // setArea(trainingProp.area);
     setPosture(trainingProp.posture);
     setCount(trainingProp.count);
     setCountDetail(trainingProp.countDetail);

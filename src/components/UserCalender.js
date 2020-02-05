@@ -97,6 +97,7 @@ const UserCalender = () => {
     [nowDate]
   );
 
+  // 달력 추가사항 개선 시 사용
   // onPanelChange = 메뉴 판이 [헤더에 의해] 바뀔 때 마다 저장
   // const onPanelChange = useCallback((value, mode) => {
   //     console.log(value.month(), mode);
@@ -217,7 +218,6 @@ const UserCalender = () => {
   // Month 캘린더일 때 정보 표시(했는지 안했는지)
   const dateCellRender = useCallback(
     value => {
-      // console.log(value.date(), value.month());
       const listData = getListData(value);
       return listData.map((item, index) => (
         <Badge status={item.type} key={index} />
@@ -225,22 +225,22 @@ const UserCalender = () => {
     },
     [memo, routine]
   );
-
-  function getMonthData(value) {
-    if (value.month() === 8) {
-      return 1394;
-    }
-  }
-
-  function monthCellRender(value) {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  }
+  // year 버튼 선택 할 시 나타내는 요소들을 정할 수 있다.
+  // 위의 사항 추가시 사용
+  // function getMonthData(value) {
+  //   if (value.month() === 8) {
+  //     return 1394;
+  //   }
+  // }
+  // function monthCellRender(value) {
+  //   const num = getMonthData(value);
+  //   return num ? (
+  //     <div className="notes-month">
+  //       <section>{num}</section>
+  //       <span>Backlog number</span>
+  //     </div>
+  //   ) : null;
+  // }
 
   return (
     <UpperDiv>
