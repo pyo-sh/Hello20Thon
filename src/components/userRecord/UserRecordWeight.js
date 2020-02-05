@@ -20,6 +20,7 @@ const UpperDiv = styled.div`
 const WeightInput = styled(Input)`
   width: 50px;
   margin: 0 2px;
+  text-align: end;
   & ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -60,40 +61,23 @@ const UserRecordWeight = () => {
     [nowDate]
   );
 
-  const renderWeight = () => {
-    if (isClicked) {
-      return (
+  return (
+    <UpperDiv>
+      Weight:
+      {isClicked ? (
         <WeightInput
           type="number"
           onPressEnter={onPressEnter}
           defaultValue={weight}
         />
-      );
-    } else
-      return (
+      ) : (
         <div className="Weight-Amount" onClick={onClickDiv}>
           {weight}
         </div>
-      );
-  };
-
-  return (
-    <UpperDiv>
-      Weight: 
-      {isClicked
-        ? <WeightInput
-            type="number"
-            onPressEnter={onPressEnter}
-            defaultValue={weight}
-            />
-        : <div
-            className="Weight-Amount"
-            onClick={onClickDiv}>
-            {weight}
-          </div>
-      }
+      )}
       kg
-    </UpperDiv>);
+    </UpperDiv>
+  );
 };
 
 export default UserRecordWeight;

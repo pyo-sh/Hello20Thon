@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Input, Icon } from "antd";
+import { Input, Icon } from "antd";
 import styled from "styled-components";
 import { DeleteMemoRequest, UpdateMemoRequest } from "../../reducers/day";
 
@@ -56,9 +56,6 @@ const UserRecordMemoItem = ({ date, item }) => {
     setIsUpdate(true);
     setUpdateText(item.contents);
   }, [item]);
-  // const cancleUpdate = useCallback(() => {
-  //   setIsUpdate(false);
-  // }, []);
 
   const updatingText = useCallback(e => {
     setUpdateText(e.target.value);
@@ -70,6 +67,7 @@ const UserRecordMemoItem = ({ date, item }) => {
     }
     setIsUpdate(false);
   }, [updateText]);
+
   return (
     <MemoItemBox isUpdate={isUpdate}>
       {!isUpdate ? (

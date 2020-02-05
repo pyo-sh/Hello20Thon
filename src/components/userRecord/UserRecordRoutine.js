@@ -66,11 +66,11 @@ const DeleteButton = styled(Button)`
   height: 35px;
 `;
 
-// key: 0, name: "", trainings: []
 const UserRecordRoutine = ({ index, routineProp }) => {
   const dispatch = useDispatch();
   const nowDate = useSelector(state => state.day.nowPointingDate);
-  const [key, setKey] = useState(0);
+  // 추가 제작 시 key 사용
+  // const [key, setKey] = useState(0);
   const [name, setName] = useState(""); // 루틴 이름 설정
   const [isNameChanging, setIsNameChanging] = useState(false);
   const [trainings, setTrainings] = useState([]); // 운동들의 배열
@@ -78,7 +78,7 @@ const UserRecordRoutine = ({ index, routineProp }) => {
 
   // Prop이 바뀔 때 마다 render
   useEffect(() => {
-    setKey(routineProp.key);
+    // setKey(routineProp.key);
     setName(routineProp.routineName);
     setTrainings(routineProp.trainings);
   }, [routineProp]);
