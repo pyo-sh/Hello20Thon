@@ -82,7 +82,7 @@ const AppLayout = ({ children, router }) => {
           <div>
             {name && <span>{`${name}님 환영합니다.  `}</span>}
             <Popconfirm
-              title="정말로 삭제하시겠습니까?"
+              title="정말로 초기화하시겠습니까?"
               placement="bottom"
               onConfirm={resetOnClick}
               okText="네"
