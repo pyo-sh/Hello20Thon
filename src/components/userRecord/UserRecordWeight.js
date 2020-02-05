@@ -36,7 +36,7 @@ const UserRecordWeight = () => {
   const nowDate = useSelector(state => state.day.nowPointingDate); // 현재 선택한 날짜
   const weight = useSelector(state => state.day.weight[nowDate] || 0); // 무게
   const [isClicked, setIsClicked] = useState(false); // 클릭했는지 (변경할 것인지)
-  const { weightAdded } = useSelector(state => state.day); // 무게에 대한 변경이 완료되었는지
+  // const { weightAdded } = useSelector(state => state.day); // 무게에 대한 변경이 완료되었는지 (로딩 추가시 사용)
 
   // 캘린더를 바꿀 때 몸무게 Div로
   useEffect(() => {
@@ -77,7 +77,23 @@ const UserRecordWeight = () => {
       );
   };
 
-  return <UpperDiv>Weight: {renderWeight()}kg</UpperDiv>;
+  return (
+    <UpperDiv>
+      Weight: 
+      {isClicked
+        ? <WeightInput
+            type="number"
+            onPressEnter={onPressEnter}
+            defaultValue={weight}
+            />
+        : <div
+            className="Weight-Amount"
+            onClick={onClickDiv}>
+            {weight}
+          </div>
+      }
+      kg
+    </UpperDiv>);
 };
 
 export default UserRecordWeight;
