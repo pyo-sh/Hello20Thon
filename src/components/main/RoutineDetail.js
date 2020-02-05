@@ -227,14 +227,6 @@ const RoutineDetail = ({ myValue, recommendValue }) => {
       setShowDetail(!showDetail);
   }, [value && value.key]);
 
-  const deleteTotalExercise = useCallback(
-    id => () => {
-      const temp = totalExercise.filter(exercise => exercise.id !== id);
-      setTotalExercise(temp);
-    },
-    [totalExercise]
-  );
-
   //루틴 이름 입력
   const onChangeText = useCallback(e => {
     setUpdateRoutineName(e.target.value);
