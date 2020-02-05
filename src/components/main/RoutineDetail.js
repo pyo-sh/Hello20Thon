@@ -215,6 +215,13 @@ const RoutineDetail = ({ myValue, recommendValue }) => {
     setExerciseCount(e.target.value);
   }, []);
 
+  //임시 저장된 추가 운동 배열 삭제
+  const deleteTotalExercise = useCallback(id => () => {
+      const temp = totalExercise.filter(exercise => exercise.id !== id);
+      setTotalExercise(temp);
+  },[totalExercise]);
+
+  //내 루틴 삭제
   const deleteRecord = useCallback(() =>{
       dispatch(DeleteRecordRequestAction(value.key));
       setShowDetail(!showDetail);
@@ -464,36 +471,25 @@ const RoutineDetail = ({ myValue, recommendValue }) => {
                 </Option>
               ))}
             </Select>
-            {detailExerciseValue == "직접 입력하기" ? (
-              <Input
-                placeholder="직접 운동을 입력하세요"
-                onChange={onDirectInput}
-                value={directExerciseValue}
-                style={{ width: 210 }}
-              />
-            ) : (
-              <></>
-            )}
-            <div style={{ marginTop: 20 }}>
-              <div>운동 시간/횟수 (시간은 분 단위입니다.)</div>
-              <Select
-                style={{ width: 100, marginRight: 20 }}
-                onChange={getExerciseCountDetail}
-                value={exerciseCountDetail}
+            {
+              detailExerciseValue == "직접 입력하기" ? <Input placeholder = "직접 운동을 입력하세요" onChange={onDirectInput} value={directExerciseValue} style={{width: 210}}/> : <></>
+            }
+            <div style={{marginTop: 20}}>
+              <div>운동 시간/횟수 (시간은 초 단위입니다.)</div>
+              <Select 
+                style={{width: 100, marginRight: 20}}
+                onChange = {getExerciseCountDetail}
+                value = {exerciseCountDetail}
               >
                 <Option value="시간">시간</Option>
                 <Option value="횟수">횟수</Option>
               </Select>
-              <Input
-                type="number"
-                onChange={onCountText}
-                value={exerciseCount}
-                style={{ width: 80 }}
-              />
+              <Input type="number" onChange={onCountText} value={exerciseCount} style={{width: 80}}/>  
             </div>
-          </>
-        ) : (
-          <></>
+            </>) 
+            :
+          (
+          <></>    
         )}
       </Modal>
     </>

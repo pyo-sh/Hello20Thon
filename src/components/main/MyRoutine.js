@@ -443,22 +443,15 @@ const MyRoutine = () => {
                     </Option>
                   ))}
                 </Select>
-                {detailExerciseValue == "직접 입력하기" ? (
-                  <Input
-                    placeholder="직접 운동을 입력하세요"
-                    onChange={onDirectInput}
-                    value={directExerciseValue}
-                    style={{ width: 210 }}
-                  />
-                ) : (
-                  <></>
-                )}
-                <div style={{ marginTop: 20 }}>
-                  <div>운동 시간/횟수 (시간은 분 단위입니다.)</div>
-                  <Select
-                    style={{ width: 120, marginRight: 20 }}
-                    onChange={getExerciseCountDetail}
-                    value={exerciseCountDetail}
+                {
+                  detailExerciseValue == "직접 입력하기" ? <Input placeholder="직접 운동을 입력하세요" onChange={onDirectInput} value={directExerciseValue} style={{width: 210}}/> : <></>
+                }
+                <div style={{marginTop: 20}}>
+                  <div>운동 시간/횟수 (시간은 초 단위입니다.)</div>
+                  <Select 
+                    style={{width: 120, marginRight: 20}}
+                    onChange = {getExerciseCountDetail}
+                    value = {exerciseCountDetail}
                   >
                     <Option value="시간">시간</Option>
                     <Option value="횟수">횟수</Option>
