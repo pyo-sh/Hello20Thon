@@ -1,3 +1,4 @@
 node_modules
 .next
 src/apis/apiKey.js
+*.log
