@@ -53,7 +53,7 @@ const AppLayout = ({ children, router }) => {
           <Menu
             mode="horizontal"
             defaultSelectedKeys={[pathname]}
-            style={{ lineHeight: "64px" }}
+            style={{ paddingTop : "10px"}}
           >
             <Menu.Item key="/">
               <Link href="/">
