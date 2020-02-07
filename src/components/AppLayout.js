@@ -53,7 +53,7 @@ const AppLayout = ({ children, router }) => {
           <Menu
             mode="horizontal"
             defaultSelectedKeys={[pathname]}
-            style={{ paddingTop : "10px"}}
+            style={{ paddingTop : "10px", width: "80%"}}
           >
             <Menu.Item key="/">
               <Link href="/">
@@ -81,15 +81,15 @@ const AppLayout = ({ children, router }) => {
           </Menu>
           <div>
             {name && <span>{`${name}님 환영합니다.  `}</span>}
-            {/* <Popconfirm
+            <Popconfirm
               title="정말로 삭제하시겠습니까?"
               placement="bottom"
               onConfirm={resetOnClick}
               okText="네"
               cancelText="아니요"
-            > */}
-              <Button type="danger" onClick={resetOnClick}>초기화</Button>
-            {/* </Popconfirm> */}
+            >
+              <Button type="danger">초기화</Button>
+            </Popconfirm>
           </div>
         </LayoutHeader>
         {children}
